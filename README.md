@@ -1,5 +1,5 @@
 # NUTWARE INC.
-Logo
+<img src="./assets/images/profile_pictures/thispleasesthenut.jpeg" width="200">
 
 ### Meet the Team! xd
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
