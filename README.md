@@ -17,7 +17,7 @@ description here
 Member | Skills | Personal Traits | Desired Growth | Weaknesses
 --- | --- | --- | --- | ---
 Alina | Programming, ML, Software Development | Enjoys learning new things | Web Development | Focus too much on details
-Chris | Aesthetics and layout, building prototypes, AutoCAD | Disciplined | LaTeX, Planning Skills | Painting, Programming, Interpersonal communication
+Chris |  |  |  | 
 Dean | AI, Machine Learning, Programming, GUI skills | Loves learning new programming languages | MatLAB | bad memory
 Edgar | AI/ML, LaTex, Programming, Fast Learner | Persistent, Likes to have fun but likes winning even more | Web Development | Tendency to overcommit
 William | LaTeX, Python, Mathematical Analysis | Likes Problem Solving | Web Development | Web Development
