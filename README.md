@@ -2,7 +2,8 @@
 
 ### Team Name
 ### Logo
-### Alina Chou, Chris Kim, Dean Zhou, Edgar Roman, William Wang
+### Team Members
+Alina Chou, Chris Kim, Dean Zhou, Edgar Roman, William Wang
 ### Synopsis of Proposed Project
 ### Team Communication
 
