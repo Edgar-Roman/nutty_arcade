@@ -12,6 +12,10 @@ To get in contact, please e-mail us!
 ### Current Project
 We are currently working on http://www.nuttyarcade.com/, a website for accessible gaming that allows you to connect with friends and save progress so that you can feel pride and accomplishment for the many hours you waste on our website to support capitalism!
 
+Games to await for:
+- FISH
+- <del> COLONIST PIONEER
+
 ### Team Skills Matrix
 Member | Skills | Personal Traits | Desired Growth | Weaknesses
 --- | --- | --- | --- | ---
