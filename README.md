@@ -10,8 +10,7 @@ alinac@stanford.edu | chankyo@stanford.edu | deanzhou@stanford.edu | emroman@sta
 To get in contact, please e-mail us!
 
 ### Current Project
-http://www.nuttyarcade.com/
-description here
+We are currently working on http://www.nuttyarcade.com/, a website for accessible gaming that allows you to connect with friends and save progress so that you can feel pride and accomplishment for the many hours you waste on our website to support capitalism!
 
 ### Team Skills Matrix
 Member | Skills | Personal Traits | Desired Growth | Weaknesses
