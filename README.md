@@ -3,12 +3,10 @@
 ### NutWare Incorporated
 ### Logo
 ### Meet the Team! xd
-<center>
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
 --- | --- | --- | --- | ---
 Photo | Photo | Photo | <img src="./assets/images/edgar.jpg" width="100"> | Photo
 alinac@stanford.edu | chankyo@stanford.edu | deanzhou@stanford.edu | emroman@stanford.edu | wjwang@stanford.edu
-</center>
 Message our e-mails, also something about having a messenger/text group chat
 
 ### Synopsis of Proposed Project
