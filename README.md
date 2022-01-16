@@ -18,7 +18,7 @@ Games to await for:
 - <del>MONOPOLY</del>  CAPITALISM
 - TRACTOR
 
-### Team Skills Matrix
+### Team Skills
 Member | Skills | Personal Traits | Desired Growth | Weaknesses
 --- | --- | --- | --- | ---
 Alina | Programming, ML, Software Development | Enjoys learning new things | Web Development | Focus too much on details
