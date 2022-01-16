@@ -14,7 +14,7 @@ We are currently working on http://www.nuttyarcade.com/, a website for accessibl
 
 Games to await for:
 - FISH
-- <del> COLONIST </del> PIONEER
+- <del>COLONIST</del>  PIONEER
 
 ### Team Skills Matrix
 Member | Skills | Personal Traits | Desired Growth | Weaknesses
