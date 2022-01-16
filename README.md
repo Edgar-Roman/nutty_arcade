@@ -16,7 +16,7 @@ Games to await for:
 - FISH
 - <del>COLONIST.IO</del>  PIONEER
 - <del>MONOPOLY</del>  CAPITALISM
-- Tractor
+- TRACTOR
 
 ### Team Skills Matrix
 Member | Skills | Personal Traits | Desired Growth | Weaknesses
