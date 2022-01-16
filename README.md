@@ -4,7 +4,7 @@
 ### Logo
 ### Meet the Team! xd
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
-<img src="./assets/images/icon.png" width="200">
+<img src="./assets/images/edgar.jpg" width="200">
 Photo | Photo | Photo | Photo | Photo
 alinac@stanford.edu | chris.c.kim@stanford.edu | deanzhou@stanford.edu | emroman@stanford.edu | wjwang@stanford.edu
 
