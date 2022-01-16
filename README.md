@@ -7,7 +7,7 @@ Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
 Photo | Photo | Photo | <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> | <img src="./assets/images/pikachess.jpg" width="100">
 alinac@stanford.edu | chankyo@stanford.edu | deanzhou@stanford.edu | emroman@stanford.edu | wjwang@stanford.edu
 
-Message our e-mails, also something about having a messenger/text group chat
+To get in contact, please e-mail us!
 
 ### Synopsis of Proposed Project
 http://www.nuttyarcade.com/
