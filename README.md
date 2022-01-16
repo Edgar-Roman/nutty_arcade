@@ -1,7 +1,7 @@
 # NUTWARE INC.
 <img src="./assets/images/profile_pictures/thispleasesthenut.jpeg" width="200">
 
-### Meet the Team! xd
+### Meet the Team!
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
 :---: | :---: | :---: | :---: | :---:
 <img src="./assets/images/profile_pictures/Alina.jpeg" width="130"> | <img src="./assets/images/profile_pictures/chankyo.png" width="100"> | Photo | <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> | <img src="./assets/images/pikachess.jpg" width="100">
