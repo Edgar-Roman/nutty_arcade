@@ -21,6 +21,3 @@ Chris | AI, Programming (Python, C++, C), GUI, CAD (Solidworks) | A degenerate |
 Dean |  | | | Weaknesses
 Edgar | AI/ML, LaTex, Programming, Fast Learner | Persistent, Likes to have fun but likes winning even more | Web Development | Tendency to overcommit
 William | LaTeX, Python, Mathematical Analysis | Likes Problem Solving | Web Development | Web Development
-
-
-### Benchmark, Brainstorm, Need Find
