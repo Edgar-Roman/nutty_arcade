@@ -1,6 +1,6 @@
 # NUTWARE INC.
+Logo
 
-### NutWare IncorporatedLogo
 ### Meet the Team! xd
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
 :---: | :---: | :---: | :---: | :---:
@@ -9,7 +9,7 @@ alinac@stanford.edu | chankyo@stanford.edu | deanzhou@stanford.edu | emroman@sta
 
 To get in contact, please e-mail us!
 
-### Synopsis of Proposed Project
+### Current Project
 http://www.nuttyarcade.com/
 description here
 
@@ -18,7 +18,7 @@ Member | Skills | Personal Traits | Desired Growth | Weaknesses
 --- | --- | --- | --- | ---
 Alina | Programming, ML, Software Development | Enjoys learning new things | Web Development | Focus too much on details
 Chris | AI, Programming (Python, C++, C), GUI, CAD (Solidworks) | A degenerate | Full Stack Web Development | Sporatic Sleep Schedule
-Dean | AI, Machine Learning, Programming, GUI skills | Loves learning new programming languages | MatLAB | bad memory
+Dean |  | | | Weaknesses
 Edgar | AI/ML, LaTex, Programming, Fast Learner | Persistent, Likes to have fun but likes winning even more | Web Development | Tendency to overcommit
 William | LaTeX, Python, Mathematical Analysis | Likes Problem Solving | Web Development | Web Development
 
