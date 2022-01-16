@@ -1,4 +1,4 @@
-# Team25
+# NUTWARE INC.
 
 ### NutWare IncorporatedLogo
 ### Meet the Team! xd
