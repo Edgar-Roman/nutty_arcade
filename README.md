@@ -1,10 +1,17 @@
 # Team25
 
-### Team Name
+### NutWare Incorporated
 ### Logo
-### Team Members
-Alina Chou, Chris Kim, Dean Zhou, Edgar Roman, William Wang
+### Meet the Team! xd
+Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
+Photo | Photo | Photo | Photo | Photo
+alinac@stanford.edu | chris.c.kim@stanford.edu | deanzhou@stanford.edu | emroman@stanford.edu | wjwang@stanford.edu
+
+Message our e-mails, also something about having a messenger/text group chat
+
 ### Synopsis of Proposed Project
+http://www.nuttyarcade.com/
+description here
 ### Team Communication
 
 ### Team Skills Matrix
