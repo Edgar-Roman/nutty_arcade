@@ -23,6 +23,6 @@ Member | Skills | Personal Traits | Desired Growth | Weaknesses
 --- | --- | --- | --- | ---
 Alina | Programming, ML, Software Development | Enjoys learning new things | Web Development | Focus too much on details
 Chris | AI, Programming, LaTex, GUI, CAD (Solidworks) | Likes writing neat code | Full Stack Web Development | Sporatic Sleep Schedule
-Dean |  | UWU | | Weaknesses
+Dean | Backend, Integration, Testing | Organized | Computer Networking, Frontend | Needs lots of sleep
 Edgar | AI/ML, LaTex, Programming, Fast Learner | Persistent, Likes to have fun but likes winning even more | Web Development | Tendency to overcommit
 William | LaTeX, Python, Mathematical Analysis | Likes Problem Solving | Web Development | Web Development
