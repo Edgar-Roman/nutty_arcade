@@ -10,7 +10,8 @@ alinac@stanford.edu | chankyo@stanford.edu | deanzhou@stanford.edu | emroman@sta
 To get in contact, please e-mail us!
 
 ### Current Project - NUTTY ARCADE
-We are currently working on http://www.nuttyarcade.com/, a website for accessible gaming that allows you to connect with friends and save progress so that you can feel pride and accomplishment for the many hours you waste on our website to support capitalism!
+We are currently working on http://www.nuttyarcade.com/, a website 
+for accessible gaming that allows you to connect with friends and save progress so that you can feel pride and accomplishment for the many hours you waste on our website to support capitalism!
 
 Games to await for:
 - FISH
@@ -22,7 +23,7 @@ Games to await for:
 Member | Skills | Personal Traits | Desired Growth | Weaknesses
 --- | --- | --- | --- | ---
 Alina | Programming, ML, Software Development | Enjoys learning new things | Web Development | Focus too much on details
-Chris | AI, Programming, LaTex, GUI, CAD (Solidworks) | Likes writing neat code | Full Stack Web Development | Sporatic Sleep Schedule
+Chris | AI, Programming, LaTeX, GUI, CAD (Solidworks) | Likes writing neat code | Full Stack Web Development | Sporadic Sleep Schedule
 Dean | Backend, Integration, Testing | Organized | Computer Networking, Frontend | Needs lots of sleep
-Edgar | AI/ML, LaTex, Programming, Fast Learner | Persistent, Likes to have fun but likes winning even more | Web Development | Tendency to overcommit
+Edgar | AI/ML, LaTeX, Programming, Fast Learner | Persistent, Likes to have fun but likes winning even more | Web Development | Tendency to overcommit
 William | LaTeX, Python, Mathematical Analysis | Likes Problem Solving | Web Development | Web Development
