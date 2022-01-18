@@ -1,4 +1,5 @@
 # NUTWARE GAMES
+## The intersection between hardware and software
 <img src="./assets/images/profile_pictures/thispleasesthenut.jpeg" width="200">
 
 ### Team Members
