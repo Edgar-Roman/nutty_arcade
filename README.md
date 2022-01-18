@@ -1,7 +1,7 @@
 # NUTWARE GAMES
 <img src="./assets/images/profile_pictures/thispleasesthenut.jpeg" width="200">
 
-### Meet the Team!
+### Team Members
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
 :---: | :---: | :---: | :---: | :---:
 <img src="./assets/images/profile_pictures/Alina.jpeg" width="130"> | <img src="./assets/images/profile_pictures/chankyo.png" width="100"> | <img src="./assets/images/profile_pictures/cat.jpeg" width="100"> | <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> | <img src="./assets/images/pikachess.jpg" width="100">
@@ -9,7 +9,7 @@ alinac@stanford.edu | chankyo@stanford.edu | deanzhou@stanford.edu | emroman@sta
 
 To get in contact, please e-mail us!
 
-### Current Project - NUTTY ARCADE
+### Project Synopsis
 We are currently working on http://www.nuttyarcade.com/, a website that allows you to play tabletop games with your friends (without a paywall :o) 
 (and save progress so that you can feel pride and accomplishment for the many hours you waste on our website to support capitalism)!
 
