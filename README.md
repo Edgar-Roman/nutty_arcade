@@ -1,6 +1,6 @@
 # NUTWARE GAMES
 ## The intersection between hardware and software
-<img src="./assets/images/profile_pictures/thispleasesthenut.jpeg" width="200">
+<img src="./assets/images/profile_pictures/logo_temp.PNG" width="200">
 
 ### Team Members
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
