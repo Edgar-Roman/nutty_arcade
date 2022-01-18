@@ -5,7 +5,7 @@
 ### Team Members
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
 :---: | :---: | :---: | :---: | :---:
-<img src="./assets/images/profile_pictures/Alina.jpeg" width="130"> | <img src="./assets/images/profile_pictures/chankyo.png" width="100"> | <img src="./assets/images/profile_pictures/me_irl.jpeg" width="100"> | <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> | <img src="./assets/images/pikachess.jpg" width="100">
+<img src="./assets/images/profile_pictures/Alina.jpeg" width="130"> | <img src="./assets/images/profile_pictures/chankyo.png" width="100"> | <img src="./assets/images/profile_pictures/me_irl.jpg" width="100"> | <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> | <img src="./assets/images/pikachess.jpg" width="100">
 alinac@stanford.edu | chankyo@stanford.edu | deanzhou@stanford.edu | emroman@stanford.edu | wjwang@stanford.edu
 
 To get in contact, please e-mail us!
