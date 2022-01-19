@@ -15,6 +15,16 @@ Nutware Games is the ideal gaming hub for chilling and having fun with your frie
 | Edgar Roman   | <p align="center"> <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> </p>    | emroman@stanford.edu  |
 | William Wang  | <p align="center"> <img src="./assets/images/pikachess.jpg" width="100"> </p>                 | wjwang@stanford.edu   |
 
+## Team Skills
+| Member  | Skills                                        | Personal Traits                        | Desired Growth                 | Weakness                    | 
+| ------- | --------------------------------------------- | -------------------------------------- | ------------------------------ | --------------------------- |
+| Alina   | Programming, ML, Software Development         | Enjoys Learning New Things             | Web Development                | Focuses Too Much On Details |
+| Chris   | Programming, AI, LaTeX, GUI, CAD (Solidworks) | Likes Clean Software Design            | Full Stack Web Development     | Sporatic Sleep Schedule     |
+| Dean    | Back-End, Integration, Testing                | Organized                              | Computer Networking, Front-End | Need Lots Of Sleep          |
+| Edgar   | Programming, AI/ML, LaTeX, Fast Learner       | Persistent, Likes To Have Fun And Win  | Web Development                | Tendency To Overcommit      | 
+| William | Python, LaTeX, Mathematical Analysis          | Likes Problem Solving                  | Web Development                | Web Development             |
+
+
 To get in contact, please e-mail us!
 
 ### Project Synopsis
