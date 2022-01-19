@@ -5,15 +5,15 @@
 ## Project Synopsis
 Nutware Games is the ideal gaming hub for chilling and having fun with your friends
 
-### Team Members
+## Team Members
 
-| Member | Photo | Email |
-| ------ | ----- | ----- |
-| Alina Chou | <img src="./assets/images/profile_pictures/Alina.jpeg" width="100"> | alinac@stanford.edu |
-| Chris Kim | <p align="center"> <img src="./assets/images/profile_pictures/chankyo.png" width="100"> </p>| chankyo@stanford.edu |
-| Dean Zhou | <img src="./assets/images/profile_pictures/me_irl.jpg" width="100"> | deanzhou@stanford.edu |
-| Edgar Roman | <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> | emroman@stanford.edu |
-| William Wang | <img src="./assets/images/pikachess.jpg" width="100"> | wjwang@stanford.edu |
+| Member        | Photo                                                                                         | Email                 |
+| ------------- | --------------------------------------------------------------------------------------------- | --------------------- |
+| Alina Chou    | <p align="center"> <img src="./assets/images/profile_pictures/Alina.jpeg" width="100"> </p>   | alinac@stanford.edu   |
+| Chris Kim     | <p align="center"> <img src="./assets/images/profile_pictures/chankyo.png" width="100"> </p>  | chankyo@stanford.edu  |
+| Dean Zhou     | <p align="center"> <img src="./assets/images/profile_pictures/me_irl.jpg" width="100"> </p>   | deanzhou@stanford.edu |
+| Edgar Roman   | <p align="center"> <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> </p>    | emroman@stanford.edu  |
+| William Wang  | <p align="center"> <img src="./assets/images/pikachess.jpg" width="100"> </p>                 | wjwang@stanford.edu   |
 
 To get in contact, please e-mail us!
 
