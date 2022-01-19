@@ -1,9 +1,8 @@
 # NUTWARE GAMES
 <img src="./assets/images/logo_temp.PNG" width="200">
-/* Temporary Logo
 
 ## Project Synopsis
-Nutware Games is the ideal gaming hub for chilling and having fun with your friends
+Nutware Games is an aspiring group of web developers with the goal of providing accessible multiplayer tabletop games on a digital format. Our goal is to establish an online hub that users can rely on to enjoy some of their favorite card or board games with friends. It is often difficult, especially with the recent COVID-19 pandemic, to meet others in-person to play physical card/board games and online alternatives either may not exist or are hidden behind expensive paywalls. Nutty Arcade (http://www.nuttyarcade.com/) is our free-to-play gaming hub that allows users to play popular tabletop games - such as fish, Catan, and Monopoly -, save their in-game progress and achievements, customize their profiles, and connect with friends at minimal to no cost to the player.
 
 ## Team Members
 
@@ -32,14 +31,3 @@ E-mail addresses for each team member is listed in the roster above!
 - Slack (Official Channel)
 - Discord
 - Short Message Service
-
-
-### Project Synopsis
-We are currently working on http://www.nuttyarcade.com/, a website that allows you to play tabletop games with your friends (without a paywall :o) 
-(and save progress so that you can feel pride and accomplishment for the many hours you waste on our website to support capitalism)!
-
-Games to await for:
-- FISH
-- <del>COLONIST.IO</del>  PIONEER
-- <del>MONOPOLY</del>  CAPITALISM
-- TRACTOR
