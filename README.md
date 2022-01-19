@@ -25,8 +25,10 @@ Nutware Games is the ideal gaming hub for chilling and having fun with your frie
 | William | Python, LaTeX, Mathematical Analysis          | Likes Problem Solving                  | Web Development                | Web Development             |
 
 ## Team Communication
+<p>
 To get in contact with the team, please e-mail us! 
 E-mail addresses for each team member is listed in the roster above!
+</p>
 
 ### Internal Communication
 - Slack (Official Channel)
