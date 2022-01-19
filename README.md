@@ -9,14 +9,11 @@ Nutware Games is the ideal gaming hub for chilling and having fun with your frie
 
 | Member | Photo | Email |
 | ------ | ----- | ----- |
-| Alina Chou | s | s |
-
-
-
-Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
-:---: | :---: | :---: | :---: | :---:
-<img src="./assets/images/profile_pictures/Alina.jpeg" width="130"> | <img src="./assets/images/profile_pictures/chankyo.png" width="100"> | <img src="./assets/images/profile_pictures/me_irl.jpg" width="100"> | <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> | <img src="./assets/images/pikachess.jpg" width="100">
-alinac@stanford.edu | chankyo@stanford.edu | deanzhou@stanford.edu | emroman@stanford.edu | wjwang@stanford.edu
+| Alina Chou | <img src="./assets/images/profile_pictures/Alina.jpeg" width="130"> | alinac@stanford.edu |
+| Chris Kim | <img src="./assets/images/profile_pictures/chankyo.png" width="100"> | chankyo@stanford.edu |
+| Dean Zhou | <img src="./assets/images/profile_pictures/me_irl.jpg" width="100"> | deanzhou@stanford.edu |
+| Edgar Roman | <img src="./assets/images/profile_pictures/edgar.jpg" width="100"> | emroman@stanford.edu |
+| William Wang | <img src="./assets/images/pikachess.jpg" width="100"> | wjwang@stanford.edu |
 
 To get in contact, please e-mail us!
 
