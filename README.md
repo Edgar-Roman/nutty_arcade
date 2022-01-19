@@ -8,6 +8,7 @@ Nutware Games is the ideal gaming hub for chilling and having fun with your frie
 ### Team Members
 
 Member | Photo | Email
+Alina Chou | s | s
 
 
 
