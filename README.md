@@ -1,5 +1,9 @@
 # NUTWARE GAMES
 <img src="./assets/images/logo_temp.PNG" width="200">
+/* Temporary Logo
+
+## Project Synopsis
+Nutware Games is the ideal gaming hub for chilling and having fun with your friends
 
 ### Team Members
 Alina Chou | Chris Kim | Dean Zhou | Edgar Roman | William Wang
