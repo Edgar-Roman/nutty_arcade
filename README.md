@@ -24,8 +24,11 @@ Nutware Games is the ideal gaming hub for chilling and having fun with your frie
 | Edgar   | Programming, AI/ML, LaTeX, Fast Learner       | Persistent, Likes To Have Fun And Win  | Web Development                | Tendency To Overcommit      | 
 | William | Python, LaTeX, Mathematical Analysis          | Likes Problem Solving                  | Web Development                | Web Development             |
 
-
-To get in contact, please e-mail us!
+## Team Communication
+### Internal Communication
+- Slack (Official Channel)
+- 
+To get in contact with the team, please e-mail us!
 
 ### Project Synopsis
 We are currently working on http://www.nuttyarcade.com/, a website that allows you to play tabletop games with your friends (without a paywall :o) 
