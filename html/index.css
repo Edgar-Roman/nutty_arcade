@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+}
+
+@font-face {
+    font-family: dnk;
+    src: url("../assets/fonts/dnk.ttf");
+}
+
+body {
+    overflow: overlay;
+    background-image: url("../assets/images/website_background.png");
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: rgb(189, 189, 189);
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0);
+}
+
+#logo_header { 
+    display: grid;
+    grid-template-columns: [line1] 10% [line2] 15% [line3] auto [line4] 10% [line5] 5% [line6] 10%;
+    grid-template-rows: [line1] 15% [line2] 20% [line3] 1% [line4] 1% [line5] 20% [line6] 17% [line7] 27%;
+    background-image: linear-gradient(rgb(0, 209, 17), rgba(0, 185, 209, 0.15));
+    /* background-color: rgba(0, 185, 209, 0.5); */
+    min-width: 100vh;
+    height: 300px;
+}
+
+#logo {
+    grid-column-start: 3;
+    grid-row-start: 2;
+
+    justify-self: center;
+
+    font-family: dnk;
+    font-size: 110px;
+    font-weight: lighter;
+    letter-spacing: 5px;
+    -webkit-text-stroke-width: 4px;
+    -webkit-text-stroke-color: black;
+    color: white;
+}
+
+#button-toolbar {
+    display: flex;
+    justify-content: center;
+    /* align-items: ri; */
+    padding: 20px;
+}
+
+#play-button {
+    font-size: 40px;
+    font-family: dnk;
+    color: white;   
+    -webkit-text-stroke-width: 2px;
+    -webkit-text-stroke-color: black;
+    width: 120px;
+    height: 120px;
+    border-radius: 120px;
+    background-color: red;
+}
+
+#log-in-button-container {
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 2;
+    grid-row-end: 3;
+}
+
+#register-button-container {
+    grid-column-start: 5;
+    grid-column-end: 6;
+    grid-row-start: 5;
+    grid-row-end: 6;
+}
+
+.account-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-family: dnk;
+    font-size: 22px;
+    color: white;
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
+
+    height: 50px;
+    width: 130px;
+    border: none;
+    border-radius: 30px;
+    background-color: rgba(164, 244, 255, 0.466);
+
+    cursor: pointer;
+}
