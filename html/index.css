@@ -80,7 +80,7 @@ body {
     grid-row-end: 6;
 }
 
-#game-browser {
+.game-browser {
     display: flex;
     justify-items: center;
     align-items: center;
@@ -119,7 +119,6 @@ body {
     width: 800px;
     height: 100%;
     border-radius: 50px;
-    background-color: lightgray;
 }
 
 .game-information {
