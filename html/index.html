@@ -120,7 +120,8 @@
     	function addTwoNumbers() {
       	var first = document.getElementById('first').value;
       	var second = document.getElementById('second').value;
-      	fetch('http://0.0.0.0:5000/add?a=' + first + '&b=' + second)
+	//important!! edit the below IP when editing flask locally
+      	fetch('http://52.8.68.231:5000/add?a=' + first + '&b=' + second)
         .then((response) => {
       	  return response.json();
         })
