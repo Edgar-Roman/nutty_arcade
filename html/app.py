@@ -15,7 +15,7 @@ def add():
 #getGameState request
 @app.route("/getGameState")
 def getGameState():
-    ID = request.args.get('ID')
+    ID = int(request.args.get('ID'))
     # result = game.getGameState(int(ID))
 
     # placeholder dummy implementation
@@ -66,5 +66,4 @@ def declareSuit():
 
 if __name__ == "__main__":
     app.debug = True
-    # game = None
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
