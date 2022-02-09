@@ -1,240 +1,201 @@
-<!DOCTYPE html>
+<!-- 
+    File: index.html
+    Version 1.02
 
-<html>
-  <head>
-    <meta charset=utf-8 />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nutty Arcade</title>
+    Patch Update: 1.02
+    Patch by: Chris K. (chankyo)
+    ------------------
+    - Revamped Home Page Layout
+ -->
 
-    <!-- Style Sheet-->
-    <!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
-    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.orange-indigo.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+ <!DOCTYPE html>
 
-    <link rel="stylesheet" href="main.css">
-
-    <!-- Import and configure the Firebase SDK -->
-    <!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
-    <!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script> 
-    <script src="./init-firebase.js"></script>
-
-    <script type="text/javascript">
-
-      /**
-       * Handles the sign in button press.
-       */
-      function toggleSignIn() {
-        if (firebase.auth().currentUser) {
-          firebase.auth().signOut();
-        } else {
-          var email = document.getElementById('email').value;
-          var password = document.getElementById('password').value;
-          if (email.length < 4) {
-            alert('Please enter an email address.');
-            return;
-          }
-          if (password.length < 4) {
-            alert('Please enter a password.');
-            return;
-          }
-          // Sign in with email and pass.
-          firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            if (errorCode === 'auth/wrong-password') {
-              alert('Wrong password.');
-            } else {
-              alert(errorMessage);
-            }
-            console.log(error);
-            document.getElementById('quickstart-sign-in').disabled = false;
-          });
-        }
-        document.getElementById('quickstart-sign-in').disabled = true;
-      }
-
-      /**
-       * Handles the sign up button press.
-       */
-      function handleSignUp() {
-        var email = document.getElementById('email').value;
-        var password = document.getElementById('password').value;
-        if (email.length < 4) {
-          alert('Please enter an email address.');
-          return;
-        }
-        if (password.length < 4) {
-          alert('Please enter a password.');
-          return;
-        }
-        // Create user with email and pass.
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          if (errorCode == 'auth/weak-password') {
-            alert('The password is too weak.');
-          } else {
-            alert(errorMessage);
-          }
-          console.log(error);
-        });
-      }
-
-      /**
-       * Sends an email verification to the user.
-       */
-      function sendEmailVerification() {
-        firebase.auth().currentUser.sendEmailVerification().then(function() {
-          // Email Verification sent!
-          alert('Email Verification Sent!');
-        });
-      }
-
-      function sendPasswordReset() {
-        var email = document.getElementById('email').value;
-        firebase.auth().sendPasswordResetEmail(email).then(function() {
-          // Password Reset Email Sent!
-          alert('Password Reset Email Sent!');
-        }).catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          if (errorCode == 'auth/invalid-email') {
-            alert(errorMessage);
-          } else if (errorCode == 'auth/user-not-found') {
-            alert(errorMessage);
-          }
-          console.log(error);
-        });
-      }
-	
-	/**
-     	* Adds two numbers and returns it
-     	*/
-    	function addTwoNumbers() {
-      	var first = document.getElementById('first').value;
-      	var second = document.getElementById('second').value;
-	//important!! edit the below IP when editing flask locally
-      	fetch('http://52.8.68.231:5000/add?a=' + first + '&b=' + second)
-        .then((response) => {
-      	  return response.json();
-        })
-        .then((myJson) => {
-          document.getElementById("add-result").innerHTML = "When I add " + first + " and " + second + " I get: " + myJson.result;
-        }).catch((error) => {
-      	  document.getElementById("add-result").innerHTML = "Error when adding. Flask server isn't running?";
-        });
-    	}
-
-      /**
-       * initApp handles setting up UI event listeners and registering Firebase auth listeners:
-       *  - firebase.auth().onAuthStateChanged: This listener is called when the user is signed in or
-       *    out, and that is where we update the UI.
-       */
-      function initApp() {
-        // Listening for auth state changes.
-        firebase.auth().onAuthStateChanged(function(user) {
-          document.getElementById('quickstart-verify-email').disabled = true;
-          if (user) {
-            // User is signed in.
-            var displayName = user.displayName;
-            var email = user.email;
-            var emailVerified = user.emailVerified;
-            var photoURL = user.photoURL;
-            var isAnonymous = user.isAnonymous;
-            var uid = user.uid;
-            var providerData = user.providerData;
-            document.getElementById('quickstart-sign-in-status').textContent = 'Signed in';
-            document.getElementById('quickstart-sign-in').textContent = 'Sign out';
-            document.getElementById('quickstart-account-details').textContent = JSON.stringify(user, null, '  ');
-            if (!emailVerified) {
-              document.getElementById('quickstart-verify-email').disabled = false;
-            }
-          } else {
-            // User is signed out.
-            document.getElementById('quickstart-sign-in-status').textContent = 'Signed out';
-            document.getElementById('quickstart-sign-in').textContent = 'Sign in';
-            document.getElementById('quickstart-account-details').textContent = 'null';
-          }
-          document.getElementById('quickstart-sign-in').disabled = false;
-        });
-
-        document.getElementById('quickstart-sign-in').addEventListener('click', toggleSignIn, false);
-        document.getElementById('quickstart-sign-up').addEventListener('click', handleSignUp, false);
-        document.getElementById('quickstart-verify-email').addEventListener('click', sendEmailVerification, false);
-        document.getElementById('quickstart-password-reset').addEventListener('click', sendPasswordReset, false);
-	
-	//testing backend
-      	document.getElementById('add-two-numbers').addEventListener('click', addTwoNumbers, false);
-      }
-
-      window.onload = function() {
-        initApp();
-      };
-    </script>
-  </head>
-  <body>
-  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
-
-    <!-- Header section containing title -->
-    <header>
-      <div>
-        <div>
-          <a href="/"><h3>Firebase Authentication</h3></a>
-        </div>
-      </div>
-    </header>
-
-    <main class="mdl-layout__content mdl-color--grey-100">
-      <div class="mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-grid">
-
-        <!-- Container for the demo -->
-        <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-          <div class="mdl-card__title mdl-color--light-blue-600 mdl-color-text--white">
-            <h2 class="mdl-card__title-text">Firebase Email &amp; Password Authentication</h2>
-          </div>
-
-          <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-	    <p>Testing Flask backend -- enter numbers a & b to get the sum</p>
-	    <input class="mdl-textfield__input" style="display:inline;width:auto;" type="number" id="first" name="first" placeholder="first"/>
-	    <input class="mdl-textfield__input" style="display:inline;width:auto;" type="number" id="second" name="second" placeholder="second"/>
-	    <button class="mdl-button mdl-js-button mdl-button--raised" id="add-two-numbers" name="add-nums">Add!</button>
-	    <p id="add-result"</p>	
-
-
-          <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-            <p>Enter an email and password below and either sign in to an existing account or sign up</p>
-
-            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="text" id="email" name="email" placeholder="Email"/>
-            &nbsp;&nbsp;&nbsp;
-            <input class="mdl-textfield__input" style="display:inline;width:auto;" type="password" id="password" name="password" placeholder="Password"/>
-            <br/><br/>
-            <button disabled class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-in" name="signin">Sign In</button>
-            &nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-sign-up" name="signup">Sign Up</button>
-            &nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-button--raised" disabled id="quickstart-verify-email" name="verify-email">Send Email Verification</button>
-            &nbsp;&nbsp;&nbsp;
-            <button class="mdl-button mdl-js-button mdl-button--raised" id="quickstart-password-reset" name="verify-email">Send Password Reset Email</button>
-
-            <!-- Container where we'll display the user details -->
-            <div class="quickstart-user-details-container">
-              Firebase sign-in status: <span id="quickstart-sign-in-status">Unknown</span>
-              <div>Firebase auth <code>currentUser</code> object value:</div>
-              <pre><code id="quickstart-account-details">null</code></pre>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </main>
-  </div>
-  </body>
-</html>
-
+ <html>
+     <head>
+         <!-- Title -->
+         <title>Nutty Arcade</title>
+ 
+         <!-- CSS Spreadsheet Links -->
+         <link rel="stylesheet" type="text/css" href="../styles/theme2.css">
+ 
+         <!-- Favicon -->
+         <!-- Use Below for Official Server -->
+         <!-- <link rel="shortcut icon" type="image/x-icon" href="/assets/icons/page_icon.ico"> -->
+ 
+         <!-- Use Below for Local Testing -->
+         <link rel="shortcut icon" type="image/x-icon" href="../assets/icons/page_icon.ico">
+     </head>
+ 
+     <body>
+         <!-- JavaScript Links -->
+ 
+ 
+         <!-- Page Logo Header -->
+         <header>
+             <div id="logo_header">
+                 <!-- Used by Theme 2 -->
+                 <div id="row1" class="header-background"></div>
+                 <div id="row2" class="header-background"></div>
+                 <div id="row3" class="header-background"></div>
+                 <div id="row4" class="header-background"></div>
+                 <div id="row5" class="header-background"></div>
+                 <div id="row6" class="header-background"></div>
+                 <p id="logo">
+                     NUTTY ARCADE
+                 </p>
+                 <div id="log-in-button-container" class="account-button-container">
+                     <button id="log-in-button" class="account-button">
+                         LOG IN
+                     </button>
+                 </div>
+                 <div id="register-button-container" class="account-button-container">
+                     <button id="register-button" class="account-button">
+                         REGISTER
+                     </button>
+                 </div>
+                 
+             </div>
+         </header>
+         <main>
+             <!-- Category -->
+             <!-- Card Games -->
+             <div class="category-container">
+                 <div id="card-games" class="page-category">
+                     CARD GAMES
+                 </div>
+             </div>
+             <!-- Game Browser -->
+             <div id="card-games" class="game-browser">
+                 <!-- Example Game Module -->
+                 <!-- Game Wrapper -->
+                 <div id="game-fish" class="game">
+                     <!-- Game Menu -->
+                     <div id="fish-menu" class="game-menu">
+                         <!-- Thumbnail -->
+                         <div id="fish-thumbnail" class="thumbnail">
+ 
+                         </div>
+                     </div>
+                     <!-- Game Information -->
+                     <div class="game-information">
+                         <!-- Title -->
+                         <div class="game-title">
+                             FISH
+                         </div>
+                         <!-- Play Button -->
+                         <div class="button-container">
+                             <button class="play-button">
+                                 PLAY NOW
+                             </button>
+                         </div>
+                         <!-- Player Count -->
+                         <div class="player-counter-container">
+                             <div class="player-counter-title">
+                                 PLAYERS ACTIVE
+                             </div>
+                             <!-- Replace Below with JS Function -->
+                             <div class="player-counter">
+                                 5
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <br>
+             <br>
+             
+             <!-- Board Games -->
+             <div class="category-container">
+                 <div id="board-games" class="page-category">
+                     BOARD GAMES
+                 </div>
+             </div>
+             <!-- Games Browser -->
+             <div id="board-games" class="game-browser">
+                 <!-- Example Game Module -->
+                 <!-- Game Wrapper -->
+                 <div id="game-pioneers" class="game">
+                     <!-- Game Menu -->
+                     <div id="pioneers-menu" class="game-menu">
+                         <!-- Thumbnail -->
+                         <div id="pioneers-thumbnail" class="thumbnail">
+ 
+                         </div>
+                     </div>
+                     <!-- Game Information -->
+                     <div class="game-information">
+                         <!-- Title -->
+                         <div class="game-title">
+                             PIONEERS
+                         </div>
+                         <!-- Play Button -->
+                         <div class="button-container">
+                             <button class="play-button">
+                                 PLAY NOW
+                             </button>
+                         </div>
+                         <!-- Player Count -->
+                         <div class="player-counter-container">
+                             <div class="player-counter-title">
+                                 PLAYERS ACTIVE
+                             </div>
+                             <!-- Replace Below with JS Function -->
+                             <div class="player-counter">
+                                 15
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+             <br>
+             <br>
+ 
+             <!-- Nutty Casino -->
+             <div class="category-container">
+                 <div id="nutty-casino" class="page-category">
+                     NUTTY CASINO
+                 </div>
+             </div>
+             <!-- Games Browser -->
+             <div id="board-games" class="game-browser">
+                 <!-- Example Game Module -->
+                 <!-- Game Wrapper -->
+                 <div id="game-blackjack" class="game">
+                     <!-- Game Menu -->
+                     <div id="blackjack-menu" class="game-menu">
+                         <!-- Thumbnail -->
+                         <div id="fish-thumbnail" class="thumbnail">
+ 
+                         </div>
+                     </div>
+                     <!-- Game Information -->
+                     <div class="game-information">
+                         <!-- Title -->
+                         <div class="game-title">
+                             BLACKJACK
+                         </div>
+                         <!-- Play Button -->
+                         <div class="button-container">
+                             <button class="play-button">
+                                 PLAY NOW
+                             </button>
+                         </div>
+                         <!-- Player Count -->
+                         <div class="player-counter-container">
+                             <div class="player-counter-title">
+                                 PLAYERS ACTIVE
+                             </div>
+                             <!-- Replace Below with JS Function -->
+                             <div class="player-counter">
+                                 23
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+         </main>
+         <!-- <footer>
+             Copyright claim???
+         </footer> -->
+     </body>
+ </html>
