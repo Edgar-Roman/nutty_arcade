@@ -4,71 +4,46 @@ from information import Information
 
 
 class Player:
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, id, team_id):
+        self.id = id
+        self.team_id = team_id
+        self.name = ""
         # game constants
+        self.num_players = 6
         self.num_hs = 9
         self.num_cards_per_hs = 6
         self.can_ask_for_own_card = False
-        self.hand_size_public = False
-        # can ask for own card? display public hand size?
-        # teammates and opponents (needs to be private)
-        self.teammates = []
-        self.opponents = []
-        # hand
+        self.hand_size_public = True
+        # implement team class maybe later?
+        # hand and hand-size
         self.hand = -np.ones((self.num_hs, self.num_cards_per_hs))
         self.num_cards = 0
-        #self.index = None
 
     def initialize_hand(self, hand):
         for hs, value in hand:
             self.hand[hs, value] = 1
         self.num_cards = (self.hand == 1).sum()
 
-    # unused except for in print debugging and user card prompting
+    # used in getGameState to return list of tuples, need to convert card to front-end format
     def get_hand(self):
         return [tuple(card) for card in np.argwhere(self.hand == 1).tolist()]
 
-    def get_next(self):
-        if self.num_cards == 0:
-            selected_teammate = None
-            invalid_teammate = True
-            print("out of cards, pick teammate")
-            return None, selected_teammate
-        else:
-            selected_card = None
-            selected_opponent = None
-            invalid_card = True
-            invalid_opponent = True
-            print(self.name, self.get_hand())
-            print(self.get_valid_asks())
-            while invalid_card:
-                selected_card = eval(input("Pick card: \n"))
-                if selected_card in self.get_valid_asks():
-                    invalid_card = False
-            opponent_names = [opponent.name for opponent in self.opponents]
-            while invalid_opponent:
-                print(opponent_names)
-                selected_opponent = input("Pick opponent: \n")
-                if selected_opponent in opponent_names:
-                    invalid_opponent = False
-            selected_opponent = self.opponents[opponent_names.index(selected_opponent)]
-            return selected_card, selected_opponent
+    def get_valid_asks(self):
+        # ported from Edgar's code: might be dangerous to change this to 0
+        #self.hand[np.where(np.sum(self.hand, axis=1) == -self.num_hs)] = 0
+        #return [tuple(card) for card in np.argwhere(self.hand == -1)]
+        self.hand[np.where(np.sum(self.hand, axis=1) == -self.num_hs)] = 0
+        return [tuple(card) for card in np.argwhere(self.hand != 0)]
 
-    # called in game.py
+    # card is tuple (half-suit, value)
     def has_card(self, card):
         return self.hand[card] == 1
 
-    # change this to incorporate if can ask for own card (i.e. has card in half suit)
-    def get_valid_asks(self):
-        self.hand[np.where(np.sum(self.hand, axis=1) == -self.num_hs)] = 0
-        return [tuple(card) for card in np.argwhere(self.hand == -1)]
-
-    def update(self, current_player, card, next_player, got_card):
-        if got_card == True:
-            if self == current_player:
+    def update(self, player_asking, card, player_questioned, got_card):
+        if got_card:
+            if self == player_asking:
                 self.add_card(card)
-            if self == next_player:
+            if self == player_questioned:
                 self.remove_card(card)
 
     def add_card(self, card):
@@ -79,20 +54,13 @@ class Player:
         self.hand[card] = -1
         self.num_cards -= 1
 
-    # unused (declare separate button)
-    def get_declarable_suits(self):
-        cards = self.get_hand()
-        suits = set()
-        for suit, value in cards:
-            suits.add(suit)
-        return sorted(list(suits))
+    def remove_hs(self, hs):
+        cards_to_remove = (np.sum(self.hand[hs]) + self.num_cards_per_hs) / 2
+        self.num_cards -= cards_to_remove
+        self.hand[hs] = -1
 
 
-
-
-
-
-
+"""
 class Computer(Player):
     def __init__(self, name):
         super().__init__(name)
@@ -141,22 +109,15 @@ class Computer(Player):
             self.information.card_distribution[hs, value, askee_index] = -1
         self.information.extrapolate(card)
 
-    """
-        returns a valid card + opponent to ask (generated at random)
-        working on implementing logical deductions
-    """
+    # returns a valid card + opponent to ask (generated at random) working on implementing logical deductions
     def get_next(self):  # random
         # TODO: implement declaring on other's (notably teammates') turns
-        """
         declarable = self.information.check_for_declare(game, self)
         print(self.name, "can declare", declarable)
         while len(declarable) > 0:
             suit_to_declare = declarable.pop()
             self.team.declare(self, game, suit_to_declare)
         # we do this first to skip game.information.check if possible
-        """
-        #information
-        #"""
         while len(self.ask_queue) > 0:
             next_ask = self.ask_queue.pop()
             return next_ask[0], next_ask[1]
@@ -164,7 +125,6 @@ class Computer(Player):
             # we added asks to the queue
             next_ask = self.ask_queue.pop()
             return next_ask[0], next_ask[1]
-        #"""
 
         # if you run out of cards, pick a teammate to start
         if len(self.get_hand()) == 0:
@@ -179,3 +139,5 @@ class Computer(Player):
             selected_card = valid_asks[random.randint(0, len(valid_asks) - 1)]
             selected_opponent = self.opponents[random.randint(0, len(self.opponents) - 1)]
             return selected_card, selected_opponent
+
+"""
