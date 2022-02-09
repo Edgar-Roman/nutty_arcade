@@ -12,6 +12,17 @@ def add():
     b = request.args.get('b')
     return jsonify({"result": int(a)+int(b)})
 
+#getGameState request
+@app.route("/getGameState")
+def getGameState():
+    ID = request.args.get('ID')
+    hand = [('C', 4), ('D', 5)]
+    num_cards = [2, 2, 2, 2, 2, 2]
+    score = (1, 1)
+    turn = (ID + 1) % 6
+    result = {"hand": hand, "num_cards": num_cards, "score": score, "turn": turn}
+    return jsonify(result)
+
 if __name__ == "__main__":
     app.debug = True
     app.run(host='0.0.0.0', port=5000)
