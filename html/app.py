@@ -16,7 +16,7 @@ def add():
 @app.route("/getGameState")
 def getGameState():
     ID = request.args.get('ID')
-    # result = game.getGameState(ID)
+    # result = game.getGameState(int(ID))
 
     # placeholder dummy implementation
     hand = [('C', 4), ('D', 5)]
@@ -26,6 +26,45 @@ def getGameState():
     result = {"hand": hand, "num_cards": num_cards, "score": score, "turn": turn}
     return jsonify(result)
 
+#getID request
+@app.route("/getID")
+def getID():
+    # result = game.getID()
+
+    # placeholder dummy implementation
+    result = {"ID": 4} # definitely random
+    return jsonify(result)
+
+#startGame post
+@app.route("/startGame")
+def startGame():
+    # placeholder
+    # game = Game()
+    pass
+
+#askCard post
+@app.route("/askCard")
+def askCard():
+    suit = request.args.get('suit')
+    number = request.args.get('number')
+    id1 = request.args.get('id1')
+    id2 = request.args.get('id2')
+    # game.askCard(suit, int(number), int(id1), int(id2))
+
+# declareSuit post
+@app.route("/declareSuit")
+def declareSuit():
+    suit = request.args.get('suit')
+    declare_id = request.args.get('declare_id')
+    id1 = request.args.get('id1')
+    id2 = request.args.get('id2')
+    id3 = request.args.get('id3')
+    id4 = request.args.get('id4')
+    id5 = request.args.get('id5')
+    id6 = request.args.get('id6')
+    # game.declareSuit(suit, int(declare_id), int(id1), int(id2), int(id3), int(id4), int(id5), int(id6))
+
 if __name__ == "__main__":
     app.debug = True
+    # game = None
     app.run(host='0.0.0.0', port=5000)
