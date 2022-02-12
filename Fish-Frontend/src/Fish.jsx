@@ -87,7 +87,7 @@ class Fish extends React.Component {
     }
 
     handlePass(){
-        var teammate = document.getElementById('teammate');
+        var teammate = document.getElementById('teammate').value;
       	fetch('http://127.0.0.1:5000/passTurn?teammate=' + teammate)
         .then((response) => {
       	    return response.json();
