@@ -5,11 +5,10 @@ from game import Fish
 app = Flask(__name__)
 CORS(app)
 
-CARDS = []
 game = None
 
 @app.route("/get_hand")
-def get_hand(status="N/A"):
+def get_hand(status=""):
     global game
     hand, num_cards, teamScore, opponentScore, currentPlayer, history = game.getGameState(0)
     cards = [card[0] + str(card[1]) for card in hand]
@@ -59,10 +58,3 @@ def passTurn():
     teammate = request.args.get('teammate')
     status = game.passTurn(0, int(teammate))
     return get_hand(status)
-
-
-@app.route("/get_card")
-def get_card():
-    suit = request.args.get('suit')
-    card = request.args.get('card')
-    return jsonify({"result": './cards/' + suit + card + '.png'})

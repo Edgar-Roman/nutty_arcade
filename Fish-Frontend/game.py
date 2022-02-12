@@ -20,6 +20,7 @@ class Fish:
         self.team_scores = [0, 0]
         # setup the game
         self.history = []
+        self.suits_declared = [False * self.num_hs]
         self.deal_cards()
         self.current_player = self.id2p[random.randint(0, self.num_players - 1)]
 
@@ -69,11 +70,18 @@ class Fish:
             player.update(player_asking, card, player_questioned, got_card)
         if not got_card:
             self.current_player = player_questioned
-        # TODO: update history + follow-up computer actions
+        # TODO: update history +
+        if got_card:
+            last_action = "Player " + str(id1) + " takes " + str(suit) + str(number) + " from Player " + str(id2) + "."
+        else:
+            last_action = "Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
+        self.history.append(last_action)
+        # TODO: follow-up computer actions
         return "ask successfully processed"
 
     def declareSuit(self, suit, declare_id, id1, id2, id3, id4, id5, id6):
-        # need to make a check for suits that have been declared (can't declare same suit twice)
+        if self.suits_declared[suit]:
+            return "error: suit has already been declared"
         player_declaring = self.id2p[declare_id]
         ids = [id1, id2, id3, id4, id5, id6]
         declare_correct = True
@@ -92,6 +100,7 @@ class Fish:
         for id in range(self.num_players):
             player = self.id2p[id]
             player.remove_hs(suit)
+        self.suits_declared[suit] = True
         # TODO: update history
         # TODO: termination (maybe write helper termination function?)
         """
@@ -104,18 +113,20 @@ class Fish:
 
     # if id1 is out of cards on their turn, they can pass to a teammate id2 with cards
     def passTurn(self, id1, id2):
-        # TODO: change assert to have meaningful frontend functionality
         player_passing = self.id2p[id1]
         player_next = self.id2p[id2]
 
         if player_passing.num_cards != 0:
             return "Error: must have no cards to pass"
-        if player_next.num_cards == 0:
-            return "Error: must pass to someone with cards"
         if player_passing.team_id != player_next.team_id:
             return "Error: must pass to teammate"
-        #can't pass to yourself
-        # TODO: update history + follow-up computer actions
+        if player_next.num_cards == 0:
+            return "Error: must pass to someone with cards" # implies you can't pass to yourself
+
+        # TODO: update history
+        last_action = "Player " + str(id1) + " passes turn to Player " + str(id2) + "."
+        self.history.append(last_action)
+        # TODO: follow-up computer actions
         self.current_player = player_next
         return "pass successfully processed"
 
