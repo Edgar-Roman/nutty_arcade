@@ -29,10 +29,9 @@ class Player:
         return [tuple(card) for card in np.argwhere(self.hand == 1).tolist()]
 
     def get_valid_asks(self):
-        # ported from Edgar's code: might be dangerous to change this to 0
-        #self.hand[np.where(np.sum(self.hand, axis=1) == -self.num_hs)] = 0
-        #return [tuple(card) for card in np.argwhere(self.hand == -1)]
-        self.hand[np.where(np.sum(self.hand, axis=1) == -self.num_hs)] = 0
+        # If out of a half-suit, we change all the values to 0 (might be dangerous)
+        self.hand[np.where(np.sum(self.hand, axis=1) == -self.num_cards_per_hs)] = 0
+        # return [tuple(card) for card in np.argwhere(self.hand == -1)]
         return [tuple(card) for card in np.argwhere(self.hand != 0)]
 
     # card is tuple (half-suit, value)

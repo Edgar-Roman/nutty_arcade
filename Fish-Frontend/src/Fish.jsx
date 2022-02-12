@@ -5,45 +5,54 @@ class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            handToDisplay: ['./cards/image_part_001.png', './cards/image_part_015.png'],
-            numCards: [],
             buttonWasClicked: '',
             message: '',
+            handToDisplay: [],
+            /*['./cards/image_part_001.png', './cards/image_part_015.png'],*/
+            numCards: [],
             teamScore: 0,
             opponentScore: 0,
+            currentPlayer: 0,
             history: []
         };
-    }
-
-    handleDisplayHand(){
-        var cards = document.getElementById('cards').value;
-      	fetch('http://127.0.0.1:5000/get_hand?cards=' + cards)
-        .then((response) => {
-      	    return response.json();
-        })
-        .then((myJson) => {
-          console.log(myJson.hand)
-          this.setState({handToDisplay: myJson.hand});
-          this.setState({numCards: myJson.numCards});
-        });
     }
 
     handleButtonClick(buttonName, event) {
         this.setState({ buttonWasClicked: buttonName });
     }
 
+    handleDisplayHand(){
+        var cards = document.getElementById('cards').value;
+      	fetch('http://127.0.0.1:5000/start_game?cards=' + cards)
+        .then((response) => {
+      	    return response.json();
+        })
+        .then((myJson) => {
+          this.setState({message: myJson.error});
+          this.setState({handToDisplay: myJson.hand});
+          this.setState({numCards: myJson.numCards});
+          this.setState({teamScore: myJson.teamScore});
+          this.setState({opponentScore: myJson.opponentScore});
+          this.setState({currentPlayer: myJson.currentPlayer});
+          this.setState({history: myJson.history});
+        });
+    }
+
     handleAsk(){
         var card = document.getElementById('card').value;
-        var player = document.getElementById('player').value
+        var player = document.getElementById('player').value;
       	fetch('http://127.0.0.1:5000/askCard?card=' + card + '&player=' + player)
         .then((response) => {
       	    return response.json();
         })
         .then((myJson) => {
+          this.setState({message: myJson.error});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
           this.setState({teamScore: myJson.teamScore});
           this.setState({opponentScore: myJson.opponentScore});
+          this.setState({currentPlayer: myJson.currentPlayer});
+          this.setState({history: myJson.history});
         });
     }
 
@@ -67,19 +76,30 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
-          this.setState({teamScore: this.state.teamScore + myJson.teamScore});
-          this.setState({opponentScore: this.state.opponentScore + myJson.opponentScore});
+          this.setState({message: myJson.error});
+          this.setState({handToDisplay: myJson.hand});
+          this.setState({numCards: myJson.numCards});
+          this.setState({teamScore: myJson.teamScore});
+          this.setState({opponentScore: myJson.opponentScore});
+          this.setState({currentPlayer: myJson.currentPlayer});
+          this.setState({history: myJson.history});
         });
     }
 
     handlePass(){
-        var teammate = document.getElementById('teammate')
-      	fetch('http://127.0.0.1:5000/pass?teammate=' + teammate)
+        var teammate = document.getElementById('teammate');
+      	fetch('http://127.0.0.1:5000/passTurn?teammate=' + teammate)
         .then((response) => {
       	    return response.json();
         })
         .then((myJson) => {
-          // this.setState({});
+          this.setState({message: myJson.error});
+          this.setState({handToDisplay: myJson.hand});
+          this.setState({numCards: myJson.numCards});
+          this.setState({teamScore: myJson.teamScore});
+          this.setState({opponentScore: myJson.opponentScore});
+          this.setState({currentPlayer: myJson.currentPlayer});
+          this.setState({history: myJson.history});
         });
     }
 
@@ -94,16 +114,24 @@ class Fish extends React.Component {
                             height="auto"
                             />
         }
-        let score = [this.state.teamScore, this.state.opponentScore]
-        let teamScore = this.state.teamScore
-        let opponentScore = this.state.opponentScore
-        let numCards = this.state.numCards
         return(
             <div id="parent">
+                <p>
+                    message:
+                    {this.state.message},
+                    scores:
+                    {this.state.teamScore}, {this.state.opponentScore},
+                    number of cards:
+                    {this.state.numCards},
+                    current player:
+                    {this.state.currentPlayer},
+                    history:
+                    {this.state.history},
+                </p>
                 <div id="instructions">
                     <h1> Display Hand </h1>
                     <input id="cards" placeholder="Cards (comma separated)"/>
-                    <button type="button" onClick={() => this.handleDisplayHand()}>Display!</button>
+                    <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
                     <br/>
                 </div>
                 <div id="container">
@@ -119,12 +147,6 @@ class Fish extends React.Component {
                         </div>
                     </div>
                 </div>
-                <p>
-                    scores
-                    {score}
-                    number of cards
-                    {numCards}
-                </p>
                 <button type="button" id="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
                 <button type="button" id="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
                 <button type="button" id="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
@@ -160,7 +182,7 @@ class Fish extends React.Component {
                         <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
                     </span>
                 }
-                {this.state.message}
+
                 </p>
             </div>
         )
