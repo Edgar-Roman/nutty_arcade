@@ -33,7 +33,7 @@ def askCard():
     global game
     card = request.args.get('card')
     player = request.args.get('player')
-    status = game.askCard(card[0], int(card[1]), 0, int(player))
+    status = game.askCard(card[0], int(card[1:]), 0, int(player))
     return get_hand(status)
 
 
