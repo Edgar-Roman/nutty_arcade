@@ -130,7 +130,6 @@ class Fish extends React.Component {
                 </p>
                 <div id="instructions">
                     <h1> Display Hand </h1>
-                    <input id="cards" placeholder="Cards (comma separated)"/>
                     <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
                     <br/>
                 </div>
