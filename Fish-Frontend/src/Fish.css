@@ -1,0 +1,65 @@
+.table-container{
+    display: flex;
+    justify-content: center;
+}
+
+#instructions{
+    text-align: center;
+}
+
+#container {
+   position: relative;
+   width: 100%;
+   height: 100%;
+   padding-bottom: 100%;
+   display: flex;
+   justify-content: center;
+}
+
+#circle {
+   position: absolute;
+   width: 80%;
+   height: 50%;
+   background-color: #984c4c;
+   border-radius: 10%;
+}
+
+#small-circle{
+  margin-top: 3.3%;
+  margin-left: 2.5%;
+  position: absolute;
+  width: 95%;
+  height: 90%;
+  background-color: #a95555;
+  border-radius: 10%;
+}
+
+#smaller-circle{
+  margin-top: 3%;
+  margin-left: 5%;
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  background-color: #429b42;
+  border-radius: 10%;
+}
+
+#smallest-circle{
+  margin-top: 6.5%;
+  margin-left: 5%;
+  position: absolute;
+  width: 90%;
+  height: 80%;
+  background-color: #4aad4a;
+  border-radius: 10%;
+  display:inline-block;
+}
+
+#player-hand{
+    justify-content: center;
+    align-items: center;
+    height: 50%;
+    width: 50%;
+    position: absolute;
+    margin: auto auto;
+}
