@@ -22,8 +22,7 @@ class Fish extends React.Component {
     }
 
     handleDisplayHand(){
-        var cards = document.getElementById('cards').value;
-      	fetch('http://127.0.0.1:5000/start_game?cards=' + cards)
+      	fetch('http://127.0.0.1:5000/start_game')
         .then((response) => {
       	    return response.json();
         })
