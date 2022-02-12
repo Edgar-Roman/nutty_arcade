@@ -28,7 +28,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
-          this.setState({message: myJson.error});
+          this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
           this.setState({teamScore: myJson.teamScore});
@@ -46,7 +46,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
-          this.setState({message: myJson.error});
+          this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
           this.setState({teamScore: myJson.teamScore});
@@ -76,7 +76,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
-          this.setState({message: myJson.error});
+          this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
           this.setState({teamScore: myJson.teamScore});
@@ -93,7 +93,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
-          this.setState({message: myJson.error});
+          this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
           this.setState({teamScore: myJson.teamScore});

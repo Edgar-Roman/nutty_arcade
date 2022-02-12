@@ -9,12 +9,12 @@ CARDS = []
 game = None
 
 @app.route("/get_hand")
-def get_hand(error="blank"):
+def get_hand(status="N/A"):
     global game
     hand, num_cards, teamScore, opponentScore, currentPlayer, history = game.getGameState(0)
     cards = [card[0] + str(card[1]) for card in hand]
     return jsonify({
-        "error": error,
+        "status": status,
         "hand": ['./cards/' + card + '.png' for card in cards],
         "numCards": [int(num) for num in num_cards],
         "teamScore": teamScore,
@@ -34,8 +34,8 @@ def askCard():
     global game
     card = request.args.get('card')
     player = request.args.get('player')
-    error = game.askCard(card[0], int(card[1]), 0, int(player))
-    return get_hand(error)
+    status = game.askCard(card[0], int(card[1]), 0, int(player))
+    return get_hand(status)
 
 
 @app.route("/declareSuit")
@@ -49,16 +49,16 @@ def declareSuit():
     id4 = request.args.get('id4')
     id5 = request.args.get('id5')
     id6 = request.args.get('id6')
-    error = game.declareSuit(int(suit), int(declare_id), int(id1), int(id2), int(id3), int(id4), int(id5), int(id6))
-    return get_hand(error)
+    status = game.declareSuit(int(suit), int(declare_id), int(id1), int(id2), int(id3), int(id4), int(id5), int(id6))
+    return get_hand(status)
 
 
 @app.route("/passTurn")
 def passTurn():
     global game
     teammate = request.args.get('teammate')
-    error = game.passTurn(0, int(teammate))
-    return get_hand(error)
+    status = game.passTurn(0, int(teammate))
+    return get_hand(status)
 
 
 @app.route("/get_card")
