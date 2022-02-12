@@ -1,12 +1,20 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
-
+from game import Fish
 
 app = Flask(__name__)
 CORS(app)
 
 CARDS = []
+game = None
 
+
+@app.route("/start_game")
+def start_game():
+    global game
+    game = Fish()
+    hand = game.getGameState(0)[0]
+    return
 
 @app.route("/")
 def hello_world():
@@ -28,27 +36,41 @@ def get_card():
 
 
 @app.route("/get_hand")
-def get_hand():
+def get_hand(error="blank"):
     global CARDS
-    hand = request.args.get('cards')
-    cards = hand.replace(' ', '').split(',')
-    CARDS = cards
-    return jsonify({"result": ['./cards/' + card + '.png' for card in cards]})
+    #hand = request.args.get('cards')
+    global game
+    hand, num_cards, teamScore, opponentScore, currentPlayer, history = game.getGameState(0)
+    cards = [card[0] + str(card[1]) for card in hand]
+    #
+    #cards = hand.replace(' ', '').split(',')
+    #CARDS = cards
+    #return jsonify({"result": ['./cards/' + card + '.png' for card in cards]})
+    return jsonify({"error": error,
+                    "hand": ['./cards/' + card + '.png' for card in cards],
+                    "numCards": [int(num) for num in num_cards],
+                    "teamScore": int(teamScore),
+                    "opponentScore": int(opponentScore),
+                    "currentPlayer": int(currentPlayer),
+                    "history": history
+                    })
 
 
 @app.route("/askCard")
 def askCard():
     global CARDS
+    global game
     card = request.args.get('card')
     player = request.args.get('player')
-    if card in CARDS:
-        return jsonify({"result": "Hit!"})
-    else:
-        return jsonify({"result": "Miss!"})
+    game.askCard(card[0], int(card[1]), 0, int(player))
+    error = "None"
+    return get_hand(error)
 
 
 @app.route("/declareSuit")
 def declareSuit():
+    global game
+    game = Fish()
     suit = request.args.get('suit')
     declare_id = 0
     id1 = request.args.get('id1')

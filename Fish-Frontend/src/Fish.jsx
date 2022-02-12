@@ -6,10 +6,12 @@ class Fish extends React.Component {
         super(props);
         this.state = {
             handToDisplay: ['./cards/image_part_001.png', './cards/image_part_015.png'],
+            numCards: [],
             buttonWasClicked: '',
             message: '',
             teamScore: 0,
-            opponentsScore: 0
+            opponentScore: 0,
+            history: []
         };
     }
 
@@ -20,8 +22,9 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
-          console.log(myJson.result)
-          this.setState({handToDisplay: myJson.result});
+          console.log(myJson.hand)
+          this.setState({handToDisplay: myJson.hand});
+          this.setState({numCards: myJson.numCards});
         });
     }
 
@@ -37,7 +40,10 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
-          this.setState({message: myJson.result});
+          this.setState({handToDisplay: myJson.hand});
+          this.setState({numCards: myJson.numCards});
+          this.setState({teamScore: myJson.teamScore});
+          this.setState({opponentScore: myJson.opponentScore});
         });
     }
 
@@ -62,7 +68,7 @@ class Fish extends React.Component {
         })
         .then((myJson) => {
           this.setState({teamScore: this.state.teamScore + myJson.teamScore});
-          this.setState({opponentsScore: this.state.opponentsScore + myJson.opponentsScore});
+          this.setState({opponentScore: this.state.opponentScore + myJson.opponentScore});
         });
     }
 
@@ -88,6 +94,10 @@ class Fish extends React.Component {
                             height="auto"
                             />
         }
+        let score = [this.state.teamScore, this.state.opponentScore]
+        let teamScore = this.state.teamScore
+        let opponentScore = this.state.opponentScore
+        let numCards = this.state.numCards
         return(
             <div id="parent">
                 <div id="instructions">
@@ -109,6 +119,12 @@ class Fish extends React.Component {
                         </div>
                     </div>
                 </div>
+                <p>
+                    scores
+                    {score}
+                    number of cards
+                    {numCards}
+                </p>
                 <button type="button" id="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
                 <button type="button" id="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
                 <button type="button" id="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
