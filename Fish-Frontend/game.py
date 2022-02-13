@@ -120,10 +120,11 @@ class Fish:
 
         if player_asking.team_id == player_questioned.team_id:
             return "Error: cannot ask teammate for a card"
-        if card not in player_asking.get_valid_asks():
-            return "Error: must be valid ask (i.e. have card in half-suit)"
         if not self.can_ask_for_own_card and player_asking.has_card(card):
             return "Error: must not ask for card you have"
+        if card not in player_asking.get_valid_asks():
+            return "Error: must be valid ask (i.e. have card in half-suit)"
+
 
         got_card = player_questioned.has_card(card)
         for id in range(self.num_players):

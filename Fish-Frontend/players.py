@@ -35,10 +35,17 @@ class Player:
         return [tuple(card) for card in np.argwhere(self.hand == 1).tolist()]
 
     def get_valid_asks(self):
-        # If out of a half-suit, we change all the values to 0 (might be dangerous)
-        self.hand[np.where(np.sum(self.hand, axis=1) == -self.num_cards_per_hs)] = 0
-        # return [tuple(card) for card in np.argwhere(self.hand == -1)]
-        return [tuple(card) for card in np.argwhere(self.hand != 0)]
+        # might be some faster implementation with np.where or np.argwhere
+        valid_asks = []
+        invalid_hs = np.where(np.sum(self.hand, axis=1) == -self.num_cards_per_hs)[0]
+        print(invalid_hs)
+        for hs in range(self.num_hs):
+            if hs not in invalid_hs:
+                for value in range(self.num_cards_per_hs):
+                    card = (hs, value)
+                    if self.hand[card] == -1 or self.can_ask_for_own_card:
+                        valid_asks.append(card)
+        return valid_asks
 
 
     # card is tuple (half-suit, value)
@@ -135,8 +142,7 @@ class Player:
             # randomly select a card and an opponent
             # valid_asks = self.get_valid_asks() allows us to ask for our own card
             # modified valid_asks so we don't ask for our own card
-            self.hand[np.where(np.sum(self.hand, axis=1) == -self.num_cards_per_hs)] = 0
-            valid_asks = [tuple(card) for card in np.argwhere(self.hand == -1)]
+            valid_asks = self.get_valid_asks()
             # get random cards
             selected_card = valid_asks[random.randint(0, len(valid_asks) - 1)]
             selected_opponent = opponents[random.randint(0, len(opponents) - 1)]
