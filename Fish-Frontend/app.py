@@ -22,6 +22,7 @@ def get_hand(status=""):
         "history": history
     })
 
+
 @app.route("/start_game")
 def start_game():
     global game
