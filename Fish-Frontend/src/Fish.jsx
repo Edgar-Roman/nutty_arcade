@@ -9,8 +9,7 @@ class Fish extends React.Component {
             buttonWasClicked: '',
             message: '',
             handToDisplay: [],
-            /*['./cards/image_part_001.png', './cards/image_part_015.png'],*/
-            numCards: [],
+            numCards: [0, 0, 0, 0, 0, 0],
             teamScore: 0,
             opponentScore: 0,
             currentPlayer: 0,
@@ -145,6 +144,9 @@ class Fish extends React.Component {
                             <div id="smaller-circle">
                                 <div id="smallest-circle">
                                     <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('./icon.png')}/>
+                                        </div>
                                         <div className="player-id">
                                             Player: 3
                                         </div>
@@ -153,6 +155,9 @@ class Fish extends React.Component {
                                         </div>
                                     </div>
                                     <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('./icon.png')}/>
+                                        </div>
                                         <div className="player-id">
                                             Player: 4
                                         </div>
@@ -161,6 +166,9 @@ class Fish extends React.Component {
                                         </div>
                                     </div>
                                     <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('./icon.png')}/>
+                                        </div>
                                         <div className="player-id">
                                             Player: 5
                                         </div>
@@ -169,6 +177,9 @@ class Fish extends React.Component {
                                         </div>
                                     </div>
                                     <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('./icon.png')}/>
+                                        </div>
                                         <div className="player-id">
                                             Player: 1
                                         </div>
@@ -180,6 +191,9 @@ class Fish extends React.Component {
                                         {cards}
                                     </div>
                                     <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('./icon.png')}/>
+                                        </div>
                                         <div className="player-id">
                                             Player: 2
                                         </div>
@@ -263,11 +277,13 @@ class Fish extends React.Component {
                   <div className="item6">
                       <div className="score">{this.state.teamScore}</div>
                   </div>
+                  <div className="item7">
+                  <p> History: </p>
+                      <div className="scroll">
+                        <ul>{history}</ul>
+                      </div>
+                  </div>
                 </div>
-                <p>
-                    History:
-                </p>
-                <ul>{history}</ul>
             </div>
         )
     }

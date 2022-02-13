@@ -20,13 +20,28 @@
     grid-area: opponent-score;
     display: table;
     background-color: rgba(242, 38, 19, 0.2);
-    border-radius: 30%;
+    border-radius: 15%;
+    margin-top: 15px;
 }
 .item6 {
     display: table;
     grid-area: team-score;
     background-color: rgba(135,206,235, 0.2);
-    border-radius: 30%;
+    border-radius: 15%;
+}
+
+item7 {
+    grid-area: history;
+}
+
+div.scroll{
+    font-size: 8px;
+    width: 200px;
+    height: 110px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:left;
+    margin-right: -50px;
 }
 
 .score{
@@ -39,22 +54,22 @@
   display: grid;
   grid-template-areas:
     'header header header header header header header header header header'
-    'opponent-score main main main main main main main right right'
-    'team-score main main main main main main main right right'
-    'menu main main main main main main main right right'
-    'menu main main main main main main main right right'
-    'menu main main main main main main main right right'
-    'menu main main main main main main main right right'
-    'menu main main main main main main main right right'
-    'menu main main main main main main main right right'
-    'menu main main main main main main main right right';
-  grid-gap: 10px;
+    'opponent-score main main main main main main main main right'
+    'team-score main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'menu main main main main main main main main right'
+    'history main main main main main main main main right'
+    'history main main main main main main main main right'
+    'history main main main main main main main main right'
+    'history main main main main main main main main right'
+    'history main main main main main main main main right';
+  grid-gap: 20px;
   padding: 10px;
 }
 
 .grid-container > div {
   text-align: center;
-  padding: 20px 0;
+  padding: 10px 0;
   font-size: 30px;
 }
 
@@ -69,8 +84,8 @@
   margin-top: 1%;
   margin-left: 1.5%;
   position: absolute;
-  width: 53%;
-  height: 55%;
+  width: 54%;
+  height: 65%;
   background-color: #a95555;
   border-radius: 10%;
 }
@@ -114,6 +129,15 @@ button{
         'player-pic player-cards';
 }
 
+.player-pic{
+    grid-area: player-pic;
+}
+
+.icon{
+    width: 30px;
+    height: auto;
+}
+
 .player-id {
     font-size: 10px;
     grid-area: player-id;
@@ -126,25 +150,12 @@ button{
     color: white;
 }
 
-.player4 {
-    grid-area: four;
-}
+.player1 { grid-area: one; }
+.player2 { grid-area: two; }
+.player3 { grid-area: three; }
+.player4 { grid-area: four; }
+.player5 { grid-area: five; }
 
-.player5 {
-    grid-area: five;
-}
-
-.player1 {
-    grid-area: one;
-}
-
-.player2 {
-    grid-area: two;
-}
-
-.player3 {
-    grid-area: three;
-}
 
 p {
     font-size: 15px;
