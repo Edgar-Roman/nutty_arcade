@@ -2,6 +2,7 @@
 import React from 'react';
 
 // Import CSS Stylesheet
+import "./Example.css";
 
 
 class Example extends React.Component {
@@ -22,7 +23,7 @@ class Example extends React.Component {
 	render() {
         return (
 			// Insert HTML + JS Content Here
-            <div></div>
+            <div>Hello</div>
 		);
     }
 }
