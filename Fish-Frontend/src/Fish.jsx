@@ -115,7 +115,7 @@ class Fish extends React.Component {
 
         let history = [];
         for (let i = 0; i < this.state.history.length; i++){
-            history.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[i]}</li>);
+            history.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[this.state.history.length - i - 1]}</li>);
         }
 
         return(
