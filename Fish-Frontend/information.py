@@ -24,29 +24,27 @@ class Information:
                 else:
                     self.card_distribution[half_suit, value, self.id] = -1
 
-    # TODO: recheck implementation
     def extrapolate(self, card):
         hs = card[0]
-        # additional extrapolation (over the suit)
-        cards_per_suit = self.card_distribution.shape[1]
-        no_of_players = self.card_distribution.shape[2]
-        for value_index in range(cards_per_suit):
+        # additional extrapolation (over half suits only)
+        for value in range(self.num_cards_per_hs):
             # One person is unknown, everybody else doesn't have card
-            if np.sum(self.card_distribution[hs, value_index, :]) == 1 - no_of_players:
-                owner_index = np.where(self.card_distribution[hs][value_index, :] == 0)[0][0]
+            if np.sum(self.card_distribution[hs, value, :]) == 1 - self.num_players:
+                owner = np.where(self.card_distribution[hs, value, :] == 0)[0][0]
                 # before changing, check if player status is 1 and if it is 1, change then to 0 then make the deduction
-                if self.player_status[hs, owner_index] == 1:
-                    self.player_status[hs, owner_index] = 0
-                self.card_distribution[hs, value_index, owner_index] = 1
-        for player_index in range(no_of_players):
-            # Player has an unknown card, only one option for unknown
-            if self.player_status[hs, player_index] == 1 and player_index != self.player_index:
-                unknown_index_array = np.where(self.card_distribution[hs][:, player_index] == 0)[0]
-                if len(unknown_index_array) == 1:
+                if self.player_status[hs, owner] == 1: # (implied)
+                    self.player_status[hs, owner] = 0
+                self.card_distribution[hs, value, owner] = 1
+        for player_id in range(self.num_players):
+            # Player has an unknown card in a half suit
+            if self.player_status[hs, player_id] == 1 and player_id != self.id:
+                unknown_values = np.where(self.card_distribution[hs, :, player_id] == 0)[0]
+                # and there is only one option for this unknown value
+                if len(unknown_values) == 1:
                     # value_index = unknown_index_array[0]
-                    self.card_distribution[hs, unknown_index_array[0], :] = -1
-                    self.card_distribution[hs, unknown_index_array[0], player_index] = 1
-                    self.player_status[hs, player_index] = 0
+                    self.card_distribution[hs, unknown_values[0], :] = -1
+                    self.card_distribution[hs, unknown_values[0], player_id] = 1
+                    self.player_status[hs, player_id] = 0
 
     """
     Checks if a player can clear some suit (has full knowledge over some suit: always safe to ask)
