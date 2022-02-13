@@ -14,15 +14,21 @@ class Fish:
         self.hand_size_public = True
         # initialize players and teams
         self.id2p = {}
-        for id in range(self.num_players):
+        # hard-coding human player, index + team-index as 0
+        id = 0
+        team_id = 0
+        self.id2p[id] = Player(id, team_id)
+        # computers
+        for id in range(1, self.num_players):
             team_id = (2 * id) // self.num_players
-            self.id2p[id] = Player(id, team_id)
+            self.id2p[id] = Player(id, team_id, is_computer=True)
         self.team_scores = [0, 0]
         # setup the game
         self.history = []
-        self.suits_declared = [False * self.num_hs]
+        self.suits_declared = [False] * self.num_hs
         self.deal_cards()
-        self.current_player = self.id2p[random.randint(0, self.num_players - 1)]
+        #self.current_player = self.id2p[random.randint(0, self.num_players - 1)]
+        self.current_player = self.id2p[0]
 
     def deal_cards(self):
         # initialize the cards and shuffle them
@@ -70,13 +76,15 @@ class Fish:
             player.update(player_asking, card, player_questioned, got_card)
         if not got_card:
             self.current_player = player_questioned
-        # TODO: update history +
+        # update history
         if got_card:
             last_action = "Player " + str(id1) + " takes " + str(suit) + str(number) + " from Player " + str(id2) + "."
         else:
             last_action = "Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
         self.history.append(last_action)
-        # TODO: follow-up computer actions
+        # follow-up computer actions
+        if self.current_player.is_computer:
+            self.computerAction(self.current_player)
         return "ask successfully processed"
 
     def declareSuit(self, suit, declare_id, id1, id2, id3, id4, id5, id6):
@@ -101,7 +109,13 @@ class Fish:
             player = self.id2p[id]
             player.remove_hs(suit)
         self.suits_declared[suit] = True
-        # TODO: update history
+        # update history
+        suit_name = ["LC", "HC", "LD", "HD", "LH", "HH", "LS", "HS", "8J"][suit]
+        if declare_correct:
+            last_action = "Player " + str(id1) + " declares " + suit_name + " correctly."
+        else:
+            last_action = "Player " + str(id1) + " declares " + suit_name + " incorrectly."
+        self.history.append(last_action)
         # TODO: termination (maybe write helper termination function?)
         """
         if self.team_scores[0] > self.num_hs / 2:
@@ -123,12 +137,38 @@ class Fish:
         if player_next.num_cards == 0:
             return "Error: must pass to someone with cards" # implies you can't pass to yourself
 
-        # TODO: update history
+        # update history
         last_action = "Player " + str(id1) + " passes turn to Player " + str(id2) + "."
         self.history.append(last_action)
-        # TODO: follow-up computer actions
+
+        # update information to computer that player is out of cards
+        for id in range(self.num_players):
+            player = self.id2p[id]
+            player.update_pass(player_passing.id)
+
         self.current_player = player_next
+        # follow-up computer actions
+        if self.current_player.is_computer:
+           self.computerAction(self.current_player)
         return "pass successfully processed"
+
+    # computer is a Player object
+    def computerAction(self, computer):
+        hand_sizes = []
+        for id in range(self.num_players):
+            hand_sizes.append(self.id2p[id].num_cards)
+
+        card, next_id = computer.get_next(hand_sizes)
+        if card is None:
+            if next_id is None:
+                return # TODO: edge case where everyone out of cards (next_id is None)
+            else:
+                self.passTurn(computer.id, next_id)
+        else:
+            card = self.convertToNormalCard(card)
+            self.askCard(card[0], card[1], computer.id, next_id)
+
+
 
     # should take normal suit/number and convert it into card corresponding to tuple: (half-suit, value)
     def convertToFishCard(self, normal_card):

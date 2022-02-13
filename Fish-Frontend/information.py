@@ -2,30 +2,29 @@ import numpy as np
 
 
 class Information:
-    def __init__(self, num_hs, num_cards_per_hs, players):
+    def __init__(self, id, num_hs=9, num_cards_per_hs=6, num_players=6):
         self.num_hs = num_hs
         self.num_cards_per_hs = num_cards_per_hs
-        self.players = players
-        # when 2n players, player 0 is player, players 1 to n-1 are teammates, players n to 2n-1 are opponents
-        self.player_index = 0
-        self.player = players[self.player_index]
+        self.num_players = num_players
+        self.id = id
         # 0 indicates unknown, 1 indicates has the card, -1 indicates doesn't have the card
-        self.card_distribution = np.zeros((num_hs, num_cards_per_hs, len(players)))
-        # card status: indicates whether a card's location is known
-        #self.card_status = np.zeros((num_hs, num_cards_per_hs))
+        self.card_distribution = np.zeros((num_hs, num_cards_per_hs, num_players))
         # player status: indicates whether a player has unknown cards in a half-suit
-        self.player_status = np.zeros((num_hs, len(players)))
-        # initialize based on player's hand
-        for half_suit in range(num_hs):
-            for value in range(num_cards_per_hs):
-                card = (half_suit, value)
-                if card in self.player.get_hand():
-                    #self.card_status[card.suit_index, card.value_index] = 1
-                    self.card_distribution[half_suit, value, :] = -1
-                    self.card_distribution[half_suit, value, self.player_index] = 1
-                else:
-                    self.card_distribution[half_suit, value, self.player_index] = -1
+        self.player_status = np.zeros((num_hs, num_players))
 
+
+    def initialize(self, hand):
+        # initialize based on player's hand
+        for half_suit in range(self.num_hs):
+            for value in range(self.num_cards_per_hs):
+                card = (half_suit, value)
+                if card in hand:
+                    self.card_distribution[half_suit, value, :] = -1
+                    self.card_distribution[half_suit, value, self.id] = 1
+                else:
+                    self.card_distribution[half_suit, value, self.id] = -1
+
+    # TODO: recheck implementation
     def extrapolate(self, card):
         hs = card[0]
         # additional extrapolation (over the suit)
