@@ -105,9 +105,10 @@ class Fish:
             for hs in range(self.num_hs):
                 ids_for_declaring = [] 
                 for (this_hs, this_value, this_player_id), has_card in np.ndenumerate(comp_player.information.card_distribution): #ndenumerate is like multi-dimensional enumerate
-                    if hs == this_hs and (has_card == 0) and self.isSameTeam(id, this_player_id):
+                    if hs == this_hs and (has_card == 1) and self.isSameTeam(id, this_player_id):
                         ids_for_declaring.append(this_player_id)
                 if len(ids_for_declaring) == self.num_cards_per_hs:
+                    print(hs, id, ids_for_declaring)
                     self.declareSuit(hs, id, ids_for_declaring[0], ids_for_declaring[1], ids_for_declaring[2], ids_for_declaring[3], ids_for_declaring[4], ids_for_declaring[5])
 
     #
