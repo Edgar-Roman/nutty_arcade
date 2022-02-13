@@ -2,6 +2,7 @@ import random
 from players import Player
 #from team import Team
 import itertools
+import numpy as np
 
 class Fish:
     # to do: add teams later
@@ -56,37 +57,6 @@ class Fish:
         history = self.history
         return hand, num_cards, score[team_id], score[1-team_id], current_player, history
 
-    #
-    def askCard(self, suit, number, id1, id2):
-        card = self.convertToFishCard((suit, number))
-        player_asking = self.id2p[id1]
-        # TODO: assert player_asking is current_player
-        player_questioned = self.id2p[id2]
-
-        if player_asking.team_id == player_questioned.team_id:
-            return "Error: cannot ask teammate for a card"
-        if card not in player_asking.get_valid_asks():
-            return "Error: must be valid ask (i.e. have card in half-suit)"
-        if not self.can_ask_for_own_card and player_asking.has_card(card):
-            return "Error: must not ask for card you have"
-
-        got_card = player_questioned.has_card(card)
-        for id in range(self.num_players):
-            player = self.id2p[id]
-            player.update(player_asking, card, player_questioned, got_card)
-        if not got_card:
-            self.current_player = player_questioned
-        # update history
-        if got_card:
-            last_action = "Player " + str(id1) + " takes " + str(suit) + str(number) + " from Player " + str(id2) + "."
-        else:
-            last_action = "Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
-        self.history.append(last_action)
-        # follow-up computer actions
-        if self.current_player.is_computer:
-            self.computerAction(self.current_player)
-        return "ask successfully processed"
-
     def declareSuit(self, suit, declare_id, id1, id2, id3, id4, id5, id6):
         if self.suits_declared[suit]:
             return "error: suit has already been declared"
@@ -125,6 +95,53 @@ class Fish:
         """
         return "declare successfully processed"
 
+    def isSameTeam(id1, id2):
+        return (id1 // 3) == (id2 // 3)
+
+    # check if any of the computer players have enough information to declare
+    def checkComputerDeclares():
+        for id in range(1, self.num_players): # all computer players
+            comp_player = self.id2p[id]
+            for hs in range(self.num_hs):
+                ids_for_declaring = [] 
+                for (this_hs, this_value, this_player_id), has_card in np.ndenumerate(comp_player.information.card_distribution): #ndenumerate is like multi-dimensional enumerate
+                    if hs == this_hs and (has_card == 0) and isSameTeam(id, this_player_id):
+                        ids_for_declaring.append(this_player_id)
+                if len(ids_for_declaring) == self.num_cards_per_hs:
+                    declareSuit(hs, id, ids_for_declaring[0], ids_for_declaring[1], ids_for_declaring[2], ids_for_declaring[3], ids_for_declaring[4], ids_for_declaring[5])
+
+    #
+    def askCard(self, suit, number, id1, id2):
+        card = self.convertToFishCard((suit, number))
+        player_asking = self.id2p[id1]
+        # TODO: assert player_asking is current_player
+        player_questioned = self.id2p[id2]
+
+        if player_asking.team_id == player_questioned.team_id:
+            return "Error: cannot ask teammate for a card"
+        if card not in player_asking.get_valid_asks():
+            return "Error: must be valid ask (i.e. have card in half-suit)"
+        if not self.can_ask_for_own_card and player_asking.has_card(card):
+            return "Error: must not ask for card you have"
+
+        got_card = player_questioned.has_card(card)
+        for id in range(self.num_players):
+            player = self.id2p[id]
+            player.update(player_asking, card, player_questioned, got_card)
+        if not got_card:
+            self.current_player = player_questioned
+        # update history
+        if got_card:
+            last_action = "Player " + str(id1) + " takes " + str(suit) + str(number) + " from Player " + str(id2) + "."
+        else:
+            last_action = "Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
+        self.history.append(last_action)
+        # follow-up computer actions
+        checkComputerDeclares()
+        if self.current_player.is_computer:
+            self.computerAction(self.current_player)
+        return "ask successfully processed"
+
     # if id1 is out of cards on their turn, they can pass to a teammate id2 with cards
     def passTurn(self, id1, id2):
         player_passing = self.id2p[id1]
@@ -148,10 +165,11 @@ class Fish:
 
         self.current_player = player_next
         # follow-up computer actions
+        checkComputerDeclares()
         if self.current_player.is_computer:
            self.computerAction(self.current_player)
         return "pass successfully processed"
-
+    
     # computer is a Player object
     def computerAction(self, computer):
         hand_sizes = []
