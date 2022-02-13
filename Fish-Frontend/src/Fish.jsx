@@ -104,7 +104,6 @@ class Fish extends React.Component {
 
     render(){
         let cards = [];
-        var width = (100 / this.state.handToDisplay.length).toString() + '%';
         for (let i = 0; i < this.state.handToDisplay.length; i++){
             var card = require('' + this.state.handToDisplay[i]);
             cards[i] = <img key={i}
@@ -113,6 +112,12 @@ class Fish extends React.Component {
                             height="auto"
                             />
         }
+
+        let history = [];
+        for (let i = 0; i < this.state.history.length; i++){
+            listItems.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[i]}</li>);
+        }
+
         return(
             <div id="parent">
                 <div class="grid-container">
