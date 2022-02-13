@@ -5,6 +5,7 @@ class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            gameStarted: false,
             buttonWasClicked: '',
             message: '',
             handToDisplay: [],
@@ -27,6 +28,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
+          this.setState({gameStarted: true});
           this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
@@ -120,31 +122,77 @@ class Fish extends React.Component {
 
         return(
             <div id="parent">
-                <div class="grid-container">
-                  <div class="header">
+                <div className="grid-container">
+                  <div className="header">
                     <br/>
                     FISH
                   </div>
-                  <div class="item2"></div>
-                  <div class="item3">
+                  <div className="item2">
+                    {
+                    !this.state.gameStarted
+                    &&
+                    <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
+                    }
+                    {
+                    this.state.gameStarted
+                    &&
+                    <p>Current Player: {this.state.currentPlayer}</p>
+                    }
+                  </div>
+                  <div className="item3">
                       <div id="circle">
                         <div id="small-circle">
                             <div id="smaller-circle">
                                 <div id="smallest-circle">
-                                    <div class="player3">{this.state.numCards[3]}</div>
-                                    <div class="player4">{this.state.numCards[4]}</div>
-                                    <div class="player5">{this.state.numCards[5]}</div>
-                                    <div class="player1">{this.state.numCards[1]}</div>
-                                    <div class="player0">
+                                    <div className="player">
+                                        <div className="player-id">
+                                            Player: 3
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[3]}
+                                        </div>
+                                    </div>
+                                    <div className="player">
+                                        <div className="player-id">
+                                            Player: 4
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[4]}
+                                        </div>
+                                    </div>
+                                    <div className="player">
+                                        <div className="player-id">
+                                            Player: 5
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[5]}
+                                        </div>
+                                    </div>
+                                    <div className="player">
+                                        <div className="player-id">
+                                            Player: 1
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[1]}
+                                        </div>
+                                    </div>
+                                    <div className="player0">
                                         {cards}
                                     </div>
-                                    <div class="player2">{this.state.numCards[2]}</div>
+                                    <div className="player">
+                                        <div className="player-id">
+                                            Player: 2
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[2]}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                   </div>
-                  <div class="item4">
+                  <div className="item4">
                     <button type="button" id="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
                     <button type="button" id="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
                     <button type="button" id="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
@@ -161,6 +209,7 @@ class Fish extends React.Component {
                         <div>
                             <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button>
                         </div>
+                        <p>{this.state.message}</p>
                       </div>
                       }
                       {
@@ -191,6 +240,7 @@ class Fish extends React.Component {
                         <div>
                             <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button>
                         </div>
+                        <p>{this.state.message}</p>
                     </div>
                     }
                     {
@@ -203,31 +253,21 @@ class Fish extends React.Component {
                         <div>
                             <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
                         </div>
+                        <p>{this.state.message}</p>
                     </div>
                     }
                   </div>
-                  <div class="item5">
-                      <div class="score">{this.state.opponentScore}</div>
+                  <div className="item5">
+                      <div className="score">{this.state.opponentScore}</div>
                   </div>
-                  <div class="item6">
-                      <div class="score">{this.state.teamScore}</div>
+                  <div className="item6">
+                      <div className="score">{this.state.teamScore}</div>
                   </div>
                 </div>
-                <p>
-                    message:
-                    {this.state.message},
-                    number of cards:
-                    {this.state.numCards},
-                    current player:
-                    {this.state.currentPlayer}
-                </p>
                 <p>
                     History:
-                    <ul>{history}</ul>
                 </p>
-                <div id="instructions">
-                    <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
-                </div>
+                <ul>{history}</ul>
             </div>
         )
     }

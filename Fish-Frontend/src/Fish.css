@@ -106,8 +106,24 @@ button{
     cursor: pointer;
 }
 
-.player3 {
+.player3, .player4 {
     grid-area: three;
+    display: grid;
+    grid-template-areas:
+        'player-pic player-id'
+        'player-pic player-cards';
+}
+
+.player-id {
+    font-size: 10px;
+    grid-area: player-id;
+    color: white;
+}
+
+.player-cards {
+    font-size: 10px;
+    grid-area: player-cards;
+    color: white;
 }
 
 .player4 {
@@ -128,4 +144,8 @@ button{
 
 .player3 {
     grid-area: three;
+}
+
+p {
+    font-size: 15px;
 }
