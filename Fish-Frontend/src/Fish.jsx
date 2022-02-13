@@ -115,7 +115,7 @@ class Fish extends React.Component {
 
         let history = [];
         for (let i = 0; i < this.state.history.length; i++){
-            listItems.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[i]}</li>);
+            history.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[i]}</li>);
         }
 
         return(
@@ -219,9 +219,11 @@ class Fish extends React.Component {
                     number of cards:
                     {this.state.numCards},
                     current player:
-                    {this.state.currentPlayer},
-                    history:
-                    {this.state.history},
+                    {this.state.currentPlayer}
+                </p>
+                <p>
+                    History:
+                    <ul>{history}</ul>
                 </p>
                 <div id="instructions">
                     <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
