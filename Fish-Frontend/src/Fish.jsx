@@ -133,6 +133,11 @@ class Fish extends React.Component {
                     &&
                     <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
                     }
+                    {
+                    this.state.gameStarted
+                    &&
+                    <p>Current Player: {this.state.currentPlayer}</p>
+                    }
                   </div>
                   <div className="item3">
                       <div id="circle">
@@ -204,6 +209,7 @@ class Fish extends React.Component {
                         <div>
                             <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button>
                         </div>
+                        <p>{this.state.message}</p>
                       </div>
                       }
                       {
@@ -234,6 +240,7 @@ class Fish extends React.Component {
                         <div>
                             <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button>
                         </div>
+                        <p>{this.state.message}</p>
                     </div>
                     }
                     {
@@ -246,6 +253,7 @@ class Fish extends React.Component {
                         <div>
                             <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
                         </div>
+                        <p>{this.state.message}</p>
                     </div>
                     }
                   </div>
@@ -256,12 +264,6 @@ class Fish extends React.Component {
                       <div className="score">{this.state.teamScore}</div>
                   </div>
                 </div>
-                <p>
-                    message:
-                    {this.state.message},
-                    current player:
-                    {this.state.currentPlayer}
-                </p>
                 <p>
                     History:
                 </p>
