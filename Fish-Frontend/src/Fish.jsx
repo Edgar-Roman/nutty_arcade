@@ -109,7 +109,7 @@ class Fish extends React.Component {
             var card = require('' + this.state.handToDisplay[i]);
             cards[i] = <img key={i}
                             src={card}
-                            width="40px"
+                            width="30px"
                             height="auto"
                             />
         }
@@ -126,7 +126,14 @@ class Fish extends React.Component {
                         <div id="small-circle">
                             <div id="smaller-circle">
                                 <div id="smallest-circle">
-                                    {cards}
+                                    <div class="player3">{this.state.numCards[3]}</div>
+                                    <div class="player4">{this.state.numCards[4]}</div>
+                                    <div class="player5">{this.state.numCards[5]}</div>
+                                    <div class="player1">{this.state.numCards[1]}</div>
+                                    <div class="player0">
+                                        {cards}
+                                    </div>
+                                    <div class="player2">{this.state.numCards[2]}</div>
                                 </div>
                             </div>
                         </div>

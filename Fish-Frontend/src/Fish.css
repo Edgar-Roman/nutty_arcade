@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Orbitron|Quicksand:500');
 
 * {
-    font-family: Orbitron !important;
+    font-family: comic-sans;
 }
 
 .header { grid-area: header; }
@@ -89,12 +89,43 @@
   margin-top: 2.5%;
   margin-left: 2.5%;
   position: absolute;
-  width: 95%;
-  height: 90%;
+  width: 90%;
+  height: 85%;
   background-color: #4aad4a;
   border-radius: 10%;
+
+  display: grid;
+  grid-template-areas:
+    'three four five'
+    'one zero two';
+  grid-gap: 10px;
+  padding: 10px;
 }
 
 button{
     cursor: pointer;
+}
+
+.player3 {
+    grid-area: three;
+}
+
+.player4 {
+    grid-area: four;
+}
+
+.player5 {
+    grid-area: five;
+}
+
+.player1 {
+    grid-area: one;
+}
+
+.player2 {
+    grid-area: two;
+}
+
+.player3 {
+    grid-area: three;
 }
