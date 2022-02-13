@@ -1,11 +1,14 @@
 /* File: main.css */
 
+/* Utility imports */
 @import "./utils/fonts.css";
 @import "./utils/scrollbar.css";
-@import "./pages/main_page.css";
-@import "./pages/account_form.css";
+
+/* Component Style Imports */
+@import "../components/home/home.css";
 
 
+/* General Styling */
 * {
     margin: 0;
 }
