@@ -195,10 +195,10 @@ class Fish extends React.Component {
                     }
                   </div>
                   <div class="item5">
-                      <div class="score">{this.state.teamScore}</div>
+                      <div class="score">{this.state.opponentScore}</div>
                   </div>
                   <div class="item6">
-                      <div class="score">{this.state.opponentScore}</div>
+                      <div class="score">{this.state.teamScore}</div>
                   </div>
                 </div>
                 <p>
