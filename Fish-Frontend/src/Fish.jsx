@@ -115,11 +115,95 @@ class Fish extends React.Component {
         }
         return(
             <div id="parent">
+                <div class="grid-container">
+                  <div class="header">
+                    <br/>
+                    FISH
+                  </div>
+                  <div class="item2"></div>
+                  <div class="item3">
+                      <div id="circle">
+                        <div id="small-circle">
+                            <div id="smaller-circle">
+                                <div id="smallest-circle">
+                                    {cards}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="item4">
+                    <button type="button" id="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
+                    <button type="button" id="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
+                    <button type="button" id="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
+                      {
+                      this.state.buttonWasClicked === 'ask'
+                      &&
+                      <div>
+                        <div>
+                            <input id="card" placeholder="Card"/>
+                        </div>
+                        <div>
+                            <input id="player" placeholder="Player"/>
+                        </div>
+                        <div>
+                            <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button>
+                        </div>
+                      </div>
+                      }
+                      {
+                      this.state.buttonWasClicked === 'declare'
+                      &&
+                      <div>
+                        <div>
+                            <input id="half-suit" placeholder="Half Suit"/>
+                        </div>
+                        <div>
+                            <input id="id1" placeholder="C1"/>
+                        </div>
+                        <div>
+                            <input id="id2" placeholder="C2"/>
+                        </div>
+                        <div>
+                            <input id="id3" placeholder="C3"/>
+                        </div>
+                        <div>
+                            <input id="id4" placeholder="C4"/>
+                        </div>
+                        <div>
+                            <input id="id5" placeholder="C5"/>
+                        </div>
+                        <div>
+                            <input id="id6" placeholder="C6"/>
+                        </div>
+                        <div>
+                            <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button>
+                        </div>
+                    </div>
+                    }
+                    {
+                    this.state.buttonWasClicked === 'pass'
+                    &&
+                    <div>
+                        <div>
+                            <input id="teammate" placeholder="Teammate"/>
+                        </div>
+                        <div>
+                            <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
+                        </div>
+                    </div>
+                    }
+                  </div>
+                  <div class="item5">
+                      <div class="score">{this.state.teamScore}</div>
+                  </div>
+                  <div class="item6">
+                      <div class="score">{this.state.opponentScore}</div>
+                  </div>
+                </div>
                 <p>
                     message:
                     {this.state.message},
-                    scores:
-                    {this.state.teamScore}, {this.state.opponentScore},
                     number of cards:
                     {this.state.numCards},
                     current player:
@@ -128,60 +212,8 @@ class Fish extends React.Component {
                     {this.state.history},
                 </p>
                 <div id="instructions">
-                    <h1> Display Hand </h1>
                     <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
-                    <br/>
                 </div>
-                <div id="container">
-                    <div id="circle">
-                        <div id="small-circle">
-                            <div id="smaller-circle">
-                                <div id="smallest-circle">
-                                    <div id= "player-hand">
-                                        {cards}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button type="button" id="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
-                <button type="button" id="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
-                <button type="button" id="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
-                <p>
-                {
-                    this.state.buttonWasClicked === 'ask'
-                    &&
-                    <span>
-                        <input id="card" placeholder="Card"/>
-                        <input id="player" placeholder="Player"/>
-                        <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button>
-                    </span>
-                }
-                {
-                    this.state.buttonWasClicked === 'declare'
-                    &&
-                    <span>
-                        <input id="half-suit" placeholder="Half Suit"/>
-                        <input id="id1" placeholder="C1"/>
-                        <input id="id2" placeholder="C2"/>
-                        <input id="id3" placeholder="C3"/>
-                        <input id="id4" placeholder="C4"/>
-                        <input id="id5" placeholder="C5"/>
-                        <input id="id6" placeholder="C6"/>
-                        <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button>
-                    </span>
-                }
-                {
-                    this.state.buttonWasClicked === 'pass'
-                    &&
-                    <span>
-                        <input id="teammate" placeholder="Teammate"/>
-                        <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
-                    </span>
-                }
-
-                </p>
             </div>
         )
     }

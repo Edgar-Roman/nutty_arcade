@@ -1,65 +1,100 @@
-.table-container{
-    display: flex;
-    justify-content: center;
+@import url('https://fonts.googleapis.com/css?family=Orbitron|Quicksand:500');
+
+* {
+    font-family: Orbitron !important;
 }
 
-#instructions{
-    text-align: center;
+.header { grid-area: header; }
+.item2 { grid-area: menu; }
+.item3 {
+    grid-area: main;
+    display: table;
+
+ }
+.item4 {
+    grid-area: right;
+    background-color: rgba(220,220,220, 0.3);
+    border-radius: 50px;
+}
+.item5 {
+    grid-area: opponent-score;
+    display: table;
+    background-color: rgba(242, 38, 19, 0.2);
+    border-radius: 30%;
+}
+.item6 {
+    display: table;
+    grid-area: team-score;
+    background-color: rgba(135,206,235, 0.2);
+    border-radius: 30%;
 }
 
-#container {
-   position: relative;
-   width: 100%;
-   height: 100%;
-   padding-bottom: 100%;
-   display: flex;
-   justify-content: center;
+.score{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.grid-container {
+  height: 90vh;
+  display: grid;
+  grid-template-areas:
+    'header header header header header header header header header header'
+    'opponent-score main main main main main main main right right'
+    'team-score main main main main main main main right right'
+    'menu main main main main main main main right right'
+    'menu main main main main main main main right right'
+    'menu main main main main main main main right right'
+    'menu main main main main main main main right right'
+    'menu main main main main main main main right right'
+    'menu main main main main main main main right right'
+    'menu main main main main main main main right right';
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.grid-container > div {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
 }
 
 #circle {
-   position: absolute;
-   width: 80%;
-   height: 50%;
+   display: table-cell;
+   vertical-align: center;
    background-color: #984c4c;
    border-radius: 10%;
 }
 
 #small-circle{
-  margin-top: 3.3%;
-  margin-left: 2.5%;
+  margin-top: 1%;
+  margin-left: 1.5%;
   position: absolute;
-  width: 95%;
-  height: 90%;
+  width: 53%;
+  height: 55%;
   background-color: #a95555;
   border-radius: 10%;
 }
 
 #smaller-circle{
   margin-top: 3%;
-  margin-left: 5%;
+  margin-left: 2.5%;
   position: absolute;
-  width: 90%;
+  width: 95%;
   height: 90%;
   background-color: #429b42;
   border-radius: 10%;
 }
 
 #smallest-circle{
-  margin-top: 6.5%;
-  margin-left: 5%;
+  margin-top: 2.5%;
+  margin-left: 2.5%;
   position: absolute;
-  width: 90%;
-  height: 80%;
+  width: 95%;
+  height: 90%;
   background-color: #4aad4a;
   border-radius: 10%;
-  display:inline-block;
 }
 
-#player-hand{
-    justify-content: center;
-    align-items: center;
-    height: 50%;
-    width: 50%;
-    position: absolute;
-    margin: auto auto;
+button{
+    cursor: pointer;
 }
