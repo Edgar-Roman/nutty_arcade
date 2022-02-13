@@ -18,7 +18,7 @@ class App extends React.Component {
 
 	render() {
         return (
-			<div></div>
+			<div>This is a test</div>
 			// <div>
 			// 	<header>
 			// 		<div id="logo_header">
