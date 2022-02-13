@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- Title -->
+        <title>Nutty Arcade: Register</title>
+
+        <!-- CSS Spreadsheet -->
+        <link rel="stylesheet" href="./styles/main.css">
+
+        
+    </head>
+    <body>
+        <!-- Header -->
+        <header class="account-form-header">
+            <div class="neonText">
+                REGISTER
+            </div>
+        </header>
+        <!-- Register Panel -->
+        <div class="account-form-container">
+            <form class="account-form-panel" id="register-panel">
+                <!-- Email -->
+                <div class="account-form-warning" id="existing-email">
+                    <p>User Already Exists With Email.</p>
+                </div>
+                <div class="input-field-container">
+                    <input type="email" class="input-field" id="register-email" placeholder="EMAIL">
+                </div>
+                <!-- Password -->
+                <div class="account-form-warning" id="weak-password">
+                    <p>Your Password Is Weak-Ass</p>
+                </div>
+                <div class="input-field-container">
+                    <input type="password" class="input-field" id="register-password" placeholder="PASSWORD">
+                </div>
+                <!-- Spacers -->
+                <div class="account-form-spacer"></div>
+                <!-- Submit Button -->
+                <button class="account-form-button">Register</button>
+                <!-- Switch To Login Button -->
+                <button class="account-form-button">Log-In</button>
+            </form>
+        </div>
+    </body>
+    <!-- JavaScript Links -->
+    <script type="module" src="./scripts/authentication.js"></script>
+    <script type="module" src="./scripts/init-firebase.js"></script>
+</html>
