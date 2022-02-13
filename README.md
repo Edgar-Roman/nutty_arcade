@@ -8,11 +8,11 @@ Nutware Games is an aspiring group of web developers with the goal of providing 
 
 | Member        | Photo                                                                                         | Email                 |
 | ------------- | --------------------------------------------------------------------------------------------- | --------------------- |
-| Alina Chou    | <p align="center"> <img src="./html/react_frontend/public/assets/images/profile_pictures/Alina.jpeg" width="100"> </p>   | alinac@stanford.edu   |
-| Chris Kim     | <p align="center"> <img src="./html/react_frontend/public/assets/images/profile_pictures/chankyo.png" width="100"> </p>  | chankyo@stanford.edu  |
-| Dean Zhou     | <p align="center"> <img src="./html/react_frontend/public/assets/images/profile_pictures/me_irl.jpg" width="100"> </p>   | deanzhou@stanford.edu |
-| Edgar Roman   | <p align="center"> <img src="./html/react_frontend/public/assets/images/profile_pictures/edgar.jpg" width="100"> </p>    | emroman@stanford.edu  |
-| William Wang  | <p align="center"> <img src="./html/react_frontend/public/assets/images/pikachess.jpg" width="100"> </p>                 | wjwang@stanford.edu   |
+| Alina Chou    | <p align="center"> <img src="./html/react_frontend/src/assets/images/profile_pictures/Alina.jpeg" width="100"> </p>   | alinac@stanford.edu   |
+| Chris Kim     | <p align="center"> <img src="./html/react_frontend/src/assets/images/profile_pictures/chankyo.png" width="100"> </p>  | chankyo@stanford.edu  |
+| Dean Zhou     | <p align="center"> <img src="./html/react_frontend/src/assets/images/profile_pictures/me_irl.jpg" width="100"> </p>   | deanzhou@stanford.edu |
+| Edgar Roman   | <p align="center"> <img src="./html/react_frontend/src/assets/images/profile_pictures/edgar.jpg" width="100"> </p>    | emroman@stanford.edu  |
+| William Wang  | <p align="center"> <img src="./html/react_frontend/src/assets/images/pikachess.jpg" width="100"> </p>                 | wjwang@stanford.edu   |
 
 ## Team Skills
 | Member  | Skills                                        | Personal Traits                        | Desired Growth                 | Weakness                    | 
