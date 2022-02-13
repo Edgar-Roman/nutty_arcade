@@ -5,6 +5,7 @@ class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            gameStarted: false,
             buttonWasClicked: '',
             message: '',
             handToDisplay: [],
@@ -27,6 +28,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
+          this.setState({gameStarted: true});
           this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
@@ -125,7 +127,13 @@ class Fish extends React.Component {
                     <br/>
                     FISH
                   </div>
-                  <div className="item2"></div>
+                  <div className="item2">
+                    {
+                    !this.state.gameStarted
+                    &&
+                    <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
+                    }
+                  </div>
                   <div className="item3">
                       <div id="circle">
                         <div id="small-circle">
@@ -251,8 +259,6 @@ class Fish extends React.Component {
                 <p>
                     message:
                     {this.state.message},
-                    number of cards:
-                    {this.state.numCards},
                     current player:
                     {this.state.currentPlayer}
                 </p>
@@ -260,10 +266,6 @@ class Fish extends React.Component {
                     History:
                 </p>
                 <ul>{history}</ul>
-
-                <div id="instructions">
-                    <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
-                </div>
             </div>
         )
     }
