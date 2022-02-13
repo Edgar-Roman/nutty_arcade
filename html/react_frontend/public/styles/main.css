@@ -1,8 +1,9 @@
 /* File: main.css */
 
-@import "./fonts.css";
-@import "./scrollbar.css";
-@import "./main_page.css";
+@import "./utils/fonts.css";
+@import "./utils/scrollbar.css";
+@import "./pages/main_page.css";
+@import "./pages/account_form.css";
 
 
 * {
