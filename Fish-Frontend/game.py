@@ -95,11 +95,11 @@ class Fish:
         """
         return "declare successfully processed"
 
-    def isSameTeam(id1, id2):
+    def isSameTeam(self, id1, id2):
         return (id1 // 3) == (id2 // 3)
 
     # check if any of the computer players have enough information to declare
-    def checkComputerDeclares():
+    def checkComputerDeclares(self):
         for id in range(1, self.num_players): # all computer players
             comp_player = self.id2p[id]
             for hs in range(self.num_hs):
@@ -108,7 +108,7 @@ class Fish:
                     if hs == this_hs and (has_card == 0) and isSameTeam(id, this_player_id):
                         ids_for_declaring.append(this_player_id)
                 if len(ids_for_declaring) == self.num_cards_per_hs:
-                    declareSuit(hs, id, ids_for_declaring[0], ids_for_declaring[1], ids_for_declaring[2], ids_for_declaring[3], ids_for_declaring[4], ids_for_declaring[5])
+                    self.declareSuit(hs, id, ids_for_declaring[0], ids_for_declaring[1], ids_for_declaring[2], ids_for_declaring[3], ids_for_declaring[4], ids_for_declaring[5])
 
     #
     def askCard(self, suit, number, id1, id2):
@@ -137,7 +137,7 @@ class Fish:
             last_action = "Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
         self.history.append(last_action)
         # follow-up computer actions
-        checkComputerDeclares()
+        self.checkComputerDeclares()
         if self.current_player.is_computer:
             self.computerAction(self.current_player)
         return "ask successfully processed"
@@ -165,7 +165,7 @@ class Fish:
 
         self.current_player = player_next
         # follow-up computer actions
-        checkComputerDeclares()
+        self.checkComputerDeclares()
         if self.current_player.is_computer:
            self.computerAction(self.current_player)
         return "pass successfully processed"
