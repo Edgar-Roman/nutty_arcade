@@ -24,8 +24,7 @@ class Information:
                 else:
                     self.card_distribution[half_suit, value, self.id] = -1
 
-    def extrapolate(self, card):
-        hs = card[0]
+    def extrapolate(self, hs):
         # additional extrapolation (over half suits only)
         for value in range(self.num_cards_per_hs):
             # One person is unknown, everybody else doesn't have card

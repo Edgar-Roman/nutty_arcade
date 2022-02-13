@@ -38,7 +38,7 @@ class Player:
         # might be some faster implementation with np.where or np.argwhere
         valid_asks = []
         invalid_hs = np.where(np.sum(self.hand, axis=1) == -self.num_cards_per_hs)[0]
-        print(invalid_hs)
+        #print(invalid_hs)
         for hs in range(self.num_hs):
             if hs not in invalid_hs:
                 for value in range(self.num_cards_per_hs):
@@ -82,7 +82,7 @@ class Player:
             # distribution: indicate neither player has the card
             self.information.card_distribution[hs, value, player_asking.id] = -1
             self.information.card_distribution[hs, value, player_questioned.id] = -1
-        # self.information.extrapolate(card)
+        self.information.extrapolate(hs)
 
 
     def add_card(self, card):
@@ -109,7 +109,8 @@ class Player:
     def update_pass(self, id):
         self.information.card_distribution[:, :, id] = -1
         self.information.player_status[:, id] = 0
-        # self.information.extrapolate(card)
+        for hs in range(self.num_hs):
+            self.information.extrapolate(hs)
 
 
     #

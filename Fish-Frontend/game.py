@@ -7,6 +7,7 @@ import numpy as np
 class Fish:
     # to do: add teams later
     def __init__(self):
+        self.terminated = False
         # initialize deck + game constants
         self.num_players = 6
         self.num_hs = 9
@@ -18,7 +19,7 @@ class Fish:
         # hard-coding human player, index + team-index as 0
         id = 0
         team_id = 0
-        self.id2p[id] = Player(id, team_id)
+        self.id2p[id] = Player(id, team_id, is_computer=True)
         # computers
         for id in range(1, self.num_players):
             team_id = (2 * id) // self.num_players
@@ -82,17 +83,24 @@ class Fish:
         # update history
         suit_name = ["LC", "HC", "LD", "HD", "LH", "HH", "LS", "HS", "8J"][suit]
         if declare_correct:
-            last_action = "Player " + str(id1) + " declares " + suit_name + " correctly."
+            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " declares " + suit_name + " correctly."
         else:
-            last_action = "Player " + str(id1) + " declares " + suit_name + " incorrectly."
+            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " declares " + suit_name + " incorrectly."
         self.history.append(last_action)
-        # TODO: termination (maybe write helper termination function?)
+
+
+        # termination
         """
-        if self.team_scores[0] > self.num_hs / 2:
-            terminate
-        elif self.team_scores[1] > self.num_hs / 2:
-            terminate
+        if self.team_scores[0] + self.team_scores[1] >= self.num_hs:
+            self.terminated = True
         """
+        const = self.num_hs / 2
+        if self.team_scores[0] > const:
+            self.terminated = True
+        elif self.team_scores[1] > const:
+            self.terminated = True
+        #"""
+
         return "declare successfully processed"
 
     def isSameTeam(self, id1, id2):
@@ -134,13 +142,13 @@ class Fish:
             self.current_player = player_questioned
         # update history
         if got_card:
-            last_action = "Player " + str(id1) + " takes " + str(suit) + str(number) + " from Player " + str(id2) + "."
+            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " takes " + str(suit) + str(number) + " from Player " + str(id2) + "."
         else:
-            last_action = "Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
+            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
         self.history.append(last_action)
         # follow-up computer actions
         self.checkComputerDeclares()
-        if self.current_player.is_computer:
+        if self.current_player.is_computer and not self.terminated:
             self.computerAction(self.current_player)
         return "ask successfully processed"
 
@@ -157,7 +165,7 @@ class Fish:
             return "Error: must pass to someone with cards" # implies you can't pass to yourself
 
         # update history
-        last_action = "Player " + str(id1) + " passes turn to Player " + str(id2) + "."
+        last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " passes turn to Player " + str(id2) + "."
         self.history.append(last_action)
 
         # update information to computer that player is out of cards
@@ -168,7 +176,7 @@ class Fish:
         self.current_player = player_next
         # follow-up computer actions
         self.checkComputerDeclares()
-        if self.current_player.is_computer:
+        if self.current_player.is_computer and not self.terminated:
            self.computerAction(self.current_player)
         return "pass successfully processed"
     
