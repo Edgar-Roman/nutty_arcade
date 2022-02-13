@@ -1,3 +1,5 @@
+
+
 #logo_header { 
     display: grid;
     grid-template-columns: [line1] 10% [line2] 10% [line3] auto [line4] 5% [line5] 5% [line6] 10%;
@@ -56,6 +58,11 @@
 #register-button-container {
     grid-row-start: 3;
     grid-row-end: 4;
+}
+
+.header-background {
+    grid-column-start: 1;
+    grid-column-end: 7;
 }
 
 #row1 {
@@ -201,12 +208,12 @@
 }
 
 #fish-thumbnail {
-    background-image: url("../assets/images/fish_icon_temporary.jpeg");
+    background-image: url("../../assets/images/fish_icon_temporary.jpeg");
     background-size: 100%;
 }
 
 #pioneers-thumbnail {
-    background-image: url("../assets/images/pioneers_icon_temporary.png");
+    background-image: url("../../assets/images/pioneers_icon_temporary.png");
     background-size: 100%;
     background-position-y: 50%;
 }
