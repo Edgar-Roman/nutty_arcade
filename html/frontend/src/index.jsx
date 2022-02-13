@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route, Link } from "react-router-dom"
-import Home from "./components/home/Home"
+import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./components/home/Home.jsx";
+import Example from "./components/example/Example";
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
     <React.StrictMode>
-        <Home />
+        <Router>
+            <Routes>
+                <Route path="/" element={ <Home/> }/>
+            </Routes>
+        </Router>
     </React.StrictMode>,
     document.getElementById('root'),
 );

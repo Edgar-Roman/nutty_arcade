@@ -3,7 +3,6 @@ import React from 'react';
 
 // Import CSS Stylesheet
 import "../../styles/main.css";
-// import "../../styles/main.css";
 
 class Home extends React.Component {
 	// Example Constructor
@@ -27,22 +26,22 @@ class Home extends React.Component {
                 <header>
                     <div id="logo_header">
                         {/* Used by Theme 2 */}
-                        <div id="row1" class="header-background"></div>
-                        <div id="row2" class="header-background"></div>
-                        <div id="row3" class="header-background"></div>
-                        <div id="row4" class="header-background"></div>
-                        <div id="row5" class="header-background"></div>
-                        <div id="row6" class="header-background"></div>
+                        <div id="row1" className="header-background"></div>
+                        <div id="row2" className="header-background"></div>
+                        <div id="row3" className="header-background"></div>
+                        <div id="row4" className="header-background"></div>
+                        <div id="row5" className="header-background"></div>
+                        <div id="row6" className="header-background"></div>
                         <p id="logo">
                             NUTTY ARCADE
                         </p>
-                        <div id="log-in-button-container" class="account-button-container">
-                            <button id="log-in-button" class="account-button">
+                        <div id="log-in-button-container" className="account-button-container">
+                            <button id="log-in-button" className="account-button">
                                 LOG IN
                             </button>
                         </div>
-                        <div id="register-button-container" class="account-button-container">
-                            <button id="register-button" class="account-button">
+                        <div id="register-button-container" className="account-button-container">
+                            <button id="register-button" className="account-button">
                                 REGISTER
                             </button>
                         </div>
@@ -54,33 +53,33 @@ class Home extends React.Component {
                     <div>
                         {/* Category */}
                     {/* Card Games */}
-                    <div class="category-container">
-                        <div id="card-games" class="page-category">CARD GAMES</div>
+                    <div className="category-container">
+                        <div id="card-games" className="page-category">CARD GAMES</div>
                     </div>
                     
                     {/* Game Browser */}
-                    <div id="card-games" class="game-browser">
+                    <div id="card-games" className="game-browser">
                         {/* Example Game Module */}
                         {/* Game Wrapper */}
-                        <div id="game-fish" class="game">
+                        <div id="game-fish" className="game">
                             {/* Game Menu */}
-                            <div id="fish-menu" class="game-menu">
+                            <div id="fish-menu" className="game-menu">
                                 {/* Thumbnail */}
-                                <div id="fish-thumbnail" class="thumbnail"></div>
+                                <div id="fish-thumbnail" className="thumbnail"></div>
                             </div>
                             {/* Game Information */}
-                            <div class="game-information">
+                            <div className="game-information">
                                 {/* Title */}
-                                <div class="game-title">FISH</div>
+                                <div className="game-title">FISH</div>
                                 {/* Play Button */}
-                                <div class="button-container">
-                                    <button class="play-button">PLAY NOW</button>
+                                <div className="button-container">
+                                    <button className="play-button">PLAY NOW</button>
                                 </div>
                                 {/* Player Count */}
-                                <div class="player-counter-container">
-                                    <div class="player-counter-title">PLAYERS ACTIVE</div>
+                                <div className="player-counter-container">
+                                    <div className="player-counter-title">PLAYERS ACTIVE</div>
                                     {/* Replace Below with JS Function */}
-                                    <div class="player-counter">
+                                    <div className="player-counter">
                                         5
                                     </div>
                                 </div>
@@ -93,32 +92,32 @@ class Home extends React.Component {
 
                     <div>
                         {/* Board Games */}
-                        <div class="category-container">
-                            <div id="board-games" class="page-category">BOARD GAMES</div>
+                        <div className="category-container">
+                            <div id="board-games" className="page-category">BOARD GAMES</div>
                         </div>
                         {/* Games Browser */}
-                        <div id="board-games" class="game-browser">
+                        <div id="board-games" className="game-browser">
                             {/* Example Game Module */}
                             {/* Game Wrapper */}
-                            <div id="game-pioneers" class="game">
+                            <div id="game-pioneers" className="game">
                                 {/* Game Menu */}
-                                <div id="pioneers-menu" class="game-menu">
+                                <div id="pioneers-menu" className="game-menu">
                                     {/* Thumbnail */}
-                                    <div id="pioneers-thumbnail" class="thumbnail"></div>
+                                    <div id="pioneers-thumbnail" className="thumbnail"></div>
                                 </div>
                                 {/* Game Information */}
-                                <div class="game-information">
+                                <div className="game-information">
                                     {/* Title */}
-                                    <div class="game-title">PIONEERS</div>
+                                    <div className="game-title">PIONEERS</div>
                                     {/* Play Button */}
-                                    <div class="button-container">
-                                        <button class="play-button">PLAY NOW</button>
+                                    <div className="button-container">
+                                        <button className="play-button">PLAY NOW</button>
                                     </div>
                                     {/* Player Count */}
-                                    <div class="player-counter-container">
-                                        <div class="player-counter-title">PLAYERS ACTIVE</div>
+                                    <div className="player-counter-container">
+                                        <div className="player-counter-title">PLAYERS ACTIVE</div>
                                         {/* Replace Below with JS Function */}
-                                        <div class="player-counter">
+                                        <div className="player-counter">
                                             15
                                         </div>
                                     </div>
@@ -131,32 +130,32 @@ class Home extends React.Component {
 
                     <div>
                         {/* Nutty Casino */}
-                        <div class="category-container">
-                            <div id="nutty-casino" class="page-category">NUTTY CASINO</div>
+                        <div className="category-container">
+                            <div id="nutty-casino" className="page-category">NUTTY CASINO</div>
                         </div>
                         {/* Games Browser */}
-                        <div id="board-games" class="game-browser">
+                        <div id="board-games" className="game-browser">
                             {/* Example Game Module */}
                             {/* Game Wrapper */}
-                            <div id="game-blackjack" class="game">
+                            <div id="game-blackjack" className="game">
                                 {/* Game Menu */}
-                                <div id="blackjack-menu" class="game-menu">
+                                <div id="blackjack-menu" className="game-menu">
                                     {/* Thumbnail */}
-                                    <div id="fish-thumbnail" class="thumbnail"></div>
+                                    <div id="fish-thumbnail" className="thumbnail"></div>
                                 </div>
                                 {/* Game Information */}
-                                <div class="game-information">
+                                <div className="game-information">
                                     {/* Title */}
-                                    <div class="game-title">BLACKJACK</div>
+                                    <div className="game-title">BLACKJACK</div>
                                     {/* Play Button */}
-                                    <div class="button-container">
-                                        <button class="play-button">PLAY NOW</button>
+                                    <div className="button-container">
+                                        <button className="play-button">PLAY NOW</button>
                                     </div>
                                     {/* Player Count */}
-                                    <div class="player-counter-container">
-                                        <div class="player-counter-title">PLAYERS ACTIVE</div>
+                                    <div className="player-counter-container">
+                                        <div className="player-counter-title">PLAYERS ACTIVE</div>
                                         {/* Replace Below with JS Function */}
-                                        <div class="player-counter">
+                                        <div className="player-counter">
                                             23
                                         </div>
                                     </div>
@@ -165,7 +164,6 @@ class Home extends React.Component {
                         </div>
                     </div>
                 </main>
-
                 <footer>
                     {/* Copyright Claim */}
                 </footer>
@@ -174,5 +172,5 @@ class Home extends React.Component {
     }
 }
   
-  export default Home;
+export default Home;
   
