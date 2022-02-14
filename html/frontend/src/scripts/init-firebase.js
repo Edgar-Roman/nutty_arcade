@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 
@@ -26,4 +26,4 @@ const firestore = getFirestore(app);
 
 console.log("Firebase Successfully Initialized.")
 
-export { app, auth, createUserWithEmailAndPassword, onAuthStateChanged };
+export { app, auth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword };
