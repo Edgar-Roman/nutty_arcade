@@ -7,6 +7,7 @@ const error_email_in_use = "auth/email-already-in-use";
 const error_weak_password = "auth/weak-password";
 
 const register_form = document.querySelector(".account-form-panel");
+console.log("completed")
 
 // Registration Submission Button Event
 register_form.addEventListener("submit", (e) => {

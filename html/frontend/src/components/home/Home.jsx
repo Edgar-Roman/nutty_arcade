@@ -5,7 +5,6 @@ import React from 'react';
 import "../../styles/main.css";
 
 class Home extends React.Component {
-	// Example Constructor
     constructor(props) {
         super(props);
         this.state = {
@@ -13,12 +12,6 @@ class Home extends React.Component {
         };
     }
 
-    // Example Method
-    handleClick() {
-		console.log('this is:', this);
-    }
-
-    // Example Render
 	render() {
         return (
             <div>
