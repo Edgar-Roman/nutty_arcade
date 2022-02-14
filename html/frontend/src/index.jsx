@@ -1,15 +1,22 @@
+// Import React
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./components/home/Home.jsx";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+
+// Import Components
+import Home from "./components/home/Home";
+import Register from "./components/account_form/Register"
 import Example from "./components/example/Example";
+
+// Import Scripts
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
     <React.StrictMode>
         <Router>
             <Routes>
-                <Route path="/" element={ <Home/> }/>
+                <Route path="/" element={ <Home /> }/>
+                <Route path="/register" element={ <Register /> }/>
             </Routes>
         </Router>
     </React.StrictMode>,
