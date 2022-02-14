@@ -9,6 +9,7 @@
 }
 
 #loading-message {
+    color: white;
     font-family: stormfaze;
     font-size: 100px;
 }

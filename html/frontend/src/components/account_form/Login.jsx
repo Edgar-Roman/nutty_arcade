@@ -6,11 +6,7 @@ import { Link, Navigate } from "react-router-dom"
 import "../../styles/main.css";
 
 // Import Firebase
-import { auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "../../scripts/init-firebase.js";
-
-// Constant Variables
-const error_email_in_use = "auth/email-already-in-use";
-const error_weak_password = "auth/weak-password";
+import { auth, signInWithEmailAndPassword } from "../../scripts/init-firebase.js";
 
 class Login extends React.Component {
     constructor(props) {
