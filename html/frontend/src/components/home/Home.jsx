@@ -1,19 +1,64 @@
 // Import React
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 // Import CSS Stylesheet
 import "../../styles/main.css";
+
+// Import Firebase
+import { auth } from "../../scripts/init-firebase.js";
+
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            example_state: 0
+            logged_in: false
         };
     }
 
+    show_login_button = () => {
+        return (
+            <div id="log-in-button-container" className="account-button-container">
+                <Link className="react-link" to="/login">
+                    <button id="log-in-button" className="account-button">LOG IN</button>
+                </Link> 
+            </div>
+        );
+    }
+
+    show_register_button = () => {
+        return(
+            <div id="register-button-container" className="account-button-container">
+                <Link className="react-link" to="/register">
+                    <button id="register-button" className="account-button">REGISTER</button>
+                </Link>
+            </div>
+        );
+    }
+
+    // is_user_logged_in = () => {
+    //     console.log("Checking if user is signed in...");
+    //     auth.onAuthStateChanged(user => {
+    //         console.log("This is the current user", user);
+    //         if (user) {
+    //             this.state.logged_in = true;
+    //         } else {
+    //             this.state.logged_in = false;
+    //         }
+    //     });
+    //     console.log(this.state.logged_in);
+    //     return this.state.logged_in;
+    // }
+
 	render() {
+        let user = auth.currentUser;
+        console.log(user);
+
+        if (user) {
+            this.state.logged_in = true;
+        }
+
         return (
             <div>
                 {/* Page Logo Header */}
@@ -26,19 +71,9 @@ class Home extends React.Component {
                         <div id="row4" className="header-background"></div>
                         <div id="row5" className="header-background"></div>
                         <div id="row6" className="header-background"></div>
-                        <p id="logo">
-                            NUTTY ARCADE
-                        </p>
-                        <div id="log-in-button-container" className="account-button-container">
-                            <Link className="react-link" to="/login">
-                                <button id="log-in-button" className="account-button">LOG IN</button>
-                            </Link> 
-                        </div>
-                        <div id="register-button-container" className="account-button-container">
-                            <Link className="react-link" to="/register">
-                                <button id="register-button" className="account-button">REGISTER</button>
-                            </Link>
-                        </div>
+                        <p id="logo">NUTTY ARCADE</p>
+                        { this.state.logged_in ? null: this.show_login_button() }
+                        { this.state.logged_in ? null: this.show_register_button() }
                         
                     </div>
                 </header>
@@ -162,7 +197,7 @@ class Home extends React.Component {
                     {/* Copyright Claim */}
                 </footer>
             </div>
-		);
+        );
     }
 }
   
