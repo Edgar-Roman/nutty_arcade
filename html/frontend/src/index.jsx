@@ -1,14 +1,14 @@
 // Import React
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 // Import Components
 import LoadingScreen from './components/loading_screen/LoadingScreen';
 import Home from "./components/home/Home";
 import Register from "./components/account_form/Register";
 import Login from "./components/account_form/Login";
-import Example from "./components/example/Example";
+// import Example from "./components/example/Example";
 
 // Import Scripts
 import { auth } from "./scripts/init-firebase.js";

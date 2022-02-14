@@ -40,7 +40,7 @@ class Register extends React.Component {
             // If Failed To Register User, Display Error Message
             // Error Codes Found Here: https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#createuserwithemailandpassword
             const error_code = error.code;
-            const error_message = error.message;
+            // const error_message = error.message;
             console.log(error_code);
 
             // If Email Is Already Registered
