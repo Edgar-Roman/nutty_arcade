@@ -12,9 +12,16 @@ import { auth } from "../../scripts/init-firebase.js";
 class Home extends React.Component {
     constructor(props) {
         super(props);
+        this.user = auth.currentUser;
         this.state = {
             logged_in: false
         };
+        
+        // Check if user is currently signed in
+        if (this.user) { this.state.logged_in = true; }
+
+        // Bind Functions
+        this.sign_user_out = this.sign_user_out.bind(this);
     }
 
     show_login_button = () => {
@@ -37,28 +44,23 @@ class Home extends React.Component {
         );
     }
 
-    // is_user_logged_in = () => {
-    //     console.log("Checking if user is signed in...");
-    //     auth.onAuthStateChanged(user => {
-    //         console.log("This is the current user", user);
-    //         if (user) {
-    //             this.state.logged_in = true;
-    //         } else {
-    //             this.state.logged_in = false;
-    //         }
-    //     });
-    //     console.log(this.state.logged_in);
-    //     return this.state.logged_in;
-    // }
+    show_logoff_button = () => {
+        return (
+            <div id="register-button-container" className="account-button-container">
+                <button id="log-out-button" className="account-button" onClick={this.sign_user_out}>LOG OFF</button>
+            </div>
+        )
+    }
+
+    sign_user_out(e) {
+        e.preventDefault();
+        auth.signOut().then(() => {
+            console.log("User Signed Out");
+        });
+        this.setState({ logged_in: false });
+    }
 
 	render() {
-        let user = auth.currentUser;
-        console.log(user);
-
-        if (user) {
-            this.state.logged_in = true;
-        }
-
         return (
             <div>
                 {/* Page Logo Header */}
@@ -72,7 +74,7 @@ class Home extends React.Component {
                         <div id="row5" className="header-background"></div>
                         <div id="row6" className="header-background"></div>
                         <p id="logo">NUTTY ARCADE</p>
-                        { this.state.logged_in ? null: this.show_login_button() }
+                        { this.state.logged_in ? this.show_logoff_button(): this.show_login_button() }
                         { this.state.logged_in ? null: this.show_register_button() }
                         
                     </div>

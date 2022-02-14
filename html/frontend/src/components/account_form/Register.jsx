@@ -68,9 +68,8 @@ class Register extends React.Component {
     }
 
 	render() {
-        const signed_in = this.state.signed_in;
-        console.log(this.state.signed_in);
-        if (signed_in) {
+        if (this.state.signed_in) {
+            console.log("User Signed In")
             return <Navigate to="/"/>;
         }
 

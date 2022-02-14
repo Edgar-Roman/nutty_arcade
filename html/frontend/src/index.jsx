@@ -14,11 +14,13 @@ import Example from "./components/example/Example";
 import { auth } from "./scripts/init-firebase.js";
 import reportWebVitals from './reportWebVitals';
 
+// Loading Screen
 ReactDOM.render(
     <LoadingScreen />,
     document.getElementById("root"),
 );
 
+// Wait For Authentication API To Finish Initialization
 auth.onAuthStateChanged(user => {
     console.log("Finished")
     ReactDOM.render(
