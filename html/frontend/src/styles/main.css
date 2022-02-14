@@ -5,6 +5,7 @@
 @import "./utils/scrollbar.css";
 
 /* Component Style Imports */
+@import "../components//loading_screen/loading_screen.css";
 @import "../components/home/home.css";
 @import "../components/account_form/account_form.css";
 

@@ -1,6 +1,6 @@
 // Import React
 import React from 'react';
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom";
 
 // Import CSS Stylesheet
 import "../../styles/main.css";
@@ -16,8 +16,9 @@ class Register extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            example_state: 0
+            signed_in: false
         };
+        this.register_user = this.register_user.bind(this);
     }
 
     // Registration Submission Button Event
@@ -31,8 +32,10 @@ class Register extends React.Component {
             // If Successfully Registered User
             console.log(user_credentials);
             register_form.reset();
-
+            
             // Change to Home Page
+            this.setState({ signed_in: true });
+            
         }).catch(error => {
             // If Failed To Register User, Display Error Message
             // Error Codes Found Here: https://firebase.google.com/docs/reference/js/v8/firebase.auth.Auth#createuserwithemailandpassword
@@ -65,6 +68,12 @@ class Register extends React.Component {
     }
 
 	render() {
+        const signed_in = this.state.signed_in;
+        console.log(this.state.signed_in);
+        if (signed_in) {
+            return <Navigate to="/"/>;
+        }
+
         return (
             <div>
                 {/* Header */}
