@@ -1,5 +1,6 @@
 // Import React
 import React from 'react';
+import { Link } from "react-router-dom";
 
 // Import CSS Stylesheet
 import "../../styles/main.css";
@@ -29,14 +30,14 @@ class Home extends React.Component {
                             NUTTY ARCADE
                         </p>
                         <div id="log-in-button-container" className="account-button-container">
-                            <button id="log-in-button" className="account-button">
-                                LOG IN
-                            </button>
+                            <Link className="react-link" to="/login">
+                                <button id="log-in-button" className="account-button">LOG IN</button>
+                            </Link> 
                         </div>
                         <div id="register-button-container" className="account-button-container">
-                            <button id="register-button" className="account-button">
-                                REGISTER
-                            </button>
+                            <Link className="react-link" to="/register">
+                                <button id="register-button" className="account-button">REGISTER</button>
+                            </Link>
                         </div>
                         
                     </div>

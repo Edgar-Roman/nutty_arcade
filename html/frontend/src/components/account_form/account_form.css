@@ -36,8 +36,6 @@
 .account-form-button {
     background-color: rgb(174, 0, 255);
     color: white;
-
-    text-decoration: none;
     width: 250px;
     height: 60px;
     border-radius: 50px;
@@ -82,14 +80,14 @@ button:disabled{
 .neonText {
     color: #fff;
     text-shadow:
-      0 0 7px #fff,
-      0 0 10px #fff,
-      0 0 21px #fff,
+      0 0 7px rgb(238, 238, 238),
+      0 0 10px rgb(185, 185, 185),
+      0 0 21px rgb(185, 185, 185),
       0 0 42px #f09,
       0 0 82px #f09,
       0 0 92px #f09,
-      0 0 102px #f09,
-      0 0 151px #f09;
+      0 0 102px rgb(255, 0, 221),
+      0 0 151px rgb(38, 0, 255);
 }
 
 .quickstart-user-details-container{

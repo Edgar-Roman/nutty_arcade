@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 // Import Components
 import Home from "./components/home/Home";
-import Register from "./components/account_form/Register"
+import Register from "./components/account_form/Register";
+import Login from "./components/account_form/Login";
 import Example from "./components/example/Example";
 
 // Import Scripts
@@ -17,6 +18,7 @@ ReactDOM.render(
             <Routes>
                 <Route path="/" element={ <Home /> }/>
                 <Route path="/register" element={ <Register /> }/>
+                <Route path="/login" element={ <Login /> }/>
             </Routes>
         </Router>
     </React.StrictMode>,

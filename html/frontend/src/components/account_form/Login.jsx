@@ -12,7 +12,7 @@ import { auth, createUserWithEmailAndPassword } from "../../scripts/init-firebas
 const error_email_in_use = "auth/email-already-in-use";
 const error_weak_password = "auth/weak-password";
 
-class Register extends React.Component {
+class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -69,7 +69,7 @@ class Register extends React.Component {
             <div>
                 {/* Header */}
                 <header className="account-form-header">
-                    <div className="neonText">REGISTER</div>
+                    <div className="neonText">LOGIN</div>
                 </header>
 
                 {/* Registration Panel */}
@@ -93,12 +93,12 @@ class Register extends React.Component {
                         <div className="account-form-spacer"></div>
                         {/* Submission Button */}
                         <div className="account-form-button-container">
-                            <button className="account-form-button" onClick={this.register_user}>Create Account</button>
+                            <button className="account-form-button" onClick={this.register_user}>Log-In</button>
                         </div>
                         {/* Switch To Login Button */}
                         <div className="account-form-button-container">
-                            <Link className="react-link" to="/login">
-                                <button className="account-form-button">Log-In Instead</button>
+                            <Link className="react-link" to="/register">
+                                <button className="account-form-button">Register Instead</button>
                             </Link>
                         </div>
                         {/* Go Back To Home */}
@@ -114,5 +114,5 @@ class Register extends React.Component {
     }
 }
   
-export default Register;
+export default Login;
   
