@@ -59,3 +59,6 @@ def passTurn():
     teammate = request.args.get('teammate')
     status = game.passTurn(0, int(teammate))
     return get_hand(status)
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", debug=True)
