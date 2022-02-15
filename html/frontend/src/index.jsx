@@ -8,6 +8,7 @@ import LoadingScreen from './components/loading_screen/LoadingScreen';
 import Home from "./components/home/Home";
 import Register from "./components/account_form/Register";
 import Login from "./components/account_form/Login";
+import Fish from "./components/fish_page/Fish"
 // import Example from "./components/example/Example";
 
 // Import Scripts
@@ -30,6 +31,7 @@ auth.onAuthStateChanged(user => {
                     <Route path="/" element={ <Home /> }/>
                     <Route path="/register" element={ <Register /> }/>
                     <Route path="/login" element={ <Login /> }/>
+                    <Route path="/fish" element={ <Fish/> }/>
                 </Routes>
             </Router>
         </React.StrictMode>,
