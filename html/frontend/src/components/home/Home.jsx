@@ -104,7 +104,9 @@ class Home extends React.Component {
                                 <div className="game-title">FISH</div>
                                 {/* Play Button */}
                                 <div className="button-container">
+                                <Link className="react-link" to="/fish">
                                     <button className="play-button">PLAY NOW</button>
+                                </Link>
                                 </div>
                                 {/* Player Count */}
                                 <div className="player-counter-container">
