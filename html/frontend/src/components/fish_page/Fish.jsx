@@ -5,11 +5,11 @@ class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            gameStarted: false,
             buttonWasClicked: '',
             message: '',
             handToDisplay: [],
-            /*['./cards/image_part_001.png', './cards/image_part_015.png'],*/
-            numCards: [],
+            numCards: [0, 0, 0, 0, 0, 0],
             teamScore: 0,
             opponentScore: 0,
             currentPlayer: 0,
@@ -27,6 +27,8 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
+          console.log(myJson.hand)
+          this.setState({gameStarted: true});
           this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
@@ -45,6 +47,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
+          console.log(myJson.hand);
           this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
@@ -75,6 +78,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
+          console.log(myJson.hand);
           this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
@@ -92,6 +96,7 @@ class Fish extends React.Component {
       	    return response.json();
         })
         .then((myJson) => {
+          console.log(myJson.hand);
           this.setState({message: myJson.status});
           this.setState({handToDisplay: myJson.hand});
           this.setState({numCards: myJson.numCards});
@@ -104,84 +109,185 @@ class Fish extends React.Component {
 
     render(){
         let cards = [];
-        var width = (100 / this.state.handToDisplay.length).toString() + '%';
         for (let i = 0; i < this.state.handToDisplay.length; i++){
             var card = require('' + this.state.handToDisplay[i]);
             cards[i] = <img key={i}
                             src={card}
-                            width="40px"
+                            width="30px"
                             height="auto"
                             />
         }
+
+        let history = [];
+        for (let i = 0; i < this.state.history.length; i++){
+            history.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[this.state.history.length - i - 1]}</li>);
+        }
+
         return(
             <div id="parent">
-                <p>
-                    message:
-                    {this.state.message},
-                    scores:
-                    {this.state.teamScore}, {this.state.opponentScore},
-                    number of cards:
-                    {this.state.numCards},
-                    current player:
-                    {this.state.currentPlayer},
-                    history:
-                    {this.state.history},
-                </p>
-                <div id="instructions">
-                    <h1> Display Hand </h1>
-                    <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
+                <div className="grid-container">
+                  <div className="header">
                     <br/>
-                </div>
-                <div id="container">
-                    <div id="circle">
+                    FISH
+                  </div>
+                  <div className="item2">
+                    {
+                    !this.state.gameStarted
+                    &&
+                    <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button>
+                    }
+                    {
+                    this.state.gameStarted
+                    &&
+                    <p>Current Player: {this.state.currentPlayer}</p>
+                    }
+                  </div>
+                  <div className="item3">
+                      <div id="circle">
                         <div id="small-circle">
                             <div id="smaller-circle">
                                 <div id="smallest-circle">
-                                    <div id= "player-hand">
+                                    <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                        </div>
+                                        <div className="player-id">
+                                            Player: 3
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[3]}
+                                        </div>
+                                    </div>
+                                    <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                        </div>
+                                        <div className="player-id">
+                                            Player: 4
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[4]}
+                                        </div>
+                                    </div>
+                                    <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                        </div>
+                                        <div className="player-id">
+                                            Player: 5
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[5]}
+                                        </div>
+                                    </div>
+                                    <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                        </div>
+                                        <div className="player-id">
+                                            Player: 1
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[1]}
+                                        </div>
+                                    </div>
+                                    <div className="player0">
                                         {cards}
+                                    </div>
+                                    <div className="player">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                        </div>
+                                        <div className="player-id">
+                                            Player: 2
+                                        </div>
+                                        <div className="player-cards">
+                                            Num Cards: {this.state.numCards[2]}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <button type="button" id="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
-                <button type="button" id="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
-                <button type="button" id="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
-                <p>
-                {
-                    this.state.buttonWasClicked === 'ask'
-                    &&
-                    <span>
-                        <input id="card" placeholder="Card"/>
-                        <input id="player" placeholder="Player"/>
-                        <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button>
-                    </span>
-                }
-                {
-                    this.state.buttonWasClicked === 'declare'
-                    &&
-                    <span>
-                        <input id="half-suit" placeholder="Half Suit"/>
-                        <input id="id1" placeholder="C1"/>
-                        <input id="id2" placeholder="C2"/>
-                        <input id="id3" placeholder="C3"/>
-                        <input id="id4" placeholder="C4"/>
-                        <input id="id5" placeholder="C5"/>
-                        <input id="id6" placeholder="C6"/>
-                        <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button>
-                    </span>
-                }
-                {
+                  </div>
+                  <div className="item4">
+                    <button type="button" id="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
+                    <button type="button" id="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
+                    <button type="button" id="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
+                      {
+                      this.state.buttonWasClicked === 'ask'
+                      &&
+                      <div>
+                        <div>
+                            <input id="card" placeholder="Card"/>
+                        </div>
+                        <div>
+                            <input id="player" placeholder="Player"/>
+                        </div>
+                        <div>
+                            <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button>
+                        </div>
+                        <p>{this.state.message}</p>
+                      </div>
+                      }
+                      {
+                      this.state.buttonWasClicked === 'declare'
+                      &&
+                      <div>
+                        <div>
+                            <input id="half-suit" placeholder="Half Suit"/>
+                        </div>
+                        <div>
+                            <input id="id1" placeholder="C1"/>
+                        </div>
+                        <div>
+                            <input id="id2" placeholder="C2"/>
+                        </div>
+                        <div>
+                            <input id="id3" placeholder="C3"/>
+                        </div>
+                        <div>
+                            <input id="id4" placeholder="C4"/>
+                        </div>
+                        <div>
+                            <input id="id5" placeholder="C5"/>
+                        </div>
+                        <div>
+                            <input id="id6" placeholder="C6"/>
+                        </div>
+                        <div>
+                            <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button>
+                        </div>
+                        <p>{this.state.message}</p>
+                    </div>
+                    }
+                    {
                     this.state.buttonWasClicked === 'pass'
                     &&
-                    <span>
-                        <input id="teammate" placeholder="Teammate"/>
-                        <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
-                    </span>
-                }
-
-                </p>
+                    <div>
+                        <div>
+                            <input id="teammate" placeholder="Teammate"/>
+                        </div>
+                        <div>
+                            <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
+                        </div>
+                        <p>{this.state.message}</p>
+                    </div>
+                    }
+                  </div>
+                  <div className="item5">
+                      <div className="score">{this.state.opponentScore}</div>
+                  </div>
+                  <div className="item6">
+                      <div className="score">{this.state.teamScore}</div>
+                  </div>
+                  <div className="item7">
+                  <p> History: </p>
+                      <div className="scroll">
+                        <ul>{history}</ul>
+                      </div>
+                  </div>
+                </div>
             </div>
         )
     }
