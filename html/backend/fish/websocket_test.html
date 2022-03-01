@@ -2,6 +2,7 @@
 <html>
 <head>
 <script>
+
 const websocket = new WebSocket("ws://localhost:5000/");
 
 function browser2server() {
@@ -9,12 +10,10 @@ function browser2server() {
     websocket.send(JSON.stringify(toServer));
 }
 
-function server2browser() {
-    websocket.addEventListener("message", ({data}) => {
-        const fromServer = JSON.parse(data);
-        document.getElementById("output").innerHTML = fromServer;
-    });
-}
+websocket.addEventListener("message", ({data}) => {
+    const fromServer = JSON.parse(data);
+    document.getElementById("output").innerHTML = JSON.stringify(fromServer);
+});
 
 </script>
 </head>
