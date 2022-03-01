@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+const websocket = new WebSocket("ws://localhost:8001/");
+
+function browser2server() {
+    const toServer = document.getElementById("textbox").value;
+    websocket.send(JSON.stringify(toServer));
+}
+
+function server2browser() {
+    websocket.addEventListener("message", ({data}) => {
+        const fromServer = JSON.parse(data);
+        document.getElementById("output").innerHTML = fromServer;
+    });
+}
+
+</script>
+</head>
+<body>
+
+<h2>Websocket Demo</h2>
+
+<input type="text" name="browser2server" class="textbox" value="" id="textbox"/>
+<input type="button" value="submit" OnClick="browser2server()"/>
+
+<p id="output label">Output below:</p>
+<p id="output"></p>
+
+</body>
+</html>
