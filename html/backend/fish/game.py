@@ -19,9 +19,10 @@ class Fish:
         # hard-coding human player, index + team-index as 0
         id = 0
         team_id = 0
-        self.id2p[id] = Player(id, team_id, is_computer=True)
+        self.id2p[id] = Player(id, team_id, is_computer=False)
+        self.id2p[1] = Player(1, team_id, is_computer=False)
         # computers
-        for id in range(1, self.num_players):
+        for id in range(2, self.num_players):
             team_id = (2 * id) // self.num_players
             self.id2p[id] = Player(id, team_id, is_computer=True)
         self.team_scores = [0, 0]
