@@ -1,4 +1,5 @@
 from game import Fish
+from players import Player
 from glob import glob
 
 import json
@@ -7,12 +8,11 @@ import asyncio
 import websockets
 import secrets
 
-game = None
+numHumanPlayers = 0
 
 JOIN = {}
 
-def get_hand(player, status=""):
-    global game
+def get_hand(game, player, status=""):
     hand, num_cards, teamScore, opponentScore, currentPlayer, history = game.getGameState(player)
     cards = [card[0] + str(card[1]) for card in hand]
     return {
@@ -26,23 +26,15 @@ def get_hand(player, status=""):
         "history": history
     }
 
-def start_game():
-    global game
-    game = Fish()
-    return get_hand()
-
-def askCard(player, card, other_player):
-    global game
+def askCard(game, player, card, other_player):
     status = game.askCard(card[0], int(card[1:]), player, int(other_player))
     return get_hand(status)
 
-def declareSuit(player, suit, id1, id2, id3, id4, id5, id6):
-    global game
+def declareSuit(game, player, suit, id1, id2, id3, id4, id5, id6):
     status = game.declareSuit(int(suit), player, int(id1), int(id2), int(id3), int(id4), int(id5), int(id6))
     return get_hand(status)
 
-def passTurn(player, teammate):
-    global game
+def passTurn(game, player, teammate):
     status = game.passTurn(player, int(teammate))
     return get_hand(status)
 
@@ -64,7 +56,7 @@ async def play(websocket, game, player, connected):
         if event["type"] == "askCard":
             card = event["card"]
             other_player = event["player"]
-            askCard(player, card, other_player)
+            askCard(game, player, card, other_player)
         elif event["type"] == "declareSuit":
             suit = event["suit"]
             id1 = event["id1"]
@@ -73,25 +65,29 @@ async def play(websocket, game, player, connected):
             id4 = event["id4"]
             id5 = event["id5"]
             id6 = event["id6"]
-            declareSuit(player, suit, id1, id2, id3, id4, id5, id6)
+            declareSuit(game, player, suit, id1, id2, id3, id4, id5, id6)
         elif event["type"] == "passTurn":
             teammate = event["teammate"]
-            passTurn(player, teammate)
+            passTurn(game, player, teammate)
         elif event["type"] == "getHand":
             pass
+        elif event["type"] == "startGame":
+            game = Fish(numHumanPlayers)
+            event = {"game":"started"}
+            websockets.broadcast(connected, json.dumps(event))
         else:
-            assert False # input wrong type?
-        for connection in connected:
-            gameState = get_hand(player)
-            await connection.send(json.dumps(gameState))
+            pass # input wrong type?
+        if game:
+            for i, connection in enumerate(connected):
+                gameState = get_hand(game, i)
+                await connection.send(json.dumps(gameState))
 
-async def start(websocket): # newer vewsion of start_game() ?
+async def createGame(websocket): # newer vewsion of start_game() ?
     """
     Handle a connection from the first player: start a new game.
     """
-    global game
-    game = Fish()
-    connected = {websocket}
+    game = None
+    connected = [websocket]
     
     join_key = secrets.token_urlsafe(12)
     JOIN[join_key] = game, connected
@@ -101,12 +97,14 @@ async def start(websocket): # newer vewsion of start_game() ?
         # where they'll be used for building "join" links
 
         event = {
-            "type": "init",
-            "join": join_key,
+            "type": "joinGame",
+            "join_key": join_key,
         }
         await websocket.send(json.dumps(event))
         # Receive and process moves from the first player.
         await play(websocket, game, 0, connected)
+        global numHumanPlayers
+        numHumanPlayers += 1
     finally:
         del JOIN[join_key]
     
@@ -122,21 +120,26 @@ async def join(websocket, join_key):
         return
 
     # Register to receive moves from this game
-    connected.add(websocket)
-    await play(websocket, game, 1, connected)
+    connected.append(websocket)
+    global numHumanPlayers
+    numHumanPlayers += 1
+    event = {"player_joined": numHumanPlayers}
+    websockets.broadcast(connected, json.dumps(event))
+    await play(websocket, game, numHumanPlayers, connected)
 
 async def handler(websocket):
     while True:
         message = await websocket.recv()
         event = json.loads(json.loads(message))
         print(type(event), event)
-        assert event["type"] == "init"
 
-        if "join" in event:
+        if event["type"] == "createGame":
+            await createGame(websocket);
+        elif event["type"] == "joinGame":
             # Second player joins an existing game
-            await join(websocket, event["join"])
+            await join(websocket, event["join_key"])
         else:
-            await start(websocket)
+            pass
 
 async def main():
     async with websockets.serve(handler, "", 5000):
