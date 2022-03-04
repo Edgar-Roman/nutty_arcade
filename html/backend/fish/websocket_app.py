@@ -12,6 +12,7 @@ numHumanPlayers = 0
 
 JOIN = {}
 
+
 def get_hand(game, player, status=""):
     hand, num_cards, teamScore, opponentScore, currentPlayer, history = game.getGameState(player)
     cards = [card[0] + str(card[1]) for card in hand]
@@ -26,17 +27,21 @@ def get_hand(game, player, status=""):
         "history": history
     }
 
+
 def askCard(game, player, card, other_player):
     status = game.askCard(card[0], int(card[1:]), player, int(other_player))
-    return get_hand(status)
+    return get_hand(game, player, status)
+
 
 def declareSuit(game, player, suit, id1, id2, id3, id4, id5, id6):
     status = game.declareSuit(int(suit), player, int(id1), int(id2), int(id3), int(id4), int(id5), int(id6))
     return get_hand(status)
 
+
 def passTurn(game, player, teammate):
     status = game.passTurn(player, int(teammate))
     return get_hand(status)
+
 
 async def error(websocket, message):
     event = {
@@ -44,6 +49,7 @@ async def error(websocket, message):
         "message": message,
     }
     await websocket.send(json.dumps(event))
+
 
 async def play(websocket, game, player, connected):
     """
@@ -82,6 +88,7 @@ async def play(websocket, game, player, connected):
                 gameState = get_hand(game, i)
                 await connection.send(json.dumps(gameState))
 
+
 async def createGame(websocket): # newer vewsion of start_game() ?
     """
     Handle a connection from the first player: start a new game.
@@ -107,7 +114,8 @@ async def createGame(websocket): # newer vewsion of start_game() ?
         numHumanPlayers += 1
     finally:
         del JOIN[join_key]
-    
+
+
 async def join(websocket, join_key):
     """
     Handle a connection from the second player: join an existing game
@@ -127,6 +135,7 @@ async def join(websocket, join_key):
     websockets.broadcast(connected, json.dumps(event))
     await play(websocket, game, numHumanPlayers, connected)
 
+
 async def handler(websocket):
     while True:
         message = await websocket.recv()
@@ -140,6 +149,7 @@ async def handler(websocket):
             await join(websocket, event["join_key"])
         else:
             pass
+
 
 async def main():
     async with websockets.serve(handler, "", 5000):
