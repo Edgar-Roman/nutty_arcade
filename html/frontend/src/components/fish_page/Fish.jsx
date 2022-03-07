@@ -189,8 +189,6 @@ class Fish extends React.Component {
         for (let i = 0; i < this.state.history.length; i++){
             history.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[this.state.history.length - i - 1]}</li>);
         }
-        console.log(this.state.currentPlayer);
-        console.log('playerID' + toString(this.state.playerID));
         return(
                 <div className="container">
                     <div className="score-1">
@@ -208,6 +206,27 @@ class Fish extends React.Component {
                                 <div className="table">
                                     <div className="cards">
                                         {cards}
+                                    </div>
+                                    <div className="seat-1">
+                                        <div className="player-pic">
+                                            <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                        </div>
+                                        <div className="player-name">
+                                            <br/>
+                                            Player 3
+                                        </div>
+                                    </div>
+                                    <div className="seat-2">
+                                        SEAT
+                                    </div>
+                                    <div className="seat-3">
+                                        SEAT
+                                    </div>
+                                    <div className="seat-4">
+                                        SEAT
+                                    </div>
+                                    <div className="seat-5">
+                                        SEAT
                                     </div>
                                     {!this.state.gameStarted &&
                                     <div className="start">
@@ -317,6 +336,14 @@ class Fish extends React.Component {
                                 <p>{this.state.message}</p>
                             </div>
                             }
+                          </div>
+                          <div className="history">
+                            <div className="history-header">
+                                <u>History</u>
+                            </div>
+                            <div className="last-action">
+                                {this.state.history[this.state.history.length - 1]}
+                            </div>
                           </div>
                     </div>
 
