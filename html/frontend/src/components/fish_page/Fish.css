@@ -133,7 +133,7 @@ button:disabled{
 
 .cards {
     grid-column: 2 / span 1;
-    grid-row: 3/ span 1;
+    grid-row: 2/ span 2;
 }
 
 .seat-1 {
@@ -146,21 +146,29 @@ button:disabled{
 .seat-2 {
     grid-column: 2 / span 1;
     grid-row: 1 / span 1;
+    display: grid;
+    grid-template-rows: [first] 50% [line2] 50% [end];
 }
 
 .seat-3 {
     grid-column: 3 / span 1;
     grid-row: 1 / span 1;
+    display: grid;
+    grid-template-rows: [first] 50% [line2] 50% [end];
 }
 
 .seat-4 {
     grid-column: 1 / span 1;
     grid-row: 3 / span 1;
+    display: grid;
+    grid-template-rows: [first] 50% [line2] 50% [end];
 }
 
 .seat-5 {
     grid-column: 3 / span 1;
     grid-row: 3 / span 1;
+    display: grid;
+    grid-template-rows: [first] 50% [line2] 50% [end];
 }
 
 .player-pic {
@@ -180,6 +188,7 @@ button:disabled{
     align-items: flex-start;
     justify-content: center;
     font-size: 1vw;
+    color: white;
 }
 
 img:hover {

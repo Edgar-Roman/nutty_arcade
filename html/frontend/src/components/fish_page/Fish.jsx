@@ -1,4 +1,5 @@
 import React from 'react';
+import Badge from '@material-ui/core/Badge';
 import './Fish.css';
 
 
@@ -189,6 +190,13 @@ class Fish extends React.Component {
         for (let i = 0; i < this.state.history.length; i++){
             history.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[this.state.history.length - i - 1]}</li>);
         }
+
+        const styles = theme => ({
+            margin: {
+              margin: theme.spacing.unit * 2,
+            }
+        });
+
         return(
                 <div className="container">
                     <div className="score-1">
@@ -205,11 +213,14 @@ class Fish extends React.Component {
                             <div className="table-2">
                                 <div className="table">
                                     <div className="cards">
+                                        <br/>
                                         {cards}
                                     </div>
                                     <div className="seat-1">
                                         <div className="player-pic">
-                                            <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                            <Badge badgeContent={this.state.numCards[3]} color="primary" showZero>
+                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                            </Badge>
                                         </div>
                                         <div className="player-name">
                                             <br/>
@@ -217,16 +228,48 @@ class Fish extends React.Component {
                                         </div>
                                     </div>
                                     <div className="seat-2">
-                                        SEAT
+                                        <div className="player-pic">
+                                            <Badge badgeContent={this.state.numCards[4]} color="primary" showZero>
+                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                            </Badge>
+                                        </div>
+                                        <div className="player-name">
+                                            <br/>
+                                            Player 4
+                                        </div>
                                     </div>
                                     <div className="seat-3">
-                                        SEAT
+                                        <div className="player-pic">
+                                            <Badge badgeContent={this.state.numCards[5]} color="primary" showZero>
+                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                            </Badge>
+                                        </div>
+                                        <div className="player-name">
+                                            <br/>
+                                            Player 5
+                                        </div>
                                     </div>
                                     <div className="seat-4">
-                                        SEAT
+                                        <div className="player-pic">
+                                            <Badge badgeContent={this.state.numCards[1]} color="primary" showZero>
+                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                            </Badge>
+                                        </div>
+                                        <div className="player-name">
+                                            <br/>
+                                            Player 1
+                                        </div>
                                     </div>
                                     <div className="seat-5">
-                                        SEAT
+                                        <div className="player-pic">
+                                            <Badge badgeContent={this.state.numCards[2]} color="primary" showZero>
+                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
+                                            </Badge>
+                                        </div>
+                                        <div className="player-name">
+                                            <br/>
+                                            Player 2
+                                        </div>
                                     </div>
                                     {!this.state.gameStarted &&
                                     <div className="start">
