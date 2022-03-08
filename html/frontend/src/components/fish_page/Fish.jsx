@@ -1,12 +1,14 @@
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import './Fish.css';
+import useSound from 'use-sound';
 
 
 class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            playersConnected: 1,
             waitingForHost: false,
             roomCode: 0,
             playerID: 0,
@@ -20,7 +22,15 @@ class Fish extends React.Component {
             currentPlayer: 0,
             history: [],
             websocket: new WebSocket("ws://localhost:5000/"),
-            gameExists: false
+            gameExists: false,
+            teamMap: {
+                       0: [1, 2, 3, 4, 5],
+                       1: [0, 2, 3, 4, 5],
+                       2: [0, 1, 3, 4, 5],
+                       3: [4, 5, 0, 1, 2],
+                       4: [3, 5, 0, 1, 2],
+                       5: [3, 4, 0, 1, 2]
+                      }
         };
     }
 
@@ -52,14 +62,13 @@ class Fish extends React.Component {
                roomCode.innerHTML = "Room Code: " + join_key;
                {this.setState({roomCode: join_key});}
             }
-            console.log(JSON.stringify(data))
+            if (data.player_joined){
+                {this.setState({playersConnected: this.state.playersConnected + 1})}
+            }
+            console.log(JSON.stringify(data));
         }
     }
 
-//     this.websocket.addEventListener("message", ({data}) => {
-//         const fromServer = JSON.parse(data);
-//         document.getElementById("output").innerHTML = JSON.stringify(fromServer);
-//     });
 
     browser2server() {
         const toServer = document.getElementById("textbox").value;
@@ -216,61 +225,65 @@ class Fish extends React.Component {
                                         <br/>
                                         {cards}
                                     </div>
-                                    <div className="seat-1">
-                                        <div className="player-pic">
-                                            <Badge badgeContent={this.state.numCards[3]} color="primary" showZero>
-                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
-                                            </Badge>
+                                    {this.state.gameStarted &&
+                                    <div className="seats">
+                                        <div className="seat-1">
+                                            <div className="player-pic">
+                                                <Badge badgeContent={this.state.numCards[3]} color="primary" showZero>
+                                                    <img className="icon" src={require('../../assets/images/red-icon.png')}/>
+                                                </Badge>
+                                            </div>
+                                            <div className="player-name">
+                                                <br/>
+                                                Player {this.state.teamMap[this.state.playerID][2]}
+                                            </div>
                                         </div>
-                                        <div className="player-name">
-                                            <br/>
-                                            Player 3
+                                        <div className="seat-2">
+                                            <div className="player-pic">
+                                                <Badge badgeContent={this.state.numCards[4]} color="primary" showZero>
+                                                    <img className="icon" src={require('../../assets/images/red-icon.png')}/>
+                                                </Badge>
+                                            </div>
+                                            <div className="player-name">
+                                                <br/>
+                                                Player {this.state.teamMap[this.state.playerID][3]}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="seat-2">
-                                        <div className="player-pic">
-                                            <Badge badgeContent={this.state.numCards[4]} color="primary" showZero>
-                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
-                                            </Badge>
+                                        <div className="seat-3">
+                                            <div className="player-pic">
+                                                <Badge badgeContent={this.state.numCards[5]} color="primary" showZero>
+                                                    <img className="icon" src={require('../../assets/images/red-icon.png')}/>
+                                                </Badge>
+                                            </div>
+                                            <div className="player-name">
+                                                <br/>
+                                                Player {this.state.teamMap[this.state.playerID][4]}
+                                            </div>
                                         </div>
-                                        <div className="player-name">
-                                            <br/>
-                                            Player 4
+                                        <div className="seat-4">
+                                            <div className="player-pic">
+                                                <Badge badgeContent={this.state.numCards[1]} color="primary" showZero>
+                                                    <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
+                                                </Badge>
+                                            </div>
+                                            <div className="player-name">
+                                                <br/>
+                                                Player {this.state.teamMap[this.state.playerID][0]}
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="seat-3">
-                                        <div className="player-pic">
-                                            <Badge badgeContent={this.state.numCards[5]} color="primary" showZero>
-                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
-                                            </Badge>
+                                        <div className="seat-5">
+                                            <div className="player-pic">
+                                                <Badge badgeContent={this.state.numCards[2]} color="primary" showZero>
+                                                    <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
+                                                </Badge>
+                                            </div>
+                                            <div className="player-name">
+                                                <br/>
+                                                Player {this.state.teamMap[this.state.playerID][1]}
+                                            </div>
                                         </div>
-                                        <div className="player-name">
-                                            <br/>
-                                            Player 5
-                                        </div>
-                                    </div>
-                                    <div className="seat-4">
-                                        <div className="player-pic">
-                                            <Badge badgeContent={this.state.numCards[1]} color="primary" showZero>
-                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
-                                            </Badge>
-                                        </div>
-                                        <div className="player-name">
-                                            <br/>
-                                            Player 1
-                                        </div>
-                                    </div>
-                                    <div className="seat-5">
-                                        <div className="player-pic">
-                                            <Badge badgeContent={this.state.numCards[2]} color="primary" showZero>
-                                                <img className="icon" src={require('../../assets/images/icon.png')}/>
-                                            </Badge>
-                                        </div>
-                                        <div className="player-name">
-                                            <br/>
-                                            Player 2
-                                        </div>
-                                    </div>
+                                     </div>
+                                    }
                                     {!this.state.gameStarted &&
                                     <div className="start">
                                         {!this.state.gameExists &&
@@ -299,13 +312,15 @@ class Fish extends React.Component {
                                                         <br/><br/>
                                                         <div>
                                                             <p id="room-code" onClick={()=> this.copyRoomCode()}></p>
+                                                            <br/>
+                                                            <p style={{color: "white"}}>Players: {this.state.playersConnected} / 6 </p>
                                                         </div>
                                                     </div>
                                                 }
                                             </div>
                                         }
                                         {this.state.waitingForHost &&
-                                            <h2>Waiting for host to start game...</h2>
+                                            <h2 className="loading">Waiting for host to start game</h2>
                                         }
                                     </div>
                                     }
@@ -389,179 +404,6 @@ class Fish extends React.Component {
                             </div>
                           </div>
                     </div>
-
-
-// {/*             <div id="parent"> */}
-// {/*                 <div className="grid-container"> */}
-// {/*                   <div className="header"> */}
-// {/*                     <br/> */}
-// {/*                     FISH */}
-// {/*                   </div> */}
-// {/*                   <div className="item2"> */}
-// {/*                     { */}
-// {/*                     !this.state.gameStarted */}
-// {/*                     && */}
-// {/*                     <button type="button" onClick={() => this.handleDisplayHand()}>Start Game</button> */}
-// {/*                     } */}
-// {/*                     { */}
-// {/*                     this.state.gameStarted */}
-// {/*                     && */}
-// {/*                     <p>Current Player: {this.state.currentPlayer}</p> */}
-// {/*                     } */}
-// {/*                   </div> */}
-// {/*                   <div className="item3"> */}
-// {/*                       <div id="circle"> */}
-// {/*                         <div id="small-circle"> */}
-// {/*                             <div id="smaller-circle"> */}
-// {/*                                 <div id="smallest-circle"> */}
-// {/*                                     <div className="player"> */}
-// {/*                                         <div className="player-pic"> */}
-// {/*                                             <img className="icon" src={require('../../assets/images/icon.png')}/> */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-id"> */}
-// {/*                                             Player: 3 */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-cards"> */}
-// {/*                                             Num Cards: {this.state.numCards[3]} */}
-// {/*                                         </div> */}
-// {/*                                     </div> */}
-// {/*                                     <div className="player"> */}
-// {/*                                         <div className="player-pic"> */}
-// {/*                                             <img className="icon" src={require('../../assets/images/icon.png')}/> */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-id"> */}
-// {/*                                             Player: 4 */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-cards"> */}
-// {/*                                             Num Cards: {this.state.numCards[4]} */}
-// {/*                                         </div> */}
-// {/*                                     </div> */}
-// {/*                                     <div className="player"> */}
-// {/*                                         <div className="player-pic"> */}
-// {/*                                             <img className="icon" src={require('../../assets/images/icon.png')}/> */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-id"> */}
-// {/*                                             Player: 5 */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-cards"> */}
-// {/*                                             Num Cards: {this.state.numCards[5]} */}
-// {/*                                         </div> */}
-// {/*                                     </div> */}
-// {/*                                     <div className="player"> */}
-// {/*                                         <div className="player-pic"> */}
-// {/*                                             <img className="icon" src={require('../../assets/images/icon.png')}/> */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-id"> */}
-// {/*                                             Player: 1 */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-cards"> */}
-// {/*                                             Num Cards: {this.state.numCards[1]} */}
-// {/*                                         </div> */}
-// {/*                                     </div> */}
-// {/*                                     <div className="player0"> */}
-// {/*                                         {cards} */}
-// {/*                                     </div> */}
-// {/*                                     <div className="player"> */}
-// {/*                                         <div className="player-pic"> */}
-// {/*                                             <img className="icon" src={require('../../assets/images/icon.png')}/> */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-id"> */}
-// {/*                                             Player: 2 */}
-// {/*                                         </div> */}
-// {/*                                         <div className="player-cards"> */}
-// {/*                                             Num Cards: {this.state.numCards[2]} */}
-// {/*                                         </div> */}
-// {/*                                     </div> */}
-// {/*                                 </div> */}
-// {/*                             </div> */}
-// {/*                         </div> */}
-// {/*                     </div> */}
-// {/*                   </div> */}
-// {/*                   <div className="item4"> */}
-// {/*                     <button type="button" id="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button> */}
-// {/*                     <button type="button" id="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button> */}
-// {/*                     <button type="button" id="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button> */}
-// {/*                       { */}
-// {/*                       this.state.buttonWasClicked === 'ask' */}
-// {/*                       && */}
-// {/*                       <div> */}
-// {/*                         <div> */}
-// {/*                             <input id="card" placeholder="Card"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <input id="player" placeholder="Player"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button> */}
-// {/*                         </div> */}
-// {/*                         <p>{this.state.message}</p> */}
-// {/*                       </div> */}
-// {/*                       } */}
-// {/*                       { */}
-// {/*                       this.state.buttonWasClicked === 'declare' */}
-// {/*                       && */}
-// {/*                       <div> */}
-// {/*                         <div> */}
-// {/*                             <input id="half-suit" placeholder="Half Suit"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <input id="id1" placeholder="C1"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <input id="id2" placeholder="C2"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <input id="id3" placeholder="C3"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <input id="id4" placeholder="C4"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <input id="id5" placeholder="C5"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <input id="id6" placeholder="C6"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button> */}
-// {/*                         </div> */}
-// {/*                         <p>{this.state.message}</p> */}
-// {/*                     </div> */}
-// {/*                     } */}
-// {/*                     { */}
-// {/*                     this.state.buttonWasClicked === 'pass' */}
-// {/*                     && */}
-// {/*                     <div> */}
-// {/*                         <div> */}
-// {/*                             <input id="teammate" placeholder="Teammate"/> */}
-// {/*                         </div> */}
-// {/*                         <div> */}
-// {/*                             <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button> */}
-// {/*                         </div> */}
-// {/*                         <p>{this.state.message}</p> */}
-// {/*                     </div> */}
-// {/*                     } */}
-// {/*                   </div> */}
-// {/*                   <div className="item5"> */}
-// {/*                       <div className="score">{this.state.opponentScore}</div> */}
-// {/*                   </div> */}
-// {/*                   <div className="item6"> */}
-// {/*                       <div className="score">{this.state.teamScore}</div> */}
-// {/*                   </div> */}
-// {/*                   <div className="item7"> */}
-// {/*                   <p> History: </p> */}
-// {/*                       <div className="scroll"> */}
-// {/*                         <ul>{history}</ul> */}
-// {/*                       </div> */}
-// {/*                   </div> */}
-// {/*                 </div> */}
-// {/*                 <h2>Websocket Demo</h2> */}
-// {/*                 <input type="text" name="browser2server" className="textbox" defaultValue="" id="textbox"/> */}
-// {/*                 <input type="button" value="submit" onClick={() => this.browser2server()}/> */}
-//
-// {/*                 <p id="output label">Output below:</p> */}
-// {/*                 <p id="output"></p> */}
-// {/*             </div> */}
         )
     }
 }
