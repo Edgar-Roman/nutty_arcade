@@ -59,10 +59,11 @@ async def play(websocket, game, player, connected):
         # parse input from UI
         event = json.loads(json.loads(message))
         print(type(event), event)
+        gameState = None
         if event["type"] == "askCard":
             card = event["card"]
             other_player = event["player"]
-            askCard(game, player, card, other_player)
+            gameState = askCard(game, player, card, other_player)
         elif event["type"] == "declareSuit":
             suit = event["suit"]
             id1 = event["id1"]
@@ -71,12 +72,12 @@ async def play(websocket, game, player, connected):
             id4 = event["id4"]
             id5 = event["id5"]
             id6 = event["id6"]
-            declareSuit(game, player, suit, id1, id2, id3, id4, id5, id6)
+            gameState = declareSuit(game, player, suit, id1, id2, id3, id4, id5, id6)
         elif event["type"] == "passTurn":
             teammate = event["teammate"]
-            passTurn(game, player, teammate)
+            gameState = passTurn(game, player, teammate)
         elif event["type"] == "getHand":
-            pass
+            gameState = get_hand(game, player)
         elif event["type"] == "startGame":
             game = Fish(numHumanPlayers)
             event = {"game":"started"}
@@ -85,7 +86,8 @@ async def play(websocket, game, player, connected):
             pass # input wrong type?
         if game:
             for i, connection in enumerate(connected):
-                gameState = get_hand(game, i)
+                if i != player:
+                    gameState = get_hand(game, i)
                 await connection.send(json.dumps(gameState))
 
 
