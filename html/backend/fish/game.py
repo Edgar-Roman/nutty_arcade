@@ -84,9 +84,9 @@ class Fish:
         # update history
         suit_name = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple', 'Grey', 'Brown', 'Black'][suit]
         if declare_correct:
-            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " declares " + suit_name + " correctly."
+            last_action = str(len(self.history) + 1) + ": " + self.names[declare_id] + " declares " + suit_name + " correctly."
         else:
-            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " declares " + suit_name + " incorrectly."
+            last_action = str(len(self.history) + 1) + ": " + self.names[declare_id] + " declares " + suit_name + " incorrectly."
         self.history.append(last_action)
 
 
@@ -143,9 +143,9 @@ class Fish:
             self.current_player = player_questioned
         # update history
         if got_card:
-            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " takes " + str(suit) + str(number) + " from Player " + str(id2) + "."
+            last_action = str(len(self.history) + 1) + ": " + self.names[id1] + " takes " + str(suit) + str(number) + " from " + self.names[id2] + "."
         else:
-            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
+            last_action = str(len(self.history) + 1) + ": " + self.names[id1] + " asks for " + str(suit) + str(number) + " from " + self.names[id2] + "."
         self.history.append(last_action)
         # follow-up computer actions
         self.checkComputerDeclares()
@@ -166,7 +166,7 @@ class Fish:
             return "Error: must pass to someone with cards" # implies you can't pass to yourself
 
         # update history
-        last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " passes turn to Player " + str(id2) + "."
+        last_action = str(len(self.history) + 1) + ": " + self.names[id1] + " passes turn to " + self.names[id2] + "."
         self.history.append(last_action)
 
         # update information to computer that player is out of cards
