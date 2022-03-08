@@ -17,14 +17,14 @@ class Fish:
         # initialize players and teams
         self.id2p = {}
         self.names = []
-        # hard-coding human player, index + team-index as 0
+        assert len(names) == self.num_players # surely
         for id in range(len(names)):
-            self.id2p[id] = Player(id, id//3, is_computer=False)
-            self.names.append(names[id])
-        # computers
-        for id in range(len(names), self.num_players):
-            self.id2p[id] = Player(id, id//3, is_computer=True)
-            self.names.append("Computer " + str(id))
+            if names[id]: # player
+                self.id2p[id] = Player(id, id//3, is_computer=False)
+                self.names.append(names[id])
+            else: # computer
+                self.id2p[id] = Player(id, id//3, is_computer=True)
+                self.names.append("Computer " + str(id))
         self.team_scores = [0, 0]
         # setup the game
         self.history = []
@@ -46,15 +46,17 @@ class Fish:
 
     #
     def getGameState(self, id):
-        player = self.id2p[id]
         hand = []
-        for fish_card in player.get_hand():
-            hand.append(self.convertToNormalCard(fish_card))
+        team_id = 0
+        if id != -1: # not a spectator
+            player = self.id2p[id]
+            team_id = player.team_id
+            for fish_card in player.get_hand():
+                hand.append(self.convertToNormalCard(fish_card))
         num_cards = []
         for id in range(self.num_players):
             num_cards.append(self.id2p[id].num_cards)
         score = self.team_scores
-        team_id = player.team_id
         current_player = self.current_player.id
         history = self.history
         return hand, num_cards, score[team_id], score[1-team_id], current_player, history
