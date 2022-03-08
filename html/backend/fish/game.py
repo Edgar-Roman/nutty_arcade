@@ -6,7 +6,7 @@ import numpy as np
 
 class Fish:
     # to do: add teams later
-    def __init__(self, numHumanPlayers=0):
+    def __init__(self, numHumanPlayers=0, names=[]):
         self.terminated = False
         # initialize deck + game constants
         self.num_players = 6
@@ -16,12 +16,15 @@ class Fish:
         self.hand_size_public = True
         # initialize players and teams
         self.id2p = {}
+        self.names = []
         # hard-coding human player, index + team-index as 0
         for id in range(numHumanPlayers):
             self.id2p[id] = Player(id, id//3, is_computer=False)
+            self.names.append(names[id])
         # computers
         for id in range(numHumanPlayers, self.num_players):
             self.id2p[id] = Player(id, id//3, is_computer=True)
+            self.names.append("Computer " + id)
         self.team_scores = [0, 0]
         # setup the game
         self.history = []
