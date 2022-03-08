@@ -350,15 +350,15 @@ class Fish extends React.Component {
                               &&
                               <div className="input">
                                 <select name="suits" id="id_suits" multiple>
-                                  <option className="red" value="Red"></option>
-                                  <option className="orange" value="Orange"></option>
-                                  <option className="yellow" value="Yellow"></option>
-                                  <option className="green" value="Green"></option>
-                                  <option className="blue" value="Blue"></option>
-                                  <option className="purple" value="Purple"></option>
-                                  <option className="grey" value="Grey"></option>
-                                  <option className="brown" value="Brown"></option>
-                                  <option className="black" value="Black"></option>
+                                  <option className="red" value="0"></option>
+                                  <option className="orange" value="1"></option>
+                                  <option className="yellow" value="2"></option>
+                                  <option className="green" value="3"></option>
+                                  <option className="blue" value="4"></option>
+                                  <option className="purple" value="5"></option>
+                                  <option className="grey" value="6"></option>
+                                  <option className="brown" value="7"></option>
+                                  <option className="black" value="8"></option>
                                 </select>
                                 <br/>
                                 <select name="players" id="id1">
@@ -390,9 +390,9 @@ class Fish extends React.Component {
                             this.state.buttonWasClicked === 'pass'
                             &&
                             <div className="input">
-                                <div>
-                                    <input id="teammate" placeholder="Teammate"/>
-                                </div>
+                                <select name="players" id="teammate">
+                                  {teammates}
+                                </select>
                                 <div>
                                     <br/>
                                     <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
