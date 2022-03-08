@@ -165,7 +165,7 @@ class Fish extends React.Component {
             opponents.push(<option className="white" key={i + 1} value={i}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
 
-        let teammates = [<option className="white" key={3} value={i}>{this.state.names[this.state.playerID]}</option>];
+        let teammates = [<option className="white" key={3} value={this.state.playerID}>{this.state.names[this.state.playerID]}</option>];
         for (let i = 0; i < 2; i ++){
             teammates.push(<option className="white" key={i + 1} value={i}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
