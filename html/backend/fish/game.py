@@ -82,7 +82,7 @@ class Fish:
             player.remove_hs(suit)
         self.suits_declared[suit] = True
         # update history
-        suit_name = ["LC", "HC", "LD", "HD", "LH", "HH", "LS", "HS", "8J"][suit]
+        suit_name = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple', 'Grey', 'Brown', 'Black'][suit]
         if declare_correct:
             last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " declares " + suit_name + " correctly."
         else:
