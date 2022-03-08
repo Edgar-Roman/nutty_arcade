@@ -82,6 +82,7 @@ async def play(websocket, game, player, connected):
             game = Fish(numHumanPlayers)
             event = {"game":"started"}
             websockets.broadcast(connected, json.dumps(event))
+            gameState = get_hand(game, player)
         else:
             pass # input wrong type?
         if game:
