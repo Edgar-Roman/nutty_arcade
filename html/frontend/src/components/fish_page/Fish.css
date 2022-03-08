@@ -208,7 +208,7 @@ img:hover {
   grid-column: 7 / span 1;
   grid-row: 4 / span 4;
   grid-template-columns: [first] 6.25% [line1] 25% [line2] 6.25% [line3] 25% [line4] 6.25% [line5] 25% [line6] 6.25% [end];
-  grid-template-rows: [first] 10% [line1] 10% [line2] 10% [line3] auto [line4] 5% [end];
+  grid-template-rows: [first] 10% [line1] 10% [line2] 5% [line3] auto [line4] 5% [end];
   background-color: rgba(245,245,245, 0.7);
   border-radius: 20px;
 }
@@ -310,17 +310,17 @@ img:hover {
     width: 10vw;
 }
 
-#id_work_days{
+#id_suits, #id_ranks{
   height: 5vh;
   border: none;
   overflow: hidden;
   background-color: rgba(255,255,255, 0);
 }
-#id_work_days::-moz-focus-inner {
+#id_suits::-moz-focus-inner {
   border: 0;
 }
 
-#id_work_days option{
+#id_suits option, #id_ranks option{
   width: 1vw;
   padding: 0.01vh 0;
   text-align: center;
@@ -329,6 +329,10 @@ img:hover {
   cursor: pointer;
   border:rgb(204, 204, 0) solid 1px;
   border-radius: 5px;
+}
+
+#id_players {
+    padding: 0.01vh 0;
 }
 
 .red {
@@ -365,4 +369,8 @@ img:hover {
 
 .black {
     background-color: #000000;
+}
+
+.white {
+    background-color: #FFFFFF;
 }

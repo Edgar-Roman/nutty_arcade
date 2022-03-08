@@ -8,6 +8,7 @@ class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            names: [],
             playersConnected: 1,
             waitingForHost: false,
             roomCode: 0,
@@ -53,6 +54,7 @@ class Fish extends React.Component {
             var playerID = data.playerID;
             var join_key = data.join_key;
             var status = data.status;
+            var names = data.names;
             if (hand) { this.setState({handToDisplay: hand});}
             if (game) { this.setState({gameStarted: true}); }
             if (numCards) {this.setState({numCards: numCards});}
@@ -62,6 +64,7 @@ class Fish extends React.Component {
             if (playerID) {this.setState({playerID: playerID});}
             if (currentPlayer) {this.setState({currentPlayer: currentPlayer});}
             if (status) {this.setState({status: status});}
+            if (names) {this.setState({names: names});}
             if (join_key) {
                var roomCode = document.getElementById("room-code");
                roomCode.innerHTML = "Room Code: " + join_key;
@@ -99,6 +102,8 @@ class Fish extends React.Component {
     }
 
     startGame() {
+        const hostName = document.getElementById("host-name").value;
+        this.state.websocket.send(JSON.stringify('{"type":"startGame"}'));
         this.setState({ gameStarted: true});
     }
 
@@ -112,21 +117,23 @@ class Fish extends React.Component {
     }
 
     handleAsk(){
-        var card = document.getElementById('card').value;
-        var player = document.getElementById('player').value;
+        var suit = document.getElementsByName("suits")[0].value;
+        var rank = document.getElementsByName("ranks")[0].value;
+        var card = suit + rank;
+        var player = document.getElementsByName("players")[0].value;
         this.state.websocket.send(JSON.stringify('{"type":"askCard","card":"' + card + '","player":"' + player + '"}'));
         this.clearInputs();
     }
 
     handleDeclare(){
-        var halfSuit = document.getElementById('half-suit').value;
+        var suit = document.getElementsByName("suits")[0].value;
         var id1 = document.getElementById('id1').value;
         var id2 = document.getElementById('id2').value;
         var id3 = document.getElementById('id3').value;
         var id4 = document.getElementById('id4').value;
         var id5 = document.getElementById('id5').value;
         var id6 = document.getElementById('id6').value;
-        this.state.websocket.send(JSON.stringify('{"type":"declareSuit","suit":"' + halfSuit + '","id1":"' + id1 + '","id2":"' + id2 + '","id3":"' + id3 + '","id4":"' + id4 + '","id5":"' + id5 + '","id6":"' + id6 + '"}'));
+        this.state.websocket.send(JSON.stringify('{"type":"declareSuit","suit":"' + suit + '","id1":"' + id1 + '","id2":"' + id2 + '","id3":"' + id3 + '","id4":"' + id4 + '","id5":"' + id5 + '","id6":"' + id6 + '"}'));
         this.clearInputs();
     }
 
@@ -151,6 +158,16 @@ class Fish extends React.Component {
         let history = [];
         for (let i = 0; i < this.state.history.length; i++){
             history.push(<li className="history-li" key={this.state.history[i]}>{this.state.history[this.state.history.length - i - 1]}</li>);
+        }
+
+        let opponents = [];
+        for (let i = 2; i < 5; i++){
+            opponents.push(<option className="white" key={i + 1} value={i}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
+        }
+
+        let teammates = [<option className="white" key={3} value={i}>{this.state.names[this.state.playerID]}</option>];
+        for (let i = 0; i < 2; i ++){
+            teammates.push(<option className="white" key={i + 1} value={i}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
 
         const styles = theme => ({
@@ -188,7 +205,7 @@ class Fish extends React.Component {
                                             </div>
                                             <div className="player-name">
                                                 <br/>
-                                                Player {this.state.teamMap[this.state.playerID][2]}
+                                                {this.state.names[this.state.teamMap[this.state.playerID][2]]}
                                             </div>
                                         </div>
                                         <div className="seat-2">
@@ -199,7 +216,7 @@ class Fish extends React.Component {
                                             </div>
                                             <div className="player-name">
                                                 <br/>
-                                                Player {this.state.teamMap[this.state.playerID][3]}
+                                                {this.state.names[this.state.teamMap[this.state.playerID][3]]}
                                             </div>
                                         </div>
                                         <div className="seat-3">
@@ -210,7 +227,7 @@ class Fish extends React.Component {
                                             </div>
                                             <div className="player-name">
                                                 <br/>
-                                                Player {this.state.teamMap[this.state.playerID][4]}
+                                                {this.state.names[this.state.teamMap[this.state.playerID][4]]}
                                             </div>
                                         </div>
                                         <div className="seat-4">
@@ -221,7 +238,7 @@ class Fish extends React.Component {
                                             </div>
                                             <div className="player-name">
                                                 <br/>
-                                                Player {this.state.teamMap[this.state.playerID][0]}
+                                                {this.state.names[this.state.teamMap[this.state.playerID][0]]}
                                             </div>
                                         </div>
                                         <div className="seat-5">
@@ -232,7 +249,7 @@ class Fish extends React.Component {
                                             </div>
                                             <div className="player-name">
                                                 <br/>
-                                                Player {this.state.teamMap[this.state.playerID][1]}
+                                                {this.state.names[this.state.teamMap[this.state.playerID][1]]}
                                             </div>
                                         </div>
                                      </div>
@@ -258,7 +275,6 @@ class Fish extends React.Component {
                                                     }
                                                 {this.state.buttonWasClicked == 'join' &&
                                                     <div>
-
                                                         <input type="text" className="textbox" placeholder="Name" id="name"/>
                                                         <br/><br/>
                                                         <input type="text" className="textbox" placeholder="Room Code" id="join"/>
@@ -299,25 +315,31 @@ class Fish extends React.Component {
                               {this.state.buttonWasClicked === 'ask'
                               &&
                               <div className="input">
-                                <select name="work_days" id="id_work_days" multiple>
-                                  <option className="red" value="1"></option>
-                                  <option className="orange" value="2"></option>
-                                  <option className="yellow" value="3"></option>
-                                  <option className="green" value="4"></option>
-                                  <option className="blue" value="5"></option>
-                                  <option className="purple" value="6"></option>
-                                  <option className="grey" value="7"></option>
-                                  <option className="brown" value="8"></option>
-                                  <option className="black" value="9"></option>
+                                <select name="suits" id="id_suits" multiple>
+                                  <option className="red" value="Red"></option>
+                                  <option className="orange" value="Orange"></option>
+                                  <option className="yellow" value="Yellow"></option>
+                                  <option className="green" value="Green"></option>
+                                  <option className="blue" value="Blue"></option>
+                                  <option className="purple" value="Purple"></option>
+                                  <option className="grey" value="Grey"></option>
+                                  <option className="brown" value="Brown"></option>
+                                  <option className="black" value="Black"></option>
                                 </select>
+                                <select name="ranks" id="id_ranks" multiple>
+                                  <option className="white" value="1">1</option>
+                                  <option className="white" value="2">2</option>
+                                  <option className="white" value="3">3</option>
+                                  <option className="white" value="4">4</option>
+                                  <option className="white" value="5">5</option>
+                                  <option className="white" value="6">6</option>
+                                </select>
+                                <br/>
+                                <select name="players" id="id_players">
+                                  {opponents}
+                                </select>
+                                <br/>
                                 <div>
-                                    <input id="card" placeholder="Card"/>
-                                </div>
-                                <div>
-                                    <input id="player" placeholder="Player"/>
-                                </div>
-                                <div>
-                                    <br/>
                                     <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button>
                                 </div>
                                 <p>{this.state.message}</p>
@@ -327,27 +349,36 @@ class Fish extends React.Component {
                               this.state.buttonWasClicked === 'declare'
                               &&
                               <div className="input">
-                                <div>
-                                    <input id="half-suit" placeholder="Half Suit"/>
-                                </div>
-                                <div>
-                                    <input id="id1" placeholder="C1"/>
-                                </div>
-                                <div>
-                                    <input id="id2" placeholder="C2"/>
-                                </div>
-                                <div>
-                                    <input id="id3" placeholder="C3"/>
-                                </div>
-                                <div>
-                                    <input id="id4" placeholder="C4"/>
-                                </div>
-                                <div>
-                                    <input id="id5" placeholder="C5"/>
-                                </div>
-                                <div>
-                                    <input id="id6" placeholder="C6"/>
-                                </div>
+                                <select name="suits" id="id_suits" multiple>
+                                  <option className="red" value="Red"></option>
+                                  <option className="orange" value="Orange"></option>
+                                  <option className="yellow" value="Yellow"></option>
+                                  <option className="green" value="Green"></option>
+                                  <option className="blue" value="Blue"></option>
+                                  <option className="purple" value="Purple"></option>
+                                  <option className="grey" value="Grey"></option>
+                                  <option className="brown" value="Brown"></option>
+                                  <option className="black" value="Black"></option>
+                                </select>
+                                <br/>
+                                <select name="players" id="id1">
+                                  {teammates}
+                                </select>
+                                <select name="players" id="id2">
+                                  {teammates}
+                                </select>
+                                <select name="players" id="id3">
+                                  {teammates}
+                                </select>
+                                <select name="players" id="id4">
+                                  {teammates}
+                                </select>
+                                <select name="players" id="id5">
+                                  {teammates}
+                                </select>
+                                <select name="players" id="id6">
+                                  {teammates}
+                                </select>
                                 <div>
                                     <br/>
                                     <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button>
