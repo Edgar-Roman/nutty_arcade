@@ -8,8 +8,6 @@ import asyncio
 import websockets
 import secrets
 
-numHumanPlayers = 0
-
 JOIN = {}
 
 
@@ -80,7 +78,7 @@ async def play(websocket, game, player, connected, names, name):
         elif event["type"] == "getHand":
             gameState = get_hand(game, player)
         elif event["type"] == "startGame":
-            game = Fish(numHumanPlayers, names)
+            game = Fish(names)
             event = {"game":"started"}
             for connection in connected:
                 if connection: # not None
@@ -116,8 +114,6 @@ async def createGame(websocket, name): # newer vewsion of start_game() ?
         }
         await websocket.send(json.dumps(event))
         # Receive and process moves from the first player.
-        global numHumanPlayers
-        numHumanPlayers += 1
         await play(websocket, game, 0, connected, names, name)
     finally:
         pass
@@ -146,13 +142,11 @@ async def join(websocket, join_key, name):
     else:        
         connected.append(websocket)
         names.append(name)
-        global numHumanPlayers
-        numHumanPlayers += 1
-        event = {"player_joined": numHumanPlayers}
+        event = {"player_joined": len(names) - 1}
         for connection in connected:
             if connection: # not None
                 await connection.send(json.dumps(event))
-        await play(websocket, game, numHumanPlayers, connected, names, name)
+        await play(websocket, game, len(names) - 1, connected, names, name)
 
 
 async def handler(websocket):
