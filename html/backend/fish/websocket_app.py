@@ -205,6 +205,10 @@ async def handler(websocket):
                             print(names[name_index] + " left a running game they were a part of")
                     else:
                         takeASeat(None, websocket_index, names, -1) #you snooze, you lose
+                        event = {"names": names}
+                        for connection in connected:
+                            if connection:
+                                await connection.send(json.dumps(event))
             break
 
 
