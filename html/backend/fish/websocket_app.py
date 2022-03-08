@@ -30,7 +30,7 @@ def get_hand(game, player, status=""):
 
 
 def askCard(game, player, card, other_player):
-    status = game.askCard(card[0], int(card[1:]), player, int(other_player))
+    status = game.askCard(card[:-1], int(card[-1]), player, int(other_player))
     return get_hand(game, player, status)
 
 
