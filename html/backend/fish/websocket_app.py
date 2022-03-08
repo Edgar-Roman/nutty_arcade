@@ -116,9 +116,9 @@ async def createGame(websocket, name): # newer vewsion of start_game() ?
         }
         await websocket.send(json.dumps(event))
         # Receive and process moves from the first player.
-        await play(websocket, game, 0, connected, names, name)
         global numHumanPlayers
         numHumanPlayers += 1
+        await play(websocket, game, 0, connected, names, name)
     finally:
         pass
         # del JOIN[join_key]

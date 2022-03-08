@@ -24,7 +24,7 @@ class Fish:
         # computers
         for id in range(numHumanPlayers, self.num_players):
             self.id2p[id] = Player(id, id//3, is_computer=True)
-            self.names.append("Computer " + id)
+            self.names.append("Computer " + str(id))
         self.team_scores = [0, 0]
         # setup the game
         self.history = []
