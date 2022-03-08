@@ -251,9 +251,11 @@ class Fish extends React.Component {
                                                     <button type="button" id="join-game-button" onClick={(e) => this.handleButtonClick('join', e)}>Join Game!</button>
                                                 {this.state.buttonWasClicked == 'join' &&
                                                     <div>
-                                                        <br/>
-                                                        <input type="text" className="textbox" placeholder="Room Code" id="join"/>
+                                                        <br/><br/>
                                                         <input type="text" className="textbox" placeholder="Name" id="name"/>
+
+                                                        <input type="text" className="textbox" placeholder="Room Code" id="join"/>
+
                                                         <input type="button" value="Join!" style={{cursor:'pointer'}} onClick={() => this.joinGame()}/>
                                                     </div>
                                                 }

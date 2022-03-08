@@ -305,3 +305,7 @@ img:hover {
 #join, #name{
     width: 7vw;
 }
+
+#host-name {
+    width: 7vw;
+}
