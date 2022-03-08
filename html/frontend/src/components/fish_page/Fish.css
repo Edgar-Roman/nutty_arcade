@@ -338,7 +338,7 @@ img:hover {
   border-radius: 5px;
 }
 
-#id_suits option:checked {
+#id_suits option:checked, #id_ranks option:checked {
     transform: scale(1.5);
 }
 
@@ -384,12 +384,4 @@ img:hover {
 
 .white {
     background-color: #FFFFFF;
-}
-
-#id-suits option::selection {
-    background: transparent;
-}
-
-#id-suits option::-moz-selection {
-    background: transparent;
 }

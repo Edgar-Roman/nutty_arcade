@@ -325,7 +325,7 @@ class Fish extends React.Component {
                               {this.state.buttonWasClicked === 'ask'
                               &&
                               <div className="input">
-                                <select>
+                                <select name="suits" id="id_suits" multiple>
                                   <option className="red" value="Red"></option>
                                   <option className="orange" value="Orange"></option>
                                   <option className="yellow" value="Yellow"></option>
