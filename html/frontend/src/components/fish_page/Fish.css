@@ -200,7 +200,7 @@ button:disabled{
 }
 
 img:hover {
-    transform: scale(1.5);
+    transform: scale(1.5) !important;
 }
 
 .menu {
@@ -307,5 +307,62 @@ img:hover {
 }
 
 #host-name {
-    width: 7vw;
+    width: 10vw;
+}
+
+#id_work_days{
+  height: 5vh;
+  border: none;
+  overflow: hidden;
+  background-color: rgba(255,255,255, 0);
+}
+#id_work_days::-moz-focus-inner {
+  border: 0;
+}
+
+#id_work_days option{
+  width: 1vw;
+  padding: 0.01vh 0;
+  text-align: center;
+  margin: 0.5vw;
+  display: inline-block;
+  cursor: pointer;
+  border:rgb(204, 204, 0) solid 1px;
+  border-radius: 5px;
+}
+
+.red {
+    background-color: red;
+}
+
+.orange {
+    background-color: #ff9900;
+}
+
+.yellow {
+    background-color: #ffff00;
+}
+
+.green {
+    background-color: #00b050;
+}
+
+.blue {
+    background-color: #00b0f0;
+}
+
+.purple {
+    background-color: #7030a0;
+}
+
+.grey {
+    background-color: #7f7f7f;
+}
+
+.brown {
+    background-color: #843c0c;
+}
+
+.black {
+    background-color: #000000;
 }

@@ -19,7 +19,7 @@ def get_hand(game, player, status=""):
     return {
         "status": status,
         "playerID": player,
-        "hand": ['./cards/' + card + '.png' for card in cards],
+        "hand": ['./fish_cards/' + card + '.png' for card in cards],
         "numCards": [int(num) for num in num_cards],
         "teamScore": teamScore,
         "opponentScore": opponentScore,
