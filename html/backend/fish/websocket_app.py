@@ -173,7 +173,7 @@ async def handler(websocket):
                 await join(websocket, event["join_key"], event["name"])
             else:
                 pass
-        except websockets.ConnectionClosedOK:
+        except (websockets.ConnectionClosedOK, websockets.ConnectionClosedError):
             print("someone left")
             for join_key, (game, connected, names) in JOIN.items():
                 if websocket in connected:
