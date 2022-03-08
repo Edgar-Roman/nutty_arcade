@@ -80,7 +80,8 @@ class Fish extends React.Component {
     }
 
     createGame() {
-        this.state.websocket.send(JSON.stringify('{"type":"createGame"}'));
+        const hostName = document.getElementById("host-name").value;
+        this.state.websocket.send(JSON.stringify('{"type":"createGame", "name":"' + hostName + '"}'));
         this.setState({ gameExists: true });
     }
 
@@ -98,8 +99,6 @@ class Fish extends React.Component {
     }
 
     startGame() {
-        const hostName = document.getElementById("host-name").value;
-        this.state.websocket.send(JSON.stringify('{"type":"startGame", "name":"' + hostName + '"}'));
         this.setState({ gameStarted: true});
     }
 
@@ -240,7 +239,11 @@ class Fish extends React.Component {
                                     }
                                     {!this.state.gameStarted &&
                                     <div className="start">
-                                        {!this.state.gameExists &&
+                                        { !(this.state.buttonWasClicked == 'join') &&
+                                        <input type="text" className="textbox" placeholder="Name" id="host-name"/>
+                                        }
+                                        <br/>
+                                        {!this.state.gameExists && !(this.state.buttonWasClicked === 'join') &&
                                             <div className="create-game">
                                                 <button type="button" id="create-game-button" onClick={() => this.createGame()}>Create Game!</button>
                                                 <br/><br/>
@@ -248,14 +251,18 @@ class Fish extends React.Component {
                                         }
                                         {!this.state.gameExists &&
                                             <div className="join-game">
-                                                    <button type="button" id="join-game-button" onClick={(e) => this.handleButtonClick('join', e)}>Join Game!</button>
+                                                    {!(this.state.buttonWasClicked == 'join') &&
+                                                    <div>
+                                                        <button type="button" id="join-game-button" onClick={(e) => this.handleButtonClick('join', e)}>Join Game!</button>
+                                                    </div>
+                                                    }
                                                 {this.state.buttonWasClicked == 'join' &&
                                                     <div>
-                                                        <br/><br/>
+
                                                         <input type="text" className="textbox" placeholder="Name" id="name"/>
-
+                                                        <br/><br/>
                                                         <input type="text" className="textbox" placeholder="Room Code" id="join"/>
-
+                                                        <br/><br/>
                                                         <input type="button" value="Join!" style={{cursor:'pointer'}} onClick={() => this.joinGame()}/>
                                                     </div>
                                                 }
@@ -265,8 +272,6 @@ class Fish extends React.Component {
                                             <div className="start-game">
                                                 {!this.state.gameStarted &&
                                                     <div>
-                                                        <input type="text" className="textbox" placeholder="Name" id="host-name"/>
-                                                        <br/><br/>
                                                         <button type="button" id="start-game-button" onClick={() => this.startGame()}>Start Game!</button>
                                                         <br/><br/>
                                                         <div>
@@ -294,6 +299,17 @@ class Fish extends React.Component {
                               {this.state.buttonWasClicked === 'ask'
                               &&
                               <div className="input">
+                                <select name="work_days" id="id_work_days" multiple>
+                                  <option className="red" value="1"></option>
+                                  <option className="orange" value="2"></option>
+                                  <option className="yellow" value="3"></option>
+                                  <option className="green" value="4"></option>
+                                  <option className="blue" value="5"></option>
+                                  <option className="purple" value="6"></option>
+                                  <option className="grey" value="7"></option>
+                                  <option className="brown" value="8"></option>
+                                  <option className="black" value="9"></option>
+                                </select>
                                 <div>
                                     <input id="card" placeholder="Card"/>
                                 </div>
