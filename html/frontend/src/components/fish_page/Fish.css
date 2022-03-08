@@ -144,6 +144,13 @@ button:disabled{
     grid-row: 1 / span 3;
 }
 
+.seat-main {
+    display: grid;
+    grid-column: 2 / span 1;
+    grid-row: 3 / span 1;
+    grid-template-rows: [first] 70% [line2] auto [end];
+}
+
 .seat-1 {
     display: grid;
     grid-column: 1 / span 1;
@@ -331,6 +338,10 @@ img:hover {
   border-radius: 5px;
 }
 
+#id_suits option:checked {
+    transform: scale(1.5);
+}
+
 #id_players {
     padding: 0.01vh 0;
 }
@@ -373,4 +384,12 @@ img:hover {
 
 .white {
     background-color: #FFFFFF;
+}
+
+#id-suits option::selection {
+    background: transparent;
+}
+
+#id-suits option::-moz-selection {
+    background: transparent;
 }

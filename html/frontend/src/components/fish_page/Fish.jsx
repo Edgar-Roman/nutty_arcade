@@ -102,7 +102,6 @@ class Fish extends React.Component {
     }
 
     startGame() {
-        const hostName = document.getElementById("host-name").value;
         this.state.websocket.send(JSON.stringify('{"type":"startGame"}'));
         this.setState({ gameStarted: true});
     }
@@ -162,7 +161,7 @@ class Fish extends React.Component {
 
         let opponents = [];
         for (let i = 2; i < 5; i++){
-            opponents.push(<option className="white" key={i + 1} value={i}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
+            opponents.push(<option className="white" key={i} value={i + 1}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
 
         let teammates = [<option className="white" key={3} value={this.state.playerID}>{this.state.names[this.state.playerID]}</option>];
@@ -197,6 +196,17 @@ class Fish extends React.Component {
                                     </div>
                                     {this.state.gameStarted &&
                                     <div className="seats">
+                                        <div className="seat-main">
+                                            <div className="player-pic">
+                                                <Badge badgeContent={this.state.numCards[this.state.playerID]} color="primary" showZero>
+                                                    <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
+                                                </Badge>
+                                            </div>
+                                            <div className="player-name">
+                                                <br/>
+                                                {this.state.names[this.state.playerID]}
+                                            </div>
+                                        </div>
                                         <div className="seat-1">
                                             <div className="player-pic">
                                                 <Badge badgeContent={this.state.numCards[3]} color="primary" showZero>
@@ -256,7 +266,7 @@ class Fish extends React.Component {
                                     }
                                     {!this.state.gameStarted &&
                                     <div className="start">
-                                        { !(this.state.buttonWasClicked == 'join') &&
+                                        { !(this.state.buttonWasClicked == 'join') && !(this.state.gameExists) &&
                                         <input type="text" className="textbox" placeholder="Name" id="host-name"/>
                                         }
                                         <br/>
@@ -291,7 +301,7 @@ class Fish extends React.Component {
                                                         <button type="button" id="start-game-button" onClick={() => this.startGame()}>Start Game!</button>
                                                         <br/><br/>
                                                         <div>
-                                                            <p id="room-code" onClick={()=> this.copyRoomCode()}></p>
+                                                            <p id="room-code" /* onClick={()=> this.copyRoomCode()}*/></p>
                                                             <br/>
                                                             <p style={{color: "white"}}>Players: {this.state.playersConnected} / 6 </p>
                                                         </div>
@@ -315,7 +325,7 @@ class Fish extends React.Component {
                               {this.state.buttonWasClicked === 'ask'
                               &&
                               <div className="input">
-                                <select name="suits" id="id_suits" multiple>
+                                <select>
                                   <option className="red" value="Red"></option>
                                   <option className="orange" value="Orange"></option>
                                   <option className="yellow" value="Yellow"></option>
