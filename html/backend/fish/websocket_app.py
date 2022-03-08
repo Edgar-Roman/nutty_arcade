@@ -24,7 +24,8 @@ def get_hand(game, player, status=""):
         "teamScore": teamScore,
         "opponentScore": opponentScore,
         "currentPlayer": currentPlayer,
-        "history": history
+        "history": history,
+        "names": game.names,
     }
 
 
@@ -51,7 +52,7 @@ async def error(websocket, message):
     await websocket.send(json.dumps(event))
 
 
-async def play(websocket, game, player, connected, name):
+async def play(websocket, game, player, connected, names, name):
     """
     Receive and process moves from a player.
     """
@@ -79,7 +80,7 @@ async def play(websocket, game, player, connected, name):
         elif event["type"] == "getHand":
             gameState = get_hand(game, player)
         elif event["type"] == "startGame":
-            game = Fish(numHumanPlayers)
+            game = Fish(numHumanPlayers, names)
             event = {"game":"started"}
             for connection in connected:
                 if connection: # not None
@@ -115,7 +116,7 @@ async def createGame(websocket, name): # newer vewsion of start_game() ?
         }
         await websocket.send(json.dumps(event))
         # Receive and process moves from the first player.
-        await play(websocket, game, 0, connected, name)
+        await play(websocket, game, 0, connected, names, name)
         global numHumanPlayers
         numHumanPlayers += 1
     finally:
@@ -141,7 +142,7 @@ async def join(websocket, join_key, name):
         else:
             connected[name_index] = websocket
             print(name + " rejoined")
-            await play(websocket, game, name_index, connected, name)
+            await play(websocket, game, name_index, connected, names, name)
     else:        
         connected.append(websocket)
         names.append(name)
@@ -151,7 +152,7 @@ async def join(websocket, join_key, name):
         for connection in connected:
             if connection: # not None
                 await connection.send(json.dumps(event))
-        await play(websocket, game, numHumanPlayers, connected, name)
+        await play(websocket, game, numHumanPlayers, connected, names, name)
 
 
 async def handler(websocket):
@@ -160,10 +161,11 @@ async def handler(websocket):
             message = await websocket.recv()
             event = json.loads(json.loads(message))
             print(type(event), event)
-            assert("name" in event)
             if event["type"] == "createGame":
+                assert("name" in event)
                 await createGame(websocket, event["name"]);
             elif event["type"] == "joinGame":
+                assert("name" in event)
                 # Second player joins an existing game
                 await join(websocket, event["join_key"], event["name"])
             else:
