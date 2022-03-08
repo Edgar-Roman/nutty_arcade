@@ -40,6 +40,9 @@ class Fish extends React.Component {
         }
         this.state.websocket.onmessage = evt => {
             const data = JSON.parse(evt.data)
+
+            console.log(data);
+
             var hand = data.hand;
             var game = data.game;
             var numCards = data.numCards;
@@ -47,8 +50,9 @@ class Fish extends React.Component {
             var opponentScore = data.opponentScore;
             var history = data.history;
             var currentPlayer = data.currentPlayer;
-            var playerID = data.playerID
-            var join_key = data.join_key
+            var playerID = data.playerID;
+            var join_key = data.join_key;
+            var status = data.status;
             if (hand) { this.setState({handToDisplay: hand});}
             if (game) { this.setState({gameStarted: true}); }
             if (numCards) {this.setState({numCards: numCards});}
@@ -57,6 +61,7 @@ class Fish extends React.Component {
             if (history) {this.setState({history: history});}
             if (playerID) {this.setState({playerID: playerID});}
             if (currentPlayer) {this.setState({currentPlayer: currentPlayer});}
+            if (status) {this.setState({status: status});}
             if (join_key) {
                var roomCode = document.getElementById("room-code");
                roomCode.innerHTML = "Room Code: " + join_key;
@@ -65,7 +70,6 @@ class Fish extends React.Component {
             if (data.player_joined){
                 {this.setState({playersConnected: this.state.playersConnected + 1})}
             }
-            console.log(JSON.stringify(data));
         }
     }
 
@@ -87,18 +91,17 @@ class Fish extends React.Component {
 
     joinGame() {
         const key = document.getElementById("join").value;
-        console.log('{"type":"joinGame","join_key":' + key + '}');
-        this.state.websocket.send(JSON.stringify('{"type":"joinGame","join_key":"' + key + '"}'));
+        const name = document.getElementById("name").value;
+        this.state.websocket.send(JSON.stringify('{"type":"joinGame","join_key":"' + key + '","name":"' + name + '"}'));
         this.setState({ gameExists: true });
         this.setState({ waitingForHost: true });
     }
 
     startGame() {
-        this.state.websocket.send(JSON.stringify('{"type":"startGame"}'));
+        const hostName = document.getElementById("host-name").value;
+        this.state.websocket.send(JSON.stringify('{"type":"startGame", "name":"' + hostName + '"}'));
         this.setState({ gameStarted: true});
     }
-
-
 
     handleButtonClick(buttonName, event) {
         this.setState({ buttonWasClicked: buttonName });
@@ -107,24 +110,6 @@ class Fish extends React.Component {
     clearInputs(){
         var elements = document.getElementsByTagName("input");
         for (var i=0; i < elements.length; i++) { if (elements[i].type == "text") { elements[i].value = ""; } }
-    }
-
-    handleDisplayHand(){
-      	fetch('http://127.0.0.1:5000/start_game')
-        .then((response) => {
-      	    return response.json();
-        })
-        .then((myJson) => {
-          console.log(myJson.hand)
-          this.setState({gameStarted: true});
-          this.setState({message: myJson.status});
-          this.setState({handToDisplay: myJson.hand});
-          this.setState({numCards: myJson.numCards});
-          this.setState({teamScore: myJson.teamScore});
-          this.setState({opponentScore: myJson.opponentScore});
-          this.setState({currentPlayer: myJson.currentPlayer});
-          this.setState({history: myJson.history});
-        });
     }
 
     handleAsk(){
@@ -142,45 +127,14 @@ class Fish extends React.Component {
         var id4 = document.getElementById('id4').value;
         var id5 = document.getElementById('id5').value;
         var id6 = document.getElementById('id6').value;
-        fetch('http://127.0.0.1:5000/declareSuit?suit=' + halfSuit
-         + '&id1=' + id1
-         + '&id2=' + id2
-         + '&id3=' + id3
-         + '&id4=' + id4
-         + '&id5=' + id5
-         + '&id6=' + id6
-         )
-        .then((response) => {
-      	    return response.json();
-        })
-        .then((myJson) => {
-          console.log(myJson.hand);
-          this.setState({message: myJson.status});
-          this.setState({handToDisplay: myJson.hand});
-          this.setState({numCards: myJson.numCards});
-          this.setState({teamScore: myJson.teamScore});
-          this.setState({opponentScore: myJson.opponentScore});
-          this.setState({currentPlayer: myJson.currentPlayer});
-          this.setState({history: myJson.history});
-        });
+        this.state.websocket.send(JSON.stringify('{"type":"declareSuit","suit":"' + halfSuit + '","id1":"' + id1 + '","id2":"' + id2 + '","id3":"' + id3 + '","id4":"' + id4 + '","id5":"' + id5 + '","id6":"' + id6 + '"}'));
+        this.clearInputs();
     }
 
     handlePass(){
         var teammate = document.getElementById('teammate').value;
-      	fetch('http://127.0.0.1:5000/passTurn?teammate=' + teammate)
-        .then((response) => {
-      	    return response.json();
-        })
-        .then((myJson) => {
-          console.log(myJson.hand);
-          this.setState({message: myJson.status});
-          this.setState({handToDisplay: myJson.hand});
-          this.setState({numCards: myJson.numCards});
-          this.setState({teamScore: myJson.teamScore});
-          this.setState({opponentScore: myJson.opponentScore});
-          this.setState({currentPlayer: myJson.currentPlayer});
-          this.setState({history: myJson.history});
-        });
+        this.state.websocket.send(JSON.stringify('{"type":"passTurn","teammate":"' + teammate + '"}'));
+        this.clearInputs();
     }
 
     render(){
@@ -299,6 +253,7 @@ class Fish extends React.Component {
                                                     <div>
                                                         <br/>
                                                         <input type="text" className="textbox" placeholder="Room Code" id="join"/>
+                                                        <input type="text" className="textbox" placeholder="Name" id="name"/>
                                                         <input type="button" value="Join!" style={{cursor:'pointer'}} onClick={() => this.joinGame()}/>
                                                     </div>
                                                 }
@@ -308,6 +263,8 @@ class Fish extends React.Component {
                                             <div className="start-game">
                                                 {!this.state.gameStarted &&
                                                     <div>
+                                                        <input type="text" className="textbox" placeholder="Name" id="host-name"/>
+                                                        <br/><br/>
                                                         <button type="button" id="start-game-button" onClick={() => this.startGame()}>Start Game!</button>
                                                         <br/><br/>
                                                         <div>

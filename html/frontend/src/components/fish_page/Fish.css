@@ -301,3 +301,7 @@ img:hover {
   align-items: center;
   justify-content: space-evenly;
 }
+
+#join, #name{
+    width: 7vw;
+}

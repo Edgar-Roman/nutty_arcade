@@ -35,12 +35,12 @@ def askCard(game, player, card, other_player):
 
 def declareSuit(game, player, suit, id1, id2, id3, id4, id5, id6):
     status = game.declareSuit(int(suit), player, int(id1), int(id2), int(id3), int(id4), int(id5), int(id6))
-    return get_hand(status)
+    return get_hand(game, player, status)
 
 
 def passTurn(game, player, teammate):
     status = game.passTurn(player, int(teammate))
-    return get_hand(status)
+    return get_hand(game, player, status)
 
 
 async def error(websocket, message):
@@ -80,7 +80,7 @@ async def play(websocket, game, player, connected):
             gameState = get_hand(game, player)
         elif event["type"] == "startGame":
             game = Fish(numHumanPlayers)
-            event = {"game":"started"}
+            event = {"game": "started"}
             websockets.broadcast(connected, json.dumps(event))
             gameState = get_hand(game, player)
         else:
