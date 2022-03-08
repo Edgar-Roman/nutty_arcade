@@ -194,8 +194,25 @@ class Fish:
             card = self.convertToNormalCard(card)
             self.askCard(card[0], card[1], computer.id, next_id)
 
+    # should take normal suit/number and convert it into card corresponding to tuple: (half-suit, value)
+    def convertToFishCard(self, normal_card):
+        suit = normal_card[0] # color
+        number = normal_card[1] # 1,2,3,4,5,6
+        hs = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple', 'Grey', 'Brown', 'Black'].index(suit)
+        value = number - 1
+        fish_card = (hs, value)
+        return fish_card
 
+    # should take fish_card (hs, value) and convert it into card
+    def convertToNormalCard(self, fish_card):
+        hs = fish_card[0]
+        value = fish_card[1]
+        suit = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple', 'Grey', 'Brown', 'Black'][hs]
+        number = value + 1
+        normal_card = (suit, number)
+        return normal_card
 
+    """
     # should take normal suit/number and convert it into card corresponding to tuple: (half-suit, value)
     def convertToFishCard(self, normal_card):
         suit = normal_card[0]
@@ -242,6 +259,8 @@ class Fish:
                 number = value - 4
         normal_card = (suit, number)
         return normal_card
+    """
+
 
     # TODO:
     def getID(self):
