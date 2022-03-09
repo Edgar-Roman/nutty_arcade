@@ -205,7 +205,7 @@ class Fish extends React.Component {
                                     <div className="seats">
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-main-button">
-                                            <button type="button" onClick={() => this.takeSeat(1)}>Sit</button>
+                                            <button type="button" disabled={this.state.names[1]} onClick={() => this.takeSeat(1)}>Sit</button>
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -223,7 +223,7 @@ class Fish extends React.Component {
                                         }
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-1-button">
-                                            <button type="button" onClick={() => this.takeSeat(3)}>Sit</button>
+                                            <button type="button" disabled={this.state.names[3]} onClick={() => this.takeSeat(3)}>Sit</button>
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -241,7 +241,7 @@ class Fish extends React.Component {
                                         }
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-2-button">
-                                            <button type="button" onClick={() => this.takeSeat(4)}>Sit</button>
+                                            <button type="button" disabled={this.state.names[4]} onClick={() => this.takeSeat(4)}>Sit</button>
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -259,7 +259,7 @@ class Fish extends React.Component {
                                         }
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-3-button">
-                                            <button type="button" onClick={() => this.takeSeat(5)}>Sit</button>
+                                            <button type="button" disabled={this.state.names[5]} onClick={() => this.takeSeat(5)}>Sit</button>
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -277,7 +277,7 @@ class Fish extends React.Component {
                                         }
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-4-button">
-                                            <button type="button" onClick={() => this.takeSeat(0)}>Sit</button>
+                                            <button type="button" disabled={this.state.names[0]} onClick={() => this.takeSeat(0)}>Sit</button>
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -295,7 +295,7 @@ class Fish extends React.Component {
                                         }
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-5-button">
-                                            <button type="button" onClick={() => this.takeSeat(2)}>Sit</button>
+                                            <button type="button" disabled={this.state.names[2]} onClick={() => this.takeSeat(2)}>Sit</button>
                                         </div>
                                         }
                                         {this.state.gameStarted &&
