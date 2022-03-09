@@ -98,7 +98,7 @@ async def play(websocket, join_key, websocket_id, name):
             assert game == None # before game
             seat_id = event["seat_id"]
             takeASeat(name, websocketid2id, websocket_id, names, int(seat_id))
-            event = {"names": names}
+            event = {"names": names, "names_count": len(names) - names.count(None)}
             for connection in connected:
                 if connection:
                     await connection.send(json.dumps(event))
@@ -135,7 +135,6 @@ async def createGame(websocket, name): # newer vewsion of start_game() ?
         event = {
             "type": "joinGame",
             "join_key": join_key,
-            "names": names,
         }
         await websocket.send(json.dumps(event))
         # Receive and process moves from the first player.
@@ -176,7 +175,7 @@ async def join(websocket, join_key, name):
             gameState = get_hand(game, SPECTATOR_SEAT)
             await websocket.send(json.dumps(gameState))
         else:
-            event = {"client connected": len(connected), "names":names}
+            event = {"client connected": len(connected), "names":names, "name_count": len(names) - names.count(None)}
             for connection in connected:
                 if connection:
                     await connection.send(json.dumps(event))
@@ -211,7 +210,7 @@ async def handler(websocket):
                             print(names[name_index] + " left a running game they were a part of")
                     else:
                         takeASeat(None, websocketid2id, websocket_index, names, SPECTATOR_SEAT) #you snooze, you lose
-                        event = {"names": names}
+                        event = {"names": names, "name_count": len(names) - names.count(None)}
                         for connection in connected:
                             if connection:
                                 await connection.send(json.dumps(event))
