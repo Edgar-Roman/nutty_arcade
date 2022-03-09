@@ -9,7 +9,6 @@ import websockets
 import secrets
 
 JOIN = {}
-websocketid2id = {}
 
 SPECTATOR_SEAT = 6
 
@@ -43,8 +42,7 @@ def passTurn(game, player, teammate):
     status = game.passTurn(player, int(teammate))
     return get_hand(game, player, status)
 
-def takeASeat(name, websocket_id, names, seat_id): # young skywalker
-    global websocketid2id
+def takeASeat(name, websocketid2id, websocket_id, names, seat_id): # young skywalker
     old_seat = websocketid2id[websocket_id]
     if old_seat != SPECTATOR_SEAT: # switched seats
         names[old_seat] = None
@@ -65,8 +63,8 @@ async def play(websocket, join_key, websocket_id, name):
     Receive and process moves from a player.
     """
     async for message in websocket:
+        game, connected, names, names_left, websocketid2id = JOIN[join_key]
         player = websocketid2id[websocket_id]
-        game, connected, names, names_left = JOIN[join_key]
         # parse input from UI
         event = json.loads(json.loads(message))
         print(type(event), event)
@@ -91,7 +89,7 @@ async def play(websocket, join_key, websocket_id, name):
             gameState = get_hand(game, player)
         elif event["type"] == "startGame":
             game = Fish(names)
-            JOIN[join_key] = game, connected, names, names_left
+            JOIN[join_key] = game, connected, names, names_left, websocketid2id
             event = {"game":"started"}
             for connection in connected:
                 if connection:
@@ -100,7 +98,7 @@ async def play(websocket, join_key, websocket_id, name):
         elif event["type"] == "takeASeat":
             assert game == None # before game
             seat_id = event["seat_id"]
-            takeASeat(name, websocket_id, names, int(seat_id))
+            takeASeat(name, websocketid2id, websocket_id, names, int(seat_id))
             event = {"names": names}
             for connection in connected:
                 if connection:
@@ -108,7 +106,6 @@ async def play(websocket, join_key, websocket_id, name):
         else:
             pass
         if game:
-            print(websocketid2id)
             for i, connection in enumerate(connected):
                 index = websocketid2id[i]
                 if index == player:
@@ -127,9 +124,10 @@ async def createGame(websocket, name): # newer vewsion of start_game() ?
     connected = [websocket]
     names = [None, None, None, None, None, None] # 6 seats, None sitting rn
     names_left = []
+    websocketid2id = {}
     
     join_key = secrets.token_urlsafe(12)
-    JOIN[join_key] = game, connected, names, names_left
+    JOIN[join_key] = game, connected, names, names_left, websocketid2id
 
     try:
         # Send the secret access tokens to the browser of the first player,
@@ -142,7 +140,6 @@ async def createGame(websocket, name): # newer vewsion of start_game() ?
         }
         await websocket.send(json.dumps(event))
         # Receive and process moves from the first player.
-        global websocketid2id
         websocketid2id[len(websocketid2id)] = 6
         await play(websocket, join_key, len(websocketid2id) - 1, name)
     finally:
@@ -154,10 +151,9 @@ async def join(websocket, join_key, name):
     """
     Handle a connection from the second player: join an existing game
     """
-    global websocketid2id
     # Find the Fish game.
     try:
-        game, connected, names, names_left = JOIN[join_key]
+        game, connected, names, names_left, websocketid2id = JOIN[join_key]
     except KeyError:
         await error(websocket, "Game not found.")
         return
@@ -174,6 +170,7 @@ async def join(websocket, join_key, name):
         await play(websocket, join_key, len(websocketid2id), name)
     else: # joining a new game, or just spectating!
         connected.append(websocket)
+        print(connected)
         websocketid2id[len(websocketid2id)] = SPECTATOR_SEAT
         event = {"client connected": len(connected), "names":names}
         if game: # spectating
@@ -202,7 +199,7 @@ async def handler(websocket):
                 pass
         except (websockets.ConnectionClosedOK, websockets.ConnectionClosedError):
             print("someone left")
-            for join_key, (game, connected, names, names_left) in JOIN.items():
+            for join_key, (game, connected, names, names_left, websocketid2id) in JOIN.items():
                 if websocket in connected:
                     websocket_index = connected.index(websocket)
                     connected[websocket_index] = None # get rid of websocket
@@ -212,7 +209,7 @@ async def handler(websocket):
                             names_left.append(names[name_index])
                             print(names[name_index] + " left a running game they were a part of")
                     else:
-                        takeASeat(None, websocket_index, names, SPECTATOR_SEAT) #you snooze, you lose
+                        takeASeat(None, websocketid2id, websocket_index, names, SPECTATOR_SEAT) #you snooze, you lose
                         event = {"names": names}
                         for connection in connected:
                             if connection:
