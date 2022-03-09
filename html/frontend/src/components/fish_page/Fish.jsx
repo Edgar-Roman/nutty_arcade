@@ -26,7 +26,7 @@ class Fish extends React.Component {
             opponentScore: 0,
             currentPlayer: 0,
             history: [],
-            websocket: new WebSocket("ws://localhost:5001/"),
+            websocket: new WebSocket("ws://localhost:5000/"),
             gameExists: false,
             teamMap: {
                        6: [0, 2, 3, 4, 5, 1],
@@ -269,6 +269,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-main-button">
                                             <button type="button" disabled={this.state.names[1]} onClick={() => this.takeSeat(1)}>Team 1</button>
+                                            <br/>
+                                            {this.state.names[1]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -287,6 +289,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-1-button">
                                             <button type="button" disabled={this.state.names[3]} onClick={() => this.takeSeat(3)}>Team 2</button>
+                                            <br/>
+                                            {this.state.names[3]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -305,6 +309,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-2-button">
                                             <button type="button" disabled={this.state.names[4]} onClick={() => this.takeSeat(4)}>Team 2</button>
+                                            <br/>
+                                            {this.state.names[4]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -323,6 +329,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-3-button">
                                             <button type="button" disabled={this.state.names[5]} onClick={() => this.takeSeat(5)}>Team 2</button>
+                                            <br/>
+                                            {this.state.names[5]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -341,6 +349,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-4-button">
                                             <button type="button" disabled={this.state.names[0]} onClick={() => this.takeSeat(0)}>Team 1</button>
+                                            <br/>
+                                            {this.state.names[0]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -359,6 +369,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-5-button">
                                             <button type="button" disabled={this.state.names[2]} onClick={() => this.takeSeat(2)}>Team 1</button>
+                                            <br/>
+                                            {this.state.names[2]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
