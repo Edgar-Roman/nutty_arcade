@@ -13,6 +13,7 @@ class Fish extends React.Component {
             name: '',
             names: [],
             game_id: "fish",
+            playerName: "",
             playersConnected: 1,
             waitingForHost: false,
             roomCode: 0,
@@ -269,6 +270,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-main-button">
                                             <button type="button" disabled={this.state.names[1]} onClick={() => this.takeSeat(1)}>Team 1</button>
+                                            <br/>
+                                            {this.state.names[1]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -287,6 +290,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-1-button">
                                             <button type="button" disabled={this.state.names[3]} onClick={() => this.takeSeat(3)}>Team 2</button>
+                                            <br/>
+                                            {this.state.names[3]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -305,6 +310,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-2-button">
                                             <button type="button" disabled={this.state.names[4]} onClick={() => this.takeSeat(4)}>Team 2</button>
+                                            <br/>
+                                            {this.state.names[4]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -323,6 +330,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-3-button">
                                             <button type="button" disabled={this.state.names[5]} onClick={() => this.takeSeat(5)}>Team 2</button>
+                                            <br/>
+                                            {this.state.names[5]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -341,6 +350,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-4-button">
                                             <button type="button" disabled={this.state.names[0]} onClick={() => this.takeSeat(0)}>Team 1</button>
+                                            <br/>
+                                            {this.state.names[0]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -359,6 +370,8 @@ class Fish extends React.Component {
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-5-button">
                                             <button type="button" disabled={this.state.names[2]} onClick={() => this.takeSeat(2)}>Team 1</button>
+                                            <br/>
+                                            {this.state.names[2]}
                                         </div>
                                         }
                                         {this.state.gameStarted &&
@@ -379,7 +392,7 @@ class Fish extends React.Component {
                                     {!this.state.gameStarted &&
                                     <div className="start">
                                         { !(this.state.buttonWasClicked == 'join') && !(this.state.gameExists) &&
-                                        <input type="text" className="textbox" placeholder="Name" id="host-name"/>
+                                        <input type="text" className="textbox" placeholder="Name" id="host-name" value={this.state.playerName} onChange={e => this.setState({ playerName: e.target.value })}/>
                                         }
                                         <br/>
                                         {!this.state.gameExists && !(this.state.buttonWasClicked === 'join') &&
@@ -397,7 +410,7 @@ class Fish extends React.Component {
                                                     }
                                                 {this.state.buttonWasClicked == 'join' &&
                                                     <div>
-                                                        <input type="text" className="textbox" placeholder="Name" id="name"/>
+                                                        <input type="text" className="textbox" placeholder="Name" id="name" value={this.state.playerName} onChange={e => this.setState({ playerName: e.target.value })}/>
                                                         <br/><br/>
                                                         <input type="text" className="textbox" placeholder="Room Code" id="join"/>
                                                         <br/><br/>
