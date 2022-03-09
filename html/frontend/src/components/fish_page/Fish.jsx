@@ -2,6 +2,7 @@ import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import './Fish.css';
 import useSound from 'use-sound';
+import { firestore, query, collection, getDocs, where, setDoc, doc, increment, updateDoc } from "../../scripts/init-firebase.js";
 
 
 class Fish extends React.Component {
@@ -9,6 +10,7 @@ class Fish extends React.Component {
         super(props);
         this.state = {
             names: [],
+            game_id: "fish",
             playersConnected: 1,
             waitingForHost: false,
             roomCode: 0,
@@ -35,7 +37,64 @@ class Fish extends React.Component {
         };
     }
 
+    componentWillUnmount() {
+        // Update Player Base Information
+        const playerbase_query = query(collection(firestore, "playerbase"), where("game_id", "==", this.state.game_id));
+        getDocs(playerbase_query).then((playerbase_snapshot) => {
+            playerbase_snapshot.forEach((snapshot) => {
+                let game_id = snapshot.data().game_id;
+                // Add Information to database
+                const playerbase_object = {
+                    game_id: game_id,
+                    num_players: snapshot.data().num_players - 1
+                };
+                setDoc(doc(firestore, "playerbase", game_id), playerbase_object).then((response) => {
+                    console.log(response);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
     componentDidMount(){
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault();
+            // Add Information to database
+            const playerbase_object = {
+                game_id: this.state.game_id,
+                num_players: increment(-1)
+            };
+            updateDoc(doc(firestore, "playerbase", this.state.game_id), playerbase_object).then((response) => {
+                console.log(response);
+            }).catch((err) => {
+                console.log(err);
+            });
+            e.returnValue = "";
+        });
+
+        // Update Player Base Information
+        const playerbase_query = query(collection(firestore, "playerbase"), where("game_id", "==", this.state.game_id));
+        getDocs(playerbase_query).then((playerbase_snapshot) => {
+            playerbase_snapshot.forEach((snapshot) => {
+                let game_id = snapshot.data().game_id;
+                // Add Information to database
+                const playerbase_object = {
+                    game_id: game_id,
+                    num_players: snapshot.data().num_players + 1
+                };
+                setDoc(doc(firestore, "playerbase", game_id), playerbase_object).then((response) => {
+                    console.log(response);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
+
         this.state.websocket.onopen = () => {
             console.log('connected')
         }
