@@ -34,6 +34,7 @@ class Login extends React.Component {
             this.setState({ signed_in: true });
         }).catch(error => {
             // If Failed To Sign In The User
+            console.log(error);
         })
     }
 

@@ -7,21 +7,48 @@ import "../../styles/main.css";
 
 // Import Firebase
 import { auth } from "../../scripts/init-firebase.js";
+import { firestore, query, collection, where, getDocs } from "../../scripts/init-firebase.js";
 
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
-        this.user = auth.currentUser;
         this.state = {
+            user: "",
+            user_data: "",
             logged_in: false
         };
-        
-        // Check if user is currently signed in
-        if (this.user) { this.state.logged_in = true; }
 
         // Bind Functions
         this.sign_user_out = this.sign_user_out.bind(this);
+    }
+
+    updateComponent() {
+        let user = auth.currentUser;
+        this.setState({ user: user });
+        if (user) {
+            const user_query = query(collection(firestore, "users"), where("email", "==", user.email));
+            getDocs(user_query).then((user_snapshot) => {
+                user_snapshot.forEach((snapshot) => {
+                    this.setState({ user_data: snapshot.data() });
+                });
+            }).catch((err) => {
+                console.log(err);
+            });
+            this.setState({ logged_in: true });
+        }
+    }
+
+    componentDidMount() {
+        this.updateComponent();
+    }
+
+    componentDidUpdate() {
+        let currentUser = auth.currentUser;
+        console.log(currentUser)
+        if (currentUser !== this.state.user) {
+            this.updateComponent();
+        }
     }
 
     show_login_button = () => {
@@ -58,7 +85,20 @@ class Home extends React.Component {
             console.log("User Signed Out");
         });
         this.setState({ logged_in: false });
+        this.setState({ user: auth.currentUser });
     }
+
+    show_welcome_message = () => {
+        let user_first_name = "";
+        if (this.state.user_data) {
+            user_first_name = this.state.user_data.first_name
+        }
+        return (
+            <div id="welcome-message-container">
+                Welcome {user_first_name}!
+            </div>
+        );
+    };
 
 	render() {
         return (
@@ -76,7 +116,7 @@ class Home extends React.Component {
                         <p id="logo">NUTTY ARCADE</p>
                         { this.state.logged_in ? this.show_logoff_button(): this.show_login_button() }
                         { this.state.logged_in ? null: this.show_register_button() }
-                        
+                        { this.state.logged_in ? this.show_welcome_message() : null }
                     </div>
                 </header>
 
