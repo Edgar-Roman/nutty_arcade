@@ -209,7 +209,7 @@ class Fish extends React.Component {
                                         </div>
                                         <div className="seat-1">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[3]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][2]]} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/red-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -220,7 +220,7 @@ class Fish extends React.Component {
                                         </div>
                                         <div className="seat-2">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[4]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][3]]} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/red-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -231,7 +231,7 @@ class Fish extends React.Component {
                                         </div>
                                         <div className="seat-3">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[5]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][4]]} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/red-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -242,7 +242,7 @@ class Fish extends React.Component {
                                         </div>
                                         <div className="seat-4">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[1]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][0]]} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -253,7 +253,7 @@ class Fish extends React.Component {
                                         </div>
                                         <div className="seat-5">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[2]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][1]]} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -322,8 +322,7 @@ class Fish extends React.Component {
                             <button type="button" disabled={!(this.state.playerID === this.state.currentPlayer && this.state.gameStarted)} className="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
                             <button type="button" disabled={!(this.state.playerID === this.state.currentPlayer && this.state.gameStarted)} className="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
                             <button type="button" disabled={!(this.state.playerID === this.state.currentPlayer && this.state.gameStarted)} className="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
-                              {this.state.buttonWasClicked === 'ask'
-                              &&
+                              {this.state.buttonWasClicked === 'ask' && this.state.currentPlayer === this.state.playerID &&
                               <div className="input">
                                 <select name="suits" id="id_suits" multiple>
                                   <option className="red" value="Red"></option>
@@ -356,8 +355,7 @@ class Fish extends React.Component {
                               </div>
                               }
                               {
-                              this.state.buttonWasClicked === 'declare'
-                              &&
+                              this.state.buttonWasClicked === 'declare' && this.state.currentPlayer === this.state.playerID &&
                               <div className="input">
                                 <select name="suits" id="id_suits" multiple>
                                   <option className="red" value="0"></option>
@@ -397,8 +395,7 @@ class Fish extends React.Component {
                             </div>
                             }
                             {
-                            this.state.buttonWasClicked === 'pass'
-                            &&
+                            this.state.buttonWasClicked === 'pass' && this.state.currentPlayer === this.state.playerID &&
                             <div className="input">
                                 <select name="players" id="teammate">
                                   {teammates}
