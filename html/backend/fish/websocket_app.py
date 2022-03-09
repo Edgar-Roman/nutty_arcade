@@ -190,11 +190,11 @@ async def handler(websocket):
             print(type(event), event)
             if event["type"] == "createGame":
                 assert("name" in event)
-                await createGame(websocket, event["name"])
+                await createGame(websocket, event["name"].upper())
             elif event["type"] == "joinGame":
                 assert("name" in event)
                 # Second player joins an existing game
-                await join(websocket, event["join_key"], event["name"])
+                await join(websocket, event["join_key"], event["name"].upper())
             else:
                 pass
         except (websockets.ConnectionClosedOK, websockets.ConnectionClosedError):
