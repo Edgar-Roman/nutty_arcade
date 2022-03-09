@@ -8,6 +8,7 @@ class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            random: 0,
             name: '',
             names: [],
             playersConnected: 1,
@@ -57,14 +58,14 @@ class Fish extends React.Component {
             var join_key = data.join_key;
             var status = data.status;
             var names = data.names;
-            if (currentPlayer) {this.setState({currentPlayer: currentPlayer});}
+
             if (hand) { this.setState({handToDisplay: hand});}
             if (game) { this.setState({gameStarted: true}); }
             if (numCards) {this.setState({numCards: numCards});}
             if (teamScore) {this.setState({teamScore: teamScore});}
             if (opponentScore) {this.setState({opponentScore: opponentScore});}
             if (history) {this.setState({history: history});}
-            if (playerID) {this.setState({playerID: playerID});}
+            if (playerID) {this.setState({playerID: playerID, currentPlayer:currentPlayer});}
             if (status) {this.setState({status: status});}
             if (names) {this.setState({names: names});}
             if (join_key) {
@@ -151,6 +152,7 @@ class Fish extends React.Component {
     }
 
     render(){
+        console.log(this.state.currentPlayer);
         let cards = [];
         for (let i = 0; i < this.state.handToDisplay.length; i++){
             var card = require('' + this.state.handToDisplay[i]);
