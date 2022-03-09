@@ -49,7 +49,6 @@ def takeASeat(name, websocketid2id, websocket_id, names, seat_id): # young skywa
     websocketid2id[websocket_id] = seat_id
     if seat_id != SPECTATOR_SEAT:
         names[seat_id] = name
-        print(names, seat_id, name)
 
 async def error(websocket, message):
     event = {
@@ -170,7 +169,6 @@ async def join(websocket, join_key, name):
         await play(websocket, join_key, len(websocketid2id) - 1, name)
     else: # joining a new game, or just spectating!
         connected.append(websocket)
-        print(connected)
         websocketid2id[len(websocketid2id)] = SPECTATOR_SEAT
         if game: # spectating
             gameStartedEvent = {"game":"started"}
