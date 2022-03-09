@@ -175,7 +175,7 @@ async def join(websocket, join_key, name):
             gameState = get_hand(game, SPECTATOR_SEAT)
             await websocket.send(json.dumps(gameState))
         else:
-            event = {"client connected": len(connected), "names":names, "name_count": len(names) - names.count(None)}
+            event = {"client connected": len(connected), "names":names, "names_count": len(names) - names.count(None)}
             for connection in connected:
                 if connection:
                     await connection.send(json.dumps(event))
@@ -210,7 +210,7 @@ async def handler(websocket):
                             print(names[name_index] + " left a running game they were a part of")
                     else:
                         takeASeat(None, websocketid2id, websocket_index, names, SPECTATOR_SEAT) #you snooze, you lose
-                        event = {"names": names, "name_count": len(names) - names.count(None)}
+                        event = {"names": names, "names_count": len(names) - names.count(None)}
                         for connection in connected:
                             if connection:
                                 await connection.send(json.dumps(event))
