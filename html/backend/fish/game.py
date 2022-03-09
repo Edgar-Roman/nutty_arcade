@@ -4,6 +4,8 @@ from players import Player
 import itertools
 import numpy as np
 
+SPECTATOR_SEAT = 6
+
 class Fish:
     # to do: add teams later
     def __init__(self, names=[]):
@@ -17,14 +19,14 @@ class Fish:
         # initialize players and teams
         self.id2p = {}
         self.names = []
-        # hard-coding human player, index + team-index as 0
+        assert len(names) == self.num_players # surely
         for id in range(len(names)):
-            self.id2p[id] = Player(id, id//3, is_computer=False)
-            self.names.append(names[id])
-        # computers
-        for id in range(len(names), self.num_players):
-            self.id2p[id] = Player(id, id//3, is_computer=True)
-            self.names.append("Computer " + str(id))
+            if names[id]: # player
+                self.id2p[id] = Player(id, id//3, is_computer=False)
+                self.names.append(names[id])
+            else: # computer
+                self.id2p[id] = Player(id, id//3, is_computer=True)
+                self.names.append("Computer " + str(id))
         self.team_scores = [0, 0]
         # setup the game
         self.history = []
@@ -46,15 +48,17 @@ class Fish:
 
     #
     def getGameState(self, id):
-        player = self.id2p[id]
         hand = []
-        for fish_card in player.get_hand():
-            hand.append(self.convertToNormalCard(fish_card))
+        team_id = 0
+        if id != SPECTATOR_SEAT: # not a spectator
+            player = self.id2p[id]
+            team_id = player.team_id
+            for fish_card in player.get_hand():
+                hand.append(self.convertToNormalCard(fish_card))
         num_cards = []
         for id in range(self.num_players):
             num_cards.append(self.id2p[id].num_cards)
         score = self.team_scores
-        team_id = player.team_id
         current_player = self.current_player.id
         history = self.history
         return hand, num_cards, score[team_id], score[1-team_id], current_player, history
@@ -84,9 +88,9 @@ class Fish:
         # update history
         suit_name = ['Red', 'Orange', 'Yellow', 'Green', 'Blue', 'Purple', 'Grey', 'Brown', 'Black'][suit]
         if declare_correct:
-            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " declares " + suit_name + " correctly."
+            last_action = str(len(self.history) + 1) + ": " + self.names[declare_id] + " declares " + suit_name + " correctly."
         else:
-            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " declares " + suit_name + " incorrectly."
+            last_action = str(len(self.history) + 1) + ": " + self.names[declare_id] + " declares " + suit_name + " incorrectly."
         self.history.append(last_action)
 
 
@@ -143,9 +147,9 @@ class Fish:
             self.current_player = player_questioned
         # update history
         if got_card:
-            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " takes " + str(suit) + str(number) + " from Player " + str(id2) + "."
+            last_action = str(len(self.history) + 1) + ": " + self.names[id1] + " takes " + str(suit) + str(number) + " from " + self.names[id2] + "."
         else:
-            last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " asks for " + str(suit) + str(number) + " from Player " + str(id2) + "."
+            last_action = str(len(self.history) + 1) + ": " + self.names[id1] + " asks for " + str(suit) + str(number) + " from " + self.names[id2] + "."
         self.history.append(last_action)
         # follow-up computer actions
         self.checkComputerDeclares()
@@ -166,7 +170,7 @@ class Fish:
             return "Error: must pass to someone with cards" # implies you can't pass to yourself
 
         # update history
-        last_action = str(len(self.history) + 1) + ": Player " + str(id1) + " passes turn to Player " + str(id2) + "."
+        last_action = str(len(self.history) + 1) + ": " + self.names[id1] + " passes turn to " + self.names[id2] + "."
         self.history.append(last_action)
 
         # update information to computer that player is out of cards
