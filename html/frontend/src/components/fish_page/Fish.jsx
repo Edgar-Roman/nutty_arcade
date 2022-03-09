@@ -9,6 +9,7 @@ class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            name: '',
             names: [],
             game_id: "fish",
             playersConnected: 1,
@@ -27,12 +28,13 @@ class Fish extends React.Component {
             websocket: new WebSocket("ws://localhost:5001/"),
             gameExists: false,
             teamMap: {
-                       0: [1, 2, 3, 4, 5],
-                       1: [0, 2, 3, 4, 5],
-                       2: [0, 1, 3, 4, 5],
-                       3: [4, 5, 0, 1, 2],
-                       4: [3, 5, 0, 1, 2],
-                       5: [3, 4, 0, 1, 2]
+                       6: [0, 2, 3, 4, 5, 1],
+                       0: [1, 2, 3, 4, 5, 0],
+                       1: [0, 2, 3, 4, 5, 1],
+                       2: [0, 1, 3, 4, 5, 2],
+                       3: [4, 5, 0, 1, 2, 3],
+                       4: [3, 5, 0, 1, 2, 4],
+                       5: [3, 4, 0, 1, 2, 5]
                       }
             
         };
@@ -115,6 +117,7 @@ class Fish extends React.Component {
             var join_key = data.join_key;
             var status = data.status;
             var names = data.names;
+            if (currentPlayer) {this.setState({currentPlayer: currentPlayer});}
             if (hand) { this.setState({handToDisplay: hand});}
             if (game) { this.setState({gameStarted: true}); }
             if (numCards) {this.setState({numCards: numCards});}
@@ -122,7 +125,6 @@ class Fish extends React.Component {
             if (opponentScore) {this.setState({opponentScore: opponentScore});}
             if (history) {this.setState({history: history});}
             if (playerID) {this.setState({playerID: playerID});}
-            if (currentPlayer) {this.setState({currentPlayer: currentPlayer});}
             if (status) {this.setState({status: status});}
             if (names) {this.setState({names: names});}
             if (join_key) {
@@ -144,6 +146,7 @@ class Fish extends React.Component {
 
     createGame() {
         const hostName = document.getElementById("host-name").value;
+        this.setState( {name: hostName} )
         this.state.websocket.send(JSON.stringify('{"type":"createGame", "name":"' + hostName + '"}'));
         this.setState({ gameExists: true });
     }
@@ -159,6 +162,11 @@ class Fish extends React.Component {
         this.state.websocket.send(JSON.stringify('{"type":"joinGame","join_key":"' + key + '","name":"' + name + '"}'));
         this.setState({ gameExists: true });
         this.setState({ waitingForHost: true });
+    }
+
+    takeSeat(seat){
+        this.state.websocket.send(JSON.stringify('{"type":"takeASeat", "name":"' + this.state.name + '","seat_id":"' + seat + '"}'));
+        console.log("Took Seat: " + seat );
     }
 
     startGame() {
@@ -254,8 +262,14 @@ class Fish extends React.Component {
                                         <br/>
                                         {cards}
                                     </div>
-                                    {this.state.gameStarted &&
+{/*                                     {this.state.gameStarted && */}
                                     <div className="seats">
+                                        {this.state.gameExists && !this.state.gameStarted &&
+                                        <div className="seat-main-button">
+                                            <button type="button" disabled={this.state.names[1]} onClick={() => this.takeSeat(1)}>Team 1</button>
+                                        </div>
+                                        }
+                                        {this.state.gameStarted &&
                                         <div className="seat-main">
                                             <div className="player-pic">
                                                 <Badge badgeContent={this.state.numCards[this.state.playerID]} id={this.state.currentPlayer === this.state.playerID ? "turn" : "not-turn"} color="primary" showZero>
@@ -264,9 +278,16 @@ class Fish extends React.Component {
                                             </div>
                                             <div className="player-name">
                                                 <br/>
-                                                {this.state.names[this.state.playerID]}
+                                                {this.state.names[this.state.teamMap[this.state.playerID][5]]}
                                             </div>
                                         </div>
+                                        }
+                                        {this.state.gameExists && !this.state.gameStarted &&
+                                        <div className="seat-1-button">
+                                            <button type="button" disabled={this.state.names[3]} onClick={() => this.takeSeat(3)}>Team 2</button>
+                                        </div>
+                                        }
+                                        {this.state.gameStarted &&
                                         <div className="seat-1">
                                             <div className="player-pic">
                                                 <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][2]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][2] ? "turn" : "not-turn"} color="primary" showZero>
@@ -278,6 +299,13 @@ class Fish extends React.Component {
                                                 {this.state.names[this.state.teamMap[this.state.playerID][2]]}
                                             </div>
                                         </div>
+                                        }
+                                        {this.state.gameExists && !this.state.gameStarted &&
+                                        <div className="seat-2-button">
+                                            <button type="button" disabled={this.state.names[4]} onClick={() => this.takeSeat(4)}>Team 2</button>
+                                        </div>
+                                        }
+                                        {this.state.gameStarted &&
                                         <div className="seat-2">
                                             <div className="player-pic">
                                                 <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][3]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][3] ? "turn" : "not-turn"} color="primary" showZero>
@@ -289,6 +317,13 @@ class Fish extends React.Component {
                                                 {this.state.names[this.state.teamMap[this.state.playerID][3]]}
                                             </div>
                                         </div>
+                                        }
+                                        {this.state.gameExists && !this.state.gameStarted &&
+                                        <div className="seat-3-button">
+                                            <button type="button" disabled={this.state.names[5]} onClick={() => this.takeSeat(5)}>Team 2</button>
+                                        </div>
+                                        }
+                                        {this.state.gameStarted &&
                                         <div className="seat-3">
                                             <div className="player-pic">
                                                 <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][4]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][4] ? "turn" : "not-turn"} color="primary" showZero>
@@ -300,6 +335,13 @@ class Fish extends React.Component {
                                                 {this.state.names[this.state.teamMap[this.state.playerID][4]]}
                                             </div>
                                         </div>
+                                        }
+                                        {this.state.gameExists && !this.state.gameStarted &&
+                                        <div className="seat-4-button">
+                                            <button type="button" disabled={this.state.names[0]} onClick={() => this.takeSeat(0)}>Team 1</button>
+                                        </div>
+                                        }
+                                        {this.state.gameStarted &&
                                         <div className="seat-4">
                                             <div className="player-pic">
                                                 <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][0]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][0] ? "turn" : "not-turn"} color="primary" showZero>
@@ -311,6 +353,13 @@ class Fish extends React.Component {
                                                 {this.state.names[this.state.teamMap[this.state.playerID][0]]}
                                             </div>
                                         </div>
+                                        }
+                                        {this.state.gameExists && !this.state.gameStarted &&
+                                        <div className="seat-5-button">
+                                            <button type="button" disabled={this.state.names[2]} onClick={() => this.takeSeat(2)}>Team 1</button>
+                                        </div>
+                                        }
+                                        {this.state.gameStarted &&
                                         <div className="seat-5">
                                             <div className="player-pic">
                                                 <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][1]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][1] ? "turn" : "not-turn"} color="primary" showZero>
@@ -322,8 +371,9 @@ class Fish extends React.Component {
                                                 {this.state.names[this.state.teamMap[this.state.playerID][1]]}
                                             </div>
                                         </div>
+                                        }
                                      </div>
-                                    }
+{/*                                     } */}
                                     {!this.state.gameStarted &&
                                     <div className="start">
                                         { !(this.state.buttonWasClicked == 'join') && !(this.state.gameExists) &&
