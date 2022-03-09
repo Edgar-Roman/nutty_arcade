@@ -7,6 +7,7 @@ import "../../styles/main.css";
 
 // Import Firebase
 import { auth, createUserWithEmailAndPassword } from "../../scripts/init-firebase.js";
+import { firestore, setDoc, doc } from "../../scripts/init-firebase.js";
 
 // Constant Variables
 const error_email_in_use = "auth/email-already-in-use";
@@ -27,14 +28,28 @@ class Register extends React.Component {
         const register_form = document.querySelector(".account-form-panel");
         const user_email = register_form["register-email"].value;
         const user_password = register_form["register-password"].value;
+        const user_first_name = register_form["register-first-name"].value;
+        const user_last_name = register_form["register-last-name"].value;
         
         createUserWithEmailAndPassword(auth, user_email, user_password).then(user_credentials => {
             // If Successfully Registered User
             console.log(user_credentials);
             register_form.reset();
+
+            // Add Information to database
+            const database_object = {
+                email: user_email,
+                first_name: user_first_name,
+                last_name: user_last_name
+            };
+            setDoc(doc(firestore, "users", user_email), database_object).then((response) => {
+                console.log(response);
+                // Change to Home Page
+                this.setState({ signed_in: true });
+            }).catch((err) => {
+                console.log(err);
+            });
             
-            // Change to Home Page
-            this.setState({ signed_in: true });
             
         }).catch(error => {
             // If Failed To Register User, Display Error Message
@@ -96,6 +111,20 @@ class Register extends React.Component {
                         </div>
                         <div className="input-field-container">
                             <input type="password" className="input-field" id="register-password" placeholder="PASSWORD"></input>
+                        </div>
+                        {/* First Name Field */}
+                        <div className="account-form-warning" id="empty-first-name">
+                            <p>First Name Cannot Be Empty</p>
+                        </div>
+                        <div className="input-field-container">
+                            <input type="text" className="input-field" id="register-first-name" placeholder="FIRST NAME"></input>
+                        </div>
+                        {/* Last Name Field */}
+                        <div className="account-form-warning" id="empty-last-name">
+                            <p>Last Name Cannot Be Empty</p>
+                        </div>
+                        <div className="input-field-container">
+                            <input type="text" className="input-field" id="register-last-name" placeholder="LAST NAME"></input>
                         </div>
                         {/* Spacers */}
                         <div className="account-form-spacer"></div>
