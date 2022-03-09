@@ -167,7 +167,7 @@ async def join(websocket, join_key, name):
         await websocket.send(json.dumps(event))
         gameState = get_hand(game, name_index)
         await websocket.send(json.dumps(gameState))
-        await play(websocket, join_key, len(websocketid2id), name)
+        await play(websocket, join_key, len(websocketid2id) - 1, name)
     else: # joining a new game, or just spectating!
         connected.append(websocket)
         print(connected)
