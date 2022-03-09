@@ -26,7 +26,7 @@ class Fish extends React.Component {
             opponentScore: 0,
             currentPlayer: 0,
             history: [],
-            websocket: new WebSocket("ws://localhost:5000/"),
+            websocket: new WebSocket("ws://localhost:5001/"),
             gameExists: false,
             teamMap: {
                        6: [0, 2, 3, 4, 5, 1],
@@ -37,6 +37,7 @@ class Fish extends React.Component {
                        4: [3, 5, 0, 1, 2, 4],
                        5: [3, 4, 0, 1, 2, 5]
                       }
+            
         };
     }
 
@@ -75,6 +76,7 @@ class Fish extends React.Component {
             }).catch((err) => {
                 console.log(err);
             });
+            e.returnValue = "";
         });
 
         // Update Player Base Information
@@ -232,7 +234,7 @@ class Fish extends React.Component {
             opponents.push(<option className="white" id={this.state.currentPlayer === i + 1 ? "turn" : "not-turn"} key={i} value={this.state.teamMap[this.state.playerID][i]}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
 
-        let teammates = [<option className="white" id={this.state.currentPlayer === this.state.playerID ? "turn" : "not-turn"} key={3} value={this.state.playerID}>{this.state.names[this.state.playerID]}</option>];
+        let teammates = [<option className="white"  key={3} value={this.state.playerID}>{this.state.names[this.state.playerID]}</option>];
         for (let i = 0; i < 2; i ++){
             teammates.push(<option className="white" id={this.state.currentPlayer === i ? "turn" : "not-turn"} key={i + 1} value={this.state.teamMap[this.state.playerID][i]}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
@@ -272,7 +274,7 @@ class Fish extends React.Component {
                                         {this.state.gameStarted &&
                                         <div className="seat-main">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][5]]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.playerID]} id={this.state.currentPlayer === this.state.playerID ? "turn" : "not-turn"} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -290,7 +292,7 @@ class Fish extends React.Component {
                                         {this.state.gameStarted &&
                                         <div className="seat-1">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][2]]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][2]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][2] ? "turn" : "not-turn"} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/red-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -308,7 +310,7 @@ class Fish extends React.Component {
                                         {this.state.gameStarted &&
                                         <div className="seat-2">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][3]]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][3]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][3] ? "turn" : "not-turn"} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/red-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -326,7 +328,7 @@ class Fish extends React.Component {
                                         {this.state.gameStarted &&
                                         <div className="seat-3">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][4]]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][4]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][4] ? "turn" : "not-turn"} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/red-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -344,7 +346,7 @@ class Fish extends React.Component {
                                         {this.state.gameStarted &&
                                         <div className="seat-4">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][0]]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][0]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][0] ? "turn" : "not-turn"} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
                                                 </Badge>
                                             </div>
@@ -362,7 +364,7 @@ class Fish extends React.Component {
                                         {this.state.gameStarted &&
                                         <div className="seat-5">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][1]]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][1]]} id={this.state.currentPlayer === this.state.teamMap[this.state.playerID][1] ? "turn" : "not-turn"} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
                                                 </Badge>
                                             </div>
