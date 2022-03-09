@@ -9,6 +9,7 @@ class Fish extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            random: 0,
             name: '',
             names: [],
             game_id: "fish",
@@ -117,16 +118,16 @@ class Fish extends React.Component {
             var join_key = data.join_key;
             var status = data.status;
             var names = data.names;
-            if (currentPlayer) {this.setState({currentPlayer: currentPlayer});}
+
+            if (playerID) {this.setState({playerID: playerID});}
             if (hand) { this.setState({handToDisplay: hand});}
             if (game) { this.setState({gameStarted: true}); }
             if (numCards) {this.setState({numCards: numCards});}
             if (teamScore) {this.setState({teamScore: teamScore});}
             if (opponentScore) {this.setState({opponentScore: opponentScore});}
             if (history) {this.setState({history: history});}
-            if (playerID) {this.setState({playerID: playerID});}
+            if (names) {this.setState({names: names, currentPlayer:currentPlayer});}
             if (status) {this.setState({status: status});}
-            if (names) {this.setState({names: names});}
             if (join_key) {
                var roomCode = document.getElementById("room-code");
                roomCode.innerHTML = "Room Code: " + join_key;
@@ -211,6 +212,7 @@ class Fish extends React.Component {
     }
 
     render(){
+        console.log(this.state.currentPlayer);
         let cards = [];
         for (let i = 0; i < this.state.handToDisplay.length; i++){
             var card = require('' + this.state.handToDisplay[i]);
@@ -229,12 +231,12 @@ class Fish extends React.Component {
 
         let opponents = [];
         for (let i = 2; i < 5; i++){
-            opponents.push(<option className="white"  key={i} value={i + 1}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
+            opponents.push(<option className="white" id={this.state.currentPlayer === i + 1 ? "turn" : "not-turn"} key={i} value={this.state.teamMap[this.state.playerID][i]}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
 
         let teammates = [<option className="white"  key={3} value={this.state.playerID}>{this.state.names[this.state.playerID]}</option>];
         for (let i = 0; i < 2; i ++){
-            teammates.push(<option className="white"  key={i + 1} value={i}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
+            teammates.push(<option className="white" id={this.state.currentPlayer === i ? "turn" : "not-turn"} key={i + 1} value={this.state.teamMap[this.state.playerID][i]}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
 
         const styles = theme => ({
