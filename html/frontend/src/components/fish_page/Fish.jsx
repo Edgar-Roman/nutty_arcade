@@ -135,9 +135,6 @@ class Fish extends React.Component {
                roomCode.innerHTML = "Room Code: " + join_key;
                {this.setState({roomCode: join_key});}
             }
-            if (data.player_joined){
-                {this.setState({playersConnected: this.state.playersConnected + 1})}
-            }
         }
     }
 
