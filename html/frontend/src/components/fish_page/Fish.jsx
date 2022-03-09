@@ -117,13 +117,14 @@ class Fish extends React.Component {
             var status = data.status;
             var names = data.names;
 
+            if (playerID) {this.setState({playerID: playerID});}
             if (hand) { this.setState({handToDisplay: hand});}
             if (game) { this.setState({gameStarted: true}); }
             if (numCards) {this.setState({numCards: numCards});}
             if (teamScore) {this.setState({teamScore: teamScore});}
             if (opponentScore) {this.setState({opponentScore: opponentScore});}
             if (history) {this.setState({history: history});}
-            if (names) {this.setState({names: names, playerID: playerID, currentPlayer:currentPlayer});}
+            if (names) {this.setState({names: names, currentPlayer:currentPlayer});}
             if (status) {this.setState({status: status});}
             if (join_key) {
                var roomCode = document.getElementById("room-code");
