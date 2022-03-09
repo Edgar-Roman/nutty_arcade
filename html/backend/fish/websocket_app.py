@@ -102,6 +102,10 @@ async def play(websocket, join_key, websocket_id, name):
             for connection in connected:
                 if connection:
                     await connection.send(json.dumps(event))
+        elif event["type"] == "getCurrentPlayer":
+            event = {"currentPlayer", game.current_player}
+            await websocket.send(json.dumps(event))
+            continue
         else:
             pass
         if game:
