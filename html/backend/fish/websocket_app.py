@@ -172,15 +172,16 @@ async def join(websocket, join_key, name):
         connected.append(websocket)
         print(connected)
         websocketid2id[len(websocketid2id)] = SPECTATOR_SEAT
-        event = {"client connected": len(connected), "names":names}
         if game: # spectating
             gameStartedEvent = {"game":"started"}
             await websocket.send(json.dumps(gameStartedEvent))
             gameState = get_hand(game, SPECTATOR_SEAT)
             await websocket.send(json.dumps(gameState))
-        for connection in connected:
-            if connection:
-                await connection.send(json.dumps(event))
+        else:
+            event = {"client connected": len(connected), "names":names}
+            for connection in connected:
+                if connection:
+                    await connection.send(json.dumps(event))
         await play(websocket, join_key, len(websocketid2id) - 1, name)
 
 
