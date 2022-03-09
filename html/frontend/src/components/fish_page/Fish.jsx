@@ -57,6 +57,7 @@ class Fish extends React.Component {
             var join_key = data.join_key;
             var status = data.status;
             var names = data.names;
+            if (currentPlayer) {this.setState({currentPlayer: currentPlayer});}
             if (hand) { this.setState({handToDisplay: hand});}
             if (game) { this.setState({gameStarted: true}); }
             if (numCards) {this.setState({numCards: numCards});}
@@ -64,7 +65,6 @@ class Fish extends React.Component {
             if (opponentScore) {this.setState({opponentScore: opponentScore});}
             if (history) {this.setState({history: history});}
             if (playerID) {this.setState({playerID: playerID});}
-            if (currentPlayer) {this.setState({currentPlayer: currentPlayer});}
             if (status) {this.setState({status: status});}
             if (names) {this.setState({names: names});}
             if (join_key) {
