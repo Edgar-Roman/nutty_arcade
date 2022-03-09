@@ -49,7 +49,6 @@ def takeASeat(name, websocketid2id, websocket_id, names, seat_id): # young skywa
     websocketid2id[websocket_id] = seat_id
     if seat_id != SPECTATOR_SEAT:
         names[seat_id] = name
-        print(names, seat_id, name)
 
 async def error(websocket, message):
     event = {
@@ -103,6 +102,10 @@ async def play(websocket, join_key, websocket_id, name):
             for connection in connected:
                 if connection:
                     await connection.send(json.dumps(event))
+        elif event["type"] == "getCurrentPlayer":
+            event = {"currentPlayer", game.current_player}
+            await websocket.send(json.dumps(event))
+            continue
         else:
             pass
         if game:
@@ -167,18 +170,20 @@ async def join(websocket, join_key, name):
         await websocket.send(json.dumps(event))
         gameState = get_hand(game, name_index)
         await websocket.send(json.dumps(gameState))
-        await play(websocket, join_key, len(websocketid2id), name)
+        await play(websocket, join_key, len(websocketid2id) - 1, name)
     else: # joining a new game, or just spectating!
         connected.append(websocket)
-        print(connected)
         websocketid2id[len(websocketid2id)] = SPECTATOR_SEAT
-        event = {"client connected": len(connected), "names":names}
         if game: # spectating
             gameStartedEvent = {"game":"started"}
             await websocket.send(json.dumps(gameStartedEvent))
-        for connection in connected:
-            if connection:
-                await connection.send(json.dumps(event))
+            gameState = get_hand(game, SPECTATOR_SEAT)
+            await websocket.send(json.dumps(gameState))
+        else:
+            event = {"client connected": len(connected), "names":names}
+            for connection in connected:
+                if connection:
+                    await connection.send(json.dumps(event))
         await play(websocket, join_key, len(websocketid2id) - 1, name)
 
 

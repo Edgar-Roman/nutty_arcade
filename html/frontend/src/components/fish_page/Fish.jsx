@@ -2,6 +2,7 @@ import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import './Fish.css';
 import useSound from 'use-sound';
+import { firestore, query, collection, getDocs, where, setDoc, doc, increment, updateDoc } from "../../scripts/init-firebase.js";
 
 
 class Fish extends React.Component {
@@ -11,6 +12,7 @@ class Fish extends React.Component {
             random: 0,
             name: '',
             names: [],
+            game_id: "fish",
             playersConnected: 1,
             waitingForHost: false,
             roomCode: 0,
@@ -38,7 +40,63 @@ class Fish extends React.Component {
         };
     }
 
+    componentWillUnmount() {
+        // Update Player Base Information
+        const playerbase_query = query(collection(firestore, "playerbase"), where("game_id", "==", this.state.game_id));
+        getDocs(playerbase_query).then((playerbase_snapshot) => {
+            playerbase_snapshot.forEach((snapshot) => {
+                let game_id = snapshot.data().game_id;
+                // Add Information to database
+                const playerbase_object = {
+                    game_id: game_id,
+                    num_players: snapshot.data().num_players - 1
+                };
+                setDoc(doc(firestore, "playerbase", game_id), playerbase_object).then((response) => {
+                    console.log(response);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
     componentDidMount(){
+        window.addEventListener('beforeunload', (e) => {
+            e.preventDefault();
+            // Add Information to database
+            const playerbase_object = {
+                game_id: this.state.game_id,
+                num_players: increment(-1)
+            };
+            updateDoc(doc(firestore, "playerbase", this.state.game_id), playerbase_object).then((response) => {
+                console.log(response);
+            }).catch((err) => {
+                console.log(err);
+            });
+        });
+
+        // Update Player Base Information
+        const playerbase_query = query(collection(firestore, "playerbase"), where("game_id", "==", this.state.game_id));
+        getDocs(playerbase_query).then((playerbase_snapshot) => {
+            playerbase_snapshot.forEach((snapshot) => {
+                let game_id = snapshot.data().game_id;
+                // Add Information to database
+                const playerbase_object = {
+                    game_id: game_id,
+                    num_players: snapshot.data().num_players + 1
+                };
+                setDoc(doc(firestore, "playerbase", game_id), playerbase_object).then((response) => {
+                    console.log(response);
+                }).catch((err) => {
+                    console.log(err);
+                });
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
+
         this.state.websocket.onopen = () => {
             console.log('connected')
         }
@@ -171,12 +229,12 @@ class Fish extends React.Component {
 
         let opponents = [];
         for (let i = 2; i < 5; i++){
-            opponents.push(<option className="white" key={i} value={this.state.teamMap[this.state.playerID][i]}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
+            opponents.push(<option className="white" id={this.state.currentPlayer === i + 1 ? "turn" : "not-turn"} key={i} value={i + 1}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
 
-        let teammates = [<option className="white" key={3} value={this.state.playerID}>{this.state.names[this.state.playerID]}</option>];
+        let teammates = [<option className="white" id={this.state.currentPlayer === this.state.playerID ? "turn" : "not-turn"} key={3} value={this.state.playerID}>{this.state.names[this.state.playerID]}</option>];
         for (let i = 0; i < 2; i ++){
-            teammates.push(<option className="white" key={i + 1} value={this.state.teamMap[this.state.playerID][i]}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
+            teammates.push(<option className="white" id={this.state.currentPlayer === i ? "turn" : "not-turn"} key={i + 1} value={i}>{this.state.names[this.state.teamMap[this.state.playerID][i]]}</option>)
         }
 
         const styles = theme => ({

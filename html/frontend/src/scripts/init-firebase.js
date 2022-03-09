@@ -3,8 +3,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-auth.js";
 // import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-analytics.js";
-import { getFirestore, collection, query, where, getDocs, setDoc, doc} from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
-
+import { getFirestore, collection, query, where, getDocs, setDoc, doc, increment, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.6/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -26,4 +25,4 @@ const firestore = getFirestore(app);
 
 console.log("Firebase Successfully Initialized.")
 
-export { app, auth, firestore, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, collection, query, where, getDocs, setDoc, doc };
+export { app, auth, firestore, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, collection, query, where, getDocs, setDoc, doc, increment, updateDoc };
