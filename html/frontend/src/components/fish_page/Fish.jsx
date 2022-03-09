@@ -14,7 +14,7 @@ class Fish extends React.Component {
             names: [],
             game_id: "fish",
             playerName: "",
-            playersConnected: 1,
+            playersConnected: 0,
             waitingForHost: false,
             roomCode: 0,
             playerID: 0,
@@ -119,6 +119,7 @@ class Fish extends React.Component {
             var join_key = data.join_key;
             var status = data.status;
             var names = data.names;
+            var playersConnected = data.names_count;
 
             if (playerID) {this.setState({playerID: playerID});}
             if (hand) { this.setState({handToDisplay: hand});}
@@ -127,7 +128,7 @@ class Fish extends React.Component {
             if (teamScore) {this.setState({teamScore: teamScore});}
             if (opponentScore) {this.setState({opponentScore: opponentScore});}
             if (history) {this.setState({history: history});}
-            if (names) {this.setState({names: names, currentPlayer:currentPlayer});}
+            if (names) {this.setState({names: names, playersConnected: playersConnected, currentPlayer:currentPlayer});}
             if (status) {this.setState({status: status});}
             if (join_key) {
                var roomCode = document.getElementById("room-code");
