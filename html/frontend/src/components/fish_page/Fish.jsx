@@ -128,8 +128,7 @@ class Fish extends React.Component {
             if (teamScore) {this.setState({teamScore: teamScore});}
             if (opponentScore) {this.setState({opponentScore: opponentScore});}
             if (history) {this.setState({history: history});}
-            if (currentPlayer + 1) {this.setState({currentPlayer: currentPlayer});}
-            if (names) {this.setState({names: names, currentPlayer:currentPlayer});}
+            if (names) {this.setState({names: names, playersConnected: playersConnected, currentPlayer:currentPlayer});}
             if (status) {this.setState({status: status});}
             if (join_key) {
                var roomCode = document.getElementById("room-code");
