@@ -4,6 +4,8 @@ from players import Player
 import itertools
 import numpy as np
 
+SPECTATOR_SEAT = 6
+
 class Fish:
     # to do: add teams later
     def __init__(self, names=[]):
@@ -48,7 +50,7 @@ class Fish:
     def getGameState(self, id):
         hand = []
         team_id = 0
-        if id != -1: # not a spectator
+        if id != SPECTATOR_SEAT: # not a spectator
             player = self.id2p[id]
             team_id = player.team_id
             for fish_card in player.get_hand():

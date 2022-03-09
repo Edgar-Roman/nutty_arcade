@@ -11,6 +11,8 @@ import secrets
 JOIN = {}
 websocketid2id = {}
 
+SPECTATOR_SEAT = 6
+
 def get_hand(game, player, status=""):
     hand, num_cards, teamScore, opponentScore, currentPlayer, history = game.getGameState(player)
     cards = [card[0] + str(card[1]) for card in hand]
@@ -44,10 +46,10 @@ def passTurn(game, player, teammate):
 def takeASeat(name, websocket_id, names, seat_id): # young skywalker
     global websocketid2id
     old_seat = websocketid2id[websocket_id]
-    if old_seat != -1: # switched seats
+    if old_seat != SPECTATOR_SEAT: # switched seats
         names[old_seat] = None
     websocketid2id[websocket_id] = seat_id
-    if seat_id != -1:
+    if seat_id != SPECTATOR_SEAT:
         names[seat_id] = name
         print(names, seat_id, name)
 
@@ -106,6 +108,7 @@ async def play(websocket, join_key, websocket_id, name):
         else:
             pass
         if game:
+            print(websocketid2id)
             for i, connection in enumerate(connected):
                 index = websocketid2id[i]
                 if index == player:
@@ -140,7 +143,7 @@ async def createGame(websocket, name): # newer vewsion of start_game() ?
         await websocket.send(json.dumps(event))
         # Receive and process moves from the first player.
         global websocketid2id
-        websocketid2id[len(websocketid2id)] = -1
+        websocketid2id[len(websocketid2id)] = 6
         await play(websocket, join_key, len(websocketid2id) - 1, name)
     finally:
         pass
@@ -171,7 +174,7 @@ async def join(websocket, join_key, name):
         await play(websocket, join_key, len(websocketid2id), name)
     else: # joining a new game, or just spectating!
         connected.append(websocket)
-        websocketid2id[len(websocketid2id)] = -1
+        websocketid2id[len(websocketid2id)] = SPECTATOR_SEAT
         event = {"client connected": len(connected), "names":names}
         if game: # spectating
             gameStartedEvent = {"game":"started"}
@@ -205,11 +208,11 @@ async def handler(websocket):
                     connected[websocket_index] = None # get rid of websocket
                     if game: # in the middle of a game
                         name_index = websocketid2id[websocket_index]
-                        if name_index != -1: # actual player
+                        if name_index != 6: # actual player
                             names_left.append(names[name_index])
                             print(names[name_index] + " left a running game they were a part of")
                     else:
-                        takeASeat(None, websocket_index, names, -1) #you snooze, you lose
+                        takeASeat(None, websocket_index, names, SPECTATOR_SEAT) #you snooze, you lose
                         event = {"names": names}
                         for connection in connected:
                             if connection:
