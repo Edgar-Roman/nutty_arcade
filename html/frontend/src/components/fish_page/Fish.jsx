@@ -149,7 +149,6 @@ class Fish extends React.Component {
     createGame() {
         const hostName = document.getElementById("host-name").value;
         this.setState( {name: hostName} )
-        console.log(hostName)
         if (hostName !== '') {
             this.state.websocket.send(JSON.stringify('{"type":"createGame", "name":"' + hostName + '"}'));
             this.setState({ gameExists: true });
@@ -220,7 +219,6 @@ class Fish extends React.Component {
     }
 
     render(){
-        console.log(this.state.currentPlayer);
         let cards = [];
         for (let i = 0; i < this.state.handToDisplay.length; i++){
             var card = require('' + this.state.handToDisplay[i]);
