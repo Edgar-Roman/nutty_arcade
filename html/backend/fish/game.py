@@ -32,8 +32,10 @@ class Fish:
         self.history = []
         self.suits_declared = [False] * self.num_hs
         self.deal_cards()
-        #self.current_player = self.id2p[random.randint(0, self.num_players - 1)]
-        self.current_player = self.id2p[0]
+        self.current_player = self.id2p[random.randint(0, self.num_players - 1)]
+        #self.current_player = self.id2p[0]
+        if self.current_player.is_computer:
+            self.computerAction(self.current_player)
 
     def deal_cards(self):
         # initialize the cards and shuffle them
