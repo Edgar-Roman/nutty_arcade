@@ -209,7 +209,9 @@ class Fish extends React.Component {
         var id4 = document.getElementById('id4').value;
         var id5 = document.getElementById('id5').value;
         var id6 = document.getElementById('id6').value;
-        this.state.websocket.send(JSON.stringify('{"type":"declareSuit","suit":"' + suit + '","id1":"' + id1 + '","id2":"' + id2 + '","id3":"' + id3 + '","id4":"' + id4 + '","id5":"' + id5 + '","id6":"' + id6 + '"}'));
+        if (suit && id1 && id2 && id3 && id4 && id5 && id6) {
+            this.state.websocket.send(JSON.stringify('{"type":"declareSuit","suit":"' + suit + '","id1":"' + id1 + '","id2":"' + id2 + '","id3":"' + id3 + '","id4":"' + id4 + '","id5":"' + id5 + '","id6":"' + id6 + '"}'));
+        }
         this.clearInputs();
     }
 
