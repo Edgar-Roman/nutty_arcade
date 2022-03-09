@@ -16,6 +16,7 @@ class Home extends React.Component {
         this.state = {
             user: "",
             user_data: "",
+            playerbase_data: {},
             logged_in: false
         };
 
@@ -27,6 +28,7 @@ class Home extends React.Component {
         let user = auth.currentUser;
         this.setState({ user: user });
         if (user) {
+            // Update User Information
             const user_query = query(collection(firestore, "users"), where("email", "==", user.email));
             getDocs(user_query).then((user_snapshot) => {
                 user_snapshot.forEach((snapshot) => {
@@ -37,6 +39,21 @@ class Home extends React.Component {
             });
             this.setState({ logged_in: true });
         }
+
+        // Update Player Base Information
+        let playerbase_data = {};
+        const playerbase_query = query(collection(firestore, "playerbase"));
+        getDocs(playerbase_query).then((playerbase_snapshot) => {
+            playerbase_snapshot.forEach((snapshot) => {
+                console.log(snapshot.data())
+                let game_id = snapshot.data().game_id;
+                let num_players = snapshot.data().num_players.toString();
+                playerbase_data[game_id] = { num_players: num_players };
+            });
+            this.setState({ playerbase_data: playerbase_data });
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     componentDidMount() {
@@ -100,6 +117,14 @@ class Home extends React.Component {
         );
     };
 
+    show_number_active_players(game_id) {
+        if (this.state.playerbase_data.hasOwnProperty(game_id)) {
+            return this.state.playerbase_data[game_id].num_players
+        } else {
+            return "Loading...";
+        }
+    }
+
 	render() {
         return (
             <div>
@@ -153,7 +178,7 @@ class Home extends React.Component {
                                     <div className="player-counter-title">PLAYERS ACTIVE</div>
                                     {/* Replace Below with JS Function */}
                                     <div className="player-counter">
-                                        5
+                                        {this.show_number_active_players("fish")}
                                     </div>
                                 </div>
                             </div>
