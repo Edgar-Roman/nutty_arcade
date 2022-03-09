@@ -48,8 +48,8 @@ def takeASeat(name, websocket_id, names, seat_id): # young skywalker
         names[old_seat] = None
     websocketid2id[websocket_id] = seat_id
     if seat_id != -1:
-        print(names, seat_id, name)
         names[seat_id] = name
+        print(names, seat_id, name)
 
 async def error(websocket, message):
     event = {
@@ -164,6 +164,7 @@ async def join(websocket, join_key, name):
         websocketid2id[len(websocketid2id)] = name_index
         names_left.remove(name)
         print(name + " rejoined")
+        event = {"game":"started"}
         await websocket.send(json.dumps(event))
         gameState = get_hand(game, name_index)
         await websocket.send(json.dumps(gameState))
