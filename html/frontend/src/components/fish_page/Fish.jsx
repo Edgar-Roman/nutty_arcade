@@ -13,6 +13,7 @@ class Fish extends React.Component {
             name: '',
             names: [],
             game_id: "fish",
+            playerName: "",
             playersConnected: 1,
             waitingForHost: false,
             roomCode: 0,
@@ -379,7 +380,7 @@ class Fish extends React.Component {
                                     {!this.state.gameStarted &&
                                     <div className="start">
                                         { !(this.state.buttonWasClicked == 'join') && !(this.state.gameExists) &&
-                                        <input type="text" className="textbox" placeholder="Name" id="host-name"/>
+                                        <input type="text" className="textbox" placeholder="Name" id="host-name" value={this.state.playerName} onChange={e => this.setState({ playerName: e.target.value })}/>
                                         }
                                         <br/>
                                         {!this.state.gameExists && !(this.state.buttonWasClicked === 'join') &&
@@ -397,7 +398,7 @@ class Fish extends React.Component {
                                                     }
                                                 {this.state.buttonWasClicked == 'join' &&
                                                     <div>
-                                                        <input type="text" className="textbox" placeholder="Name" id="name"/>
+                                                        <input type="text" className="textbox" placeholder="Name" id="name" value={this.state.playerName} onChange={e => this.setState({ playerName: e.target.value })}/>
                                                         <br/><br/>
                                                         <input type="text" className="textbox" placeholder="Room Code" id="join"/>
                                                         <br/><br/>
