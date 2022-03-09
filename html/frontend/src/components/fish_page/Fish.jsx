@@ -26,7 +26,7 @@ class Fish extends React.Component {
             websocket: new WebSocket("ws://localhost:5000/"),
             gameExists: false,
             teamMap: {
-                       6: [0, 1, 2, 3, 4, 5],
+                       6: [0, 2, 3, 4, 5, 1],
                        0: [1, 2, 3, 4, 5, 0],
                        1: [0, 2, 3, 4, 5, 1],
                        2: [0, 1, 3, 4, 5, 2],
@@ -212,7 +212,7 @@ class Fish extends React.Component {
                                         {this.state.gameStarted &&
                                         <div className="seat-main">
                                             <div className="player-pic">
-                                                <Badge badgeContent={this.state.numCards[this.state.playerID]} color="primary" showZero>
+                                                <Badge badgeContent={this.state.numCards[this.state.teamMap[this.state.playerID][5]]} color="primary" showZero>
                                                     <img className="icon" src={require('../../assets/images/blue-icon.png')}/>
                                                 </Badge>
                                             </div>
