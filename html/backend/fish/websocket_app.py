@@ -90,11 +90,9 @@ async def play(websocket, join_key, player, name):
             pass
         if game:
             for i, connection in enumerate(connected):
-                if i == player:
-                    await connection.send(json.dumps(gameState))
-                else:
-                    otherGameState = get_hand(game, i)
-                    await connection.send(json.dumps(otherGameState))
+                if i != player:
+                    gameState = get_hand(game, i)
+                await connection.send(json.dumps(gameState))
 
 
 async def createGame(websocket, name): # newer vewsion of start_game() ?
