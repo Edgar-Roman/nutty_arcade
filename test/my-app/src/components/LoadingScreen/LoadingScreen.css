@@ -1,0 +1,23 @@
+@import "../../styles/general.css";
+
+#loading_screen-message-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+#loading_screen-message {
+  color: white;
+  font-family: stormfaze;
+  font-size: 100px;
+}
+
+#loading_screen-image {
+  height: 520px;
+  width: 900px;
+  background-image: url("../../assets/images/nyan-cat.png");
+  visibility: visible;
+}
