@@ -1,7 +1,6 @@
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import './Fish.css';
-import useSound from 'use-sound';
 import { firestore, query, collection, getDocs, where, setDoc, doc, increment, updateDoc } from "../../scripts/init-firebase.js";
 
 
@@ -488,7 +487,7 @@ class Fish extends React.Component {
 {/*                                     } */}
                                     {!this.state.gameStarted &&
                                     <div className="start">
-                                        { !(this.state.buttonWasClicked == 'join') && !(this.state.gameExists) &&
+                                        { !(this.state.buttonWasClicked === 'join') && !(this.state.gameExists) &&
                                         <input type="text" className="textbox" placeholder="Name" id="host-name" value={this.state.playerName} onChange={e => this.setState({ playerName: e.target.value })}/>
                                         }
                                         <br/>
@@ -500,12 +499,12 @@ class Fish extends React.Component {
                                         }
                                         {!this.state.gameExists &&
                                             <div className="join-game">
-                                                    {!(this.state.buttonWasClicked == 'join') &&
+                                                    {!(this.state.buttonWasClicked === 'join') &&
                                                     <div>
                                                         <button type="button" id="join-game-button" onClick={(e) => this.handleButtonClick('join', e)}>Join Game!</button>
                                                     </div>
                                                     }
-                                                {this.state.buttonWasClicked == 'join' &&
+                                                {this.state.buttonWasClicked === 'join' &&
                                                     <div>
                                                         <input type="text" className="textbox" placeholder="Name" id="name" value={this.state.playerName} onChange={e => this.setState({ playerName: e.target.value })}/>
                                                         <br/><br/>
