@@ -2,6 +2,35 @@
     font-family: stormfaze;
 }
 
+:root {
+    --team-color: rgba(66, 233, 244, 0.9);
+    --opponent-color: rgba(248, 59, 58, 0.9);
+}
+
+#team {
+  grid-column: 2 / span 2;
+  grid-row: 7 / span 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--team-color);
+  border-radius: 10px;
+}
+
+#opponent {
+  grid-column: 2 / span 2;
+  grid-row: 5 / span 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: var(--opponent-color);
+  border-radius: 10px;
+}
+
 #root{
     height: 100%;
 }
@@ -380,6 +409,8 @@ img:hover {
 
 #host-name {
     width: 10vw;
+    border-radius: 10px;
+    text-align: center;
 }
 
 #id_suits, #id_ranks{

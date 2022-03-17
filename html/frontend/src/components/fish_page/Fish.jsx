@@ -1,8 +1,11 @@
+import { firestore, query, collection, getDocs, where, setDoc, doc, increment, updateDoc } from "../../scripts/init-firebase.js";
 import React from 'react';
 import Badge from '@material-ui/core/Badge';
 import './Fish.css';
-import { firestore, query, collection, getDocs, where, setDoc, doc, increment, updateDoc } from "../../scripts/init-firebase.js";
 
+import Header from './Header';
+import Score, {TeamScore, OpponentScore} from './Score';
+import {ActionMenu} from './ActionMenu';
 
 class Fish extends React.Component {
     constructor(props){
@@ -39,6 +42,9 @@ class Fish extends React.Component {
                       }
             
         };
+        this.handleAsk = this.handleAsk.bind(this);
+        this.handleDeclare = this.handleDeclare.bind(this);
+        this.handlePass = this.handlePass.bind(this);
     }
 
     componentWillUnmount() {
@@ -104,9 +110,6 @@ class Fish extends React.Component {
         }
         this.state.websocket.onmessage = evt => {
             const data = JSON.parse(evt.data)
-
-            console.log(data);
-
             var hand = data.hand;
             var game = data.game;
             var numCards = data.numCards;
@@ -252,106 +255,21 @@ class Fish extends React.Component {
 
         return(
                 <div className="container">
-                    <div className="score-1">
-                        <h3>{this.state.opponentScore}</h3>
-                    </div>
-                    <div className="score-2">
-                        <h3>{this.state.teamScore}</h3>
-                    </div>
-                    <div className="header">
-                        <h1>FISH</h1>
-                    </div>
+                    <Header />
+                    <TeamScore score={this.state.teamScore}/>
+                    <OpponentScore score={this.state.opponentScore}/>
+                    <ActionMenu
+                        gameStarted = {this.state.gameStarted}
+                        message = {this.state.message}
+                        currentPlayer = {this.state.currentPlayer}
+                        player = {this.state.playerID}
+                        teammates = {teammates}
+                        opponents = {opponents}
+                        handleAsk = {this.handleAsk}
+                        handleDeclare = {this.handleDeclare}
+                        handlePass = {this.handlePass}
+                    />
 
-                    <div className="menu">
-                            <button type="button" disabled={!(this.state.playerID === this.state.currentPlayer && this.state.gameStarted)} className="ask" onClick={e => this.handleButtonClick('ask', e)}>Ask!</button>
-                            <button type="button" disabled={!(this.state.playerID === this.state.currentPlayer && this.state.gameStarted)} className="declare" onClick={e => this.handleButtonClick('declare', e)}>Declare!</button>
-                            <button type="button" disabled={!(this.state.playerID === this.state.currentPlayer && this.state.gameStarted)} className="pass" onClick={e => this.handleButtonClick('pass', e)}>Pass!</button>
-                              {this.state.buttonWasClicked === 'ask' && this.state.currentPlayer === this.state.playerID &&
-                              <div className="input">
-                                <select name="suits" id="id_suits" multiple>
-                                  <option className="red" value="Red"></option>
-                                  <option className="orange" value="Orange"></option>
-                                  <option className="yellow" value="Yellow"></option>
-                                  <option className="green" value="Green"></option>
-                                  <option className="blue" value="Blue"></option>
-                                  <option className="purple" value="Purple"></option>
-                                  <option className="grey" value="Grey"></option>
-                                  <option className="brown" value="Brown"></option>
-                                  <option className="black" value="Black"></option>
-                                </select>
-                                <select name="ranks" id="id_ranks" multiple>
-                                  <option className="white" value="1">1</option>
-                                  <option className="white" value="2">2</option>
-                                  <option className="white" value="3">3</option>
-                                  <option className="white" value="4">4</option>
-                                  <option className="white" value="5">5</option>
-                                  <option className="white" value="6">6</option>
-                                </select>
-                                <br/>
-                                <select name="players" id="id_players">
-                                  {opponents}
-                                </select>
-                                <br/>
-                                <div>
-                                    <button type="button" id="submit-ask" onClick={() => this.handleAsk()}>Submit</button>
-                                </div>
-                                <p>{this.state.message}</p>
-                              </div>
-                              }
-                              {
-                              this.state.buttonWasClicked === 'declare' && this.state.currentPlayer === this.state.playerID &&
-                              <div className="input">
-                                <select name="suits" id="id_suits" multiple>
-                                  <option className="red" value="0"></option>
-                                  <option className="orange" value="1"></option>
-                                  <option className="yellow" value="2"></option>
-                                  <option className="green" value="3"></option>
-                                  <option className="blue" value="4"></option>
-                                  <option className="purple" value="5"></option>
-                                  <option className="grey" value="6"></option>
-                                  <option className="brown" value="7"></option>
-                                  <option className="black" value="8"></option>
-                                </select>
-                                <br/>
-                                <select name="players" id="id1">
-                                  {teammates}
-                                </select>
-                                <select name="players" id="id2">
-                                  {teammates}
-                                </select>
-                                <select name="players" id="id3">
-                                  {teammates}
-                                </select>
-                                <select name="players" id="id4">
-                                  {teammates}
-                                </select>
-                                <select name="players" id="id5">
-                                  {teammates}
-                                </select>
-                                <select name="players" id="id6">
-                                  {teammates}
-                                </select>
-                                <div>
-                                    <br/>
-                                    <button type="button" id="submit-declare" onClick={() => this.handleDeclare()}>Submit</button>
-                                </div>
-                                <p>{this.state.message}</p>
-                            </div>
-                            }
-                            {
-                            this.state.buttonWasClicked === 'pass' && this.state.currentPlayer === this.state.playerID &&
-                            <div className="input">
-                                <select name="players" id="teammate">
-                                  {teammates}
-                                </select>
-                                <div>
-                                    <br/>
-                                    <button type="button" id="submit-pass" onClick={() => this.handlePass()}>Submit</button>
-                                </div>
-                                <p>{this.state.message}</p>
-                            </div>
-                            }
-                    </div>
 
                     <div className="table-4">
                         <div className="table-3">
@@ -361,7 +279,6 @@ class Fish extends React.Component {
                                         <br/>
                                         {cards}
                                     </div>
-{/*                                     {this.state.gameStarted && */}
                                     <div className="seats">
                                         {this.state.gameExists && !this.state.gameStarted &&
                                         <div className="seat-main-button">
@@ -484,7 +401,6 @@ class Fish extends React.Component {
                                         </div>
                                         }
                                      </div>
-{/*                                     } */}
                                     {!this.state.gameStarted &&
                                     <div className="start">
                                         { !(this.state.buttonWasClicked === 'join') && !(this.state.gameExists) &&
