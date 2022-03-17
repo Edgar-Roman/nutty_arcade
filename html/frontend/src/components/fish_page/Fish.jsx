@@ -409,7 +409,7 @@ class Fish extends React.Component {
                                         <br/>
                                         {!this.state.gameExists && !(this.state.buttonWasClicked === 'join') &&
                                             <div className="create-game">
-                                                <button type="button" id="create-game-button" onClick={() => this.createGame()}>Create Game!</button>
+                                                <button type="button" id="create-game-button" disabled={!this.state.playerName} onClick={() => this.createGame()}>Create Game!</button>
                                                 <br/><br/>
                                             </div>
                                         }
@@ -417,7 +417,7 @@ class Fish extends React.Component {
                                             <div className="join-game">
                                                     {!(this.state.buttonWasClicked === 'join') &&
                                                     <div>
-                                                        <button type="button" id="join-game-button" onClick={(e) => this.handleButtonClick('join', e)}>Join Game!</button>
+                                                        <button type="button" id="join-game-button" disabled={!this.state.playerName} onClick={(e) => this.handleButtonClick('join', e)}>Join Game!</button>
                                                     </div>
                                                     }
                                                 {this.state.buttonWasClicked === 'join' &&
