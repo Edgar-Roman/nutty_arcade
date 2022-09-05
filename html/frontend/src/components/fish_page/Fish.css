@@ -339,6 +339,7 @@ img:hover {
     justify-content: center;
     color: white;
     font-size: 0.8vw;
+    align-text: center;
 }
 
 .create-game {
@@ -405,6 +406,8 @@ img:hover {
 
 #join, #name{
     width: 7vw;
+    text-align: center;
+    border-radius: 10px;
 }
 
 #host-name {

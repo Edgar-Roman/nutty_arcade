@@ -155,19 +155,11 @@ class Fish extends React.Component {
         }
     }
 
-    copyRoomCode() {
-        navigator.clipboard.writeText(this.state.roomCode);
-        alert("Room code copied to clipboard!")
-    }
-
     joinGame() {
         const key = document.getElementById("join").value;
-        const name = document.getElementById("name").value;
-        if (name !== '') {
-            this.state.websocket.send(JSON.stringify('{"type":"joinGame","join_key":"' + key + '","name":"' + name + '"}'));
-            this.setState({ gameExists: true });
-            this.setState({ waitingForHost: true });
-        }
+        this.state.websocket.send(JSON.stringify('{"type":"joinGame","join_key":"' + key + '","name":"' + this.state.name + '"}'));
+        this.setState({ gameExists: true });
+        this.setState({ waitingForHost: true });
     }
 
     takeSeat(seat){
@@ -181,6 +173,10 @@ class Fish extends React.Component {
     }
 
     handleButtonClick(buttonName, event) {
+        if (buttonName === 'join'){
+            const name = document.getElementById("host-name").value;
+            this.setState( {name: name} )
+        }
         this.setState({ buttonWasClicked: buttonName });
     }
 
@@ -422,8 +418,6 @@ class Fish extends React.Component {
                                                     }
                                                 {this.state.buttonWasClicked === 'join' &&
                                                     <div>
-                                                        <input type="text" className="textbox" placeholder="Name" id="name" value={this.state.playerName} onChange={e => this.setState({ playerName: e.target.value })}/>
-                                                        <br/><br/>
                                                         <input type="text" className="textbox" placeholder="Room Code" id="join"/>
                                                         <br/><br/>
                                                         <input type="button" value="Join!" style={{cursor:'pointer'}} onClick={() => this.joinGame()}/>
